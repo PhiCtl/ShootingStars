@@ -108,14 +108,14 @@ ComplexNumber ComplexNumber::operator*(const ComplexNumber &z) const {
 
 // Overloading the insertion << operator
 std::ostream &operator<<(std::ostream &output, const ComplexNumber &z) {
-  // Format as "(a + bi)" or as "(a - bi)"
-  output << "(" << z.mRealPart << " ";
+  // Format as "(a+bi)"  or as "(a-bi)"
+  output << z.mRealPart;
   if (z.mImaginaryPart >= 0.0) {
-    output << "+ " << z.mImaginaryPart << "i)";
+    output << "+" << z.mImaginaryPart << "i";
   } else {
     // z.mImaginaryPart < 0.0
     // Replace + with minus sign
-    output << "- " << -z.mImaginaryPart << "i)";
+    output << "-" << -z.mImaginaryPart << "i";
   }
 
   return output;
