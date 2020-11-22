@@ -124,10 +124,11 @@ namespace utilities
         for(int i = 0; i < m; ++i)
         {
             cin >> temp;
-            b.push_back(temp);
+            b.push_back(converter(temp));
         }
 
     }
+    //write to file OK
     void Write(string file, const Vector& x)
     {
         ofstream out(file);
@@ -135,12 +136,9 @@ namespace utilities
         {
             throw runtime_error("Invalid file name for output file. Enter new one: ");
         }
-        for_each(x.begin(), x.end(), [&out] (ComplexNumber& v) {
-            char sign('+');
-            if(v.GetImaginaryPart() < 0)
-                sign = '-';
-            out << scientific << setprecision(20);
-            out << v.GetRealPart() << sign + 'i' << v.GetImaginaryPart() << endl;}
+        for_each(x.begin(), x.end(), [&out] (const ComplexNumber& v) {
+            out << scientific << setprecision(10);
+            out << v << endl;}
             )
 
     }
