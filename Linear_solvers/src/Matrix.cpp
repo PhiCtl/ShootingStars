@@ -12,11 +12,16 @@ private:
     int cols; //number of columns
     T **matrix; //matrix
 public:
-    //Constructor
+    /*
+     * Constructors:
+     * -default
+     * -three parameters: rows,columns, and initial value
+     * -two parameters: rows and a vector
+     * -copy
+    */
     Matrix();
     Matrix(int r, int c, const T& value);
     Matrix(int r, T* vec);
-    //Copy Constructor
     Matrix(const Matrix<T>& mat);
     //Destructor
     virtual ~Matrix();
@@ -79,7 +84,20 @@ Matrix<T>::Matrix(int r, T* vec){
 
 template<typename T>
 Matrix<T>::Matrix(const Matrix<T>& mat){
+    rows = mat.rows;
+    cols = mat.cols;
 
+    matrix = new T*[rows];
+
+    for(int i = 0; i < rows; i++){
+        matrix[i] = new T[cols];
+    }
+
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            matrix[i][j] = mat.matrix[i][j];
+        }
+    }
 }
 
 //Destructor
