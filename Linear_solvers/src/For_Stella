@@ -1,0 +1,31 @@
+Matrix identity(int n)
+{
+    Matrix I(n,Vector(n));//Matrix I (n,n, 0.0);
+    for(int i = 0; i < n; ++i)
+    {
+        I[i][i] = 1;
+
+    }
+    return I;
+}
+
+Matrix transpose(const Matrix& M)
+{
+    int n = M.size(); // write what you need here
+    Matrix R(n, Vector(n));
+    for(int i = 0; i < n; ++i)
+    {
+        for(int j = 0; j < n; ++j)
+            R[j][i] = M[i][j];
+    }
+    return R;
+}
+
+template <typename T> T norm(const vector<T>& b)
+{
+    T norm_;
+    auto add = [&norm_] (auto& el) {norm_ += pow(el,2);};
+    for_each(b.begin(), b.end(),add);
+    return sqrt(norm_);
+
+}
