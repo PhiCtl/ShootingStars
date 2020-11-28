@@ -1,0 +1,8 @@
+//
+// Created by descourt@INTRANET.EPFL.CH on 28.11.20.
+//
+
+#ifndef LINEAR_SOLVERS_INTERFACE_H
+#define LINEAR_SOLVERS_INTERFACE_H
+
+#endif //LINEAR_SOLVERS_INTERFACE_H
