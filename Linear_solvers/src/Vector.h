@@ -1,8 +1,0 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 27.11.20.
-//
-
-#ifndef LINEAR_SOLVERS_VECTOR_H
-#define LINEAR_SOLVERS_VECTOR_H
-
-#endif //LINEAR_SOLVERS_VECTOR_H
