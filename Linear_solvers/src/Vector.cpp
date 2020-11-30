@@ -28,6 +28,8 @@ public:
     Vector<T>& operator=(const Matrix<T>&) override;
     Vector<T>& operator=(const Vector&);
 
+    T operator*(const Vector&) const;
+
     //
     void Push_back(const T&);
     T Norm();
@@ -115,6 +117,18 @@ template <typename T> Vector<T>& Vector<T>::operator=(const Vector<T> & vec) {
     this->cols = 1;
     this->matrix = vec.matrix;
     return *this;
+}
+
+template <typename T> T Vector<T>::operator*(const Vector<T>& vec) const {
+    if(vec.getRows() != this->rows)
+        throw runtime_error("Incorrect dimensions for vector multiplication.");
+    auto scalar_prod = 0;
+    for(int i = 0; i < this->rows; ++i)
+    {
+        scalar_prod += vec(i) * (*this)(i);
+    }
+    return scalar_prod;
+
 }
 
 //useful functions
