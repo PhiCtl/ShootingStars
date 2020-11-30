@@ -12,14 +12,21 @@ private:
     int cols; //number of columns
     vector<vector<T>> matrix; //matrix
 public:
+    /*
+     * Constructors:
+     * -default constructor
+     * -three parameters: number of rows, number of columns, and initial value of tzpe T
+     * -one parameter: a vector of vector of type T
+     * -two parameters: rows and a vector
+     * -a copy constructor
+    */
+    Matrix();
     Matrix(int r, int c, const T& value);
-    //for default
-    //Matrix(int r, int c, const T& value = 0.0);
     Matrix(int c, vector <T> vec);
     Matrix(vector<vector<T>> mat);
-    //Copy constructor
     Matrix(const Matrix<T>& mat);
-    //destructor
+
+    //Destructor
     virtual ~Matrix();
 
     //Read and write operator
@@ -27,22 +34,30 @@ public:
     //Read operator
     T operator()(int i, int j) const;
 
-    //Operations between matrices
+    /*
+     * Operations between matrices:
+     * -Equal operator
+     * -Addition
+     * -Subtraction
+     * -Multiplication
+    */
     Matrix<T>& operator=(const Matrix<T> &mat);
     Matrix<T> operator+(const Matrix<T> &mat);
     Matrix<T> operator*(const Matrix<T> &mat);
     Matrix<T> operator-(const Matrix<T> &mat);
 
-    //Operation matrix/scalar
+    //Multiplication between matrix and scalar
     Matrix<T> operator*(const T& value);
 
-    //Return the transpose
+    //Return a transpose matrix
     Matrix<T> transpose();
     //Return a lower triangular matrix
     Matrix<T> LowerTriangularMatrix();
+    //Return a upper triangular matrix
+    Matrix<T> UpperTriangularMatrix();
+    //Return a diagonal matrix (with the main diagonal)
+    Matrix<T> DiagonalMatrix();
 
-    //Norm
-    T norm(const vector<T>& vec);
 
     //Get rows size
     int getRows() const;
@@ -55,6 +70,13 @@ public:
 
 
 //Template definition class Matrix
+//Default constructor
+template<typename T>
+Matrix<T>::Matrix(){
+    rows = 0;
+    cols = 0;
+
+}
 //Constructor with two parameters and an initialization value of type T
 template<typename T>
 Matrix<T>::Matrix(int r, int c, const T& value){
@@ -71,10 +93,9 @@ Matrix<T>::Matrix(int r, int c, const T& value){
         }
     }
 
-
 }
 
-//Constructor with the same vector for each column
+//Constructor with the same vector for each row
 template<typename T>
 Matrix<T>::Matrix(int r, vector<T> vec){
     if(r < 0){
@@ -85,7 +106,6 @@ Matrix<T>::Matrix(int r, vector<T> vec){
         matrix = matrix = vector<vector<T>>(r, vec);
     }
 
-
     /*
     cols = c;
     rows = vec.size();
@@ -94,6 +114,7 @@ Matrix<T>::Matrix(int r, vector<T> vec){
     */
 }
 
+//Constructor with a vector of vector as argument
 template<typename T>
 Matrix<T>::Matrix(vector<vector<T>> mat){
     rows = mat.size();
@@ -137,19 +158,10 @@ T Matrix<T>::operator()(int i, int j) const{
 template<typename T>
 Matrix<T> Matrix<T>::operator+(const Matrix<T> &mat) {
 
-    if(mat.getRows() < 0 || mat.getCols() < 0) {
-        throw invalid_argument("Error: negative dimension!");
-    }
-
     if((rows != mat.getRows()) || (cols != mat.getCols())){
-        throw invalid_argument("Error: incompatible dimension between matrices!");
-    }
-
-
-   /* if ((rows != mat.getRows()) || (cols != mat.getCols()) || (mat.getRows() < 0) || (mat.getCols() < 0) ){
-        throw invalid_argument("Check the dimension!!");
+        throw invalid_argument("Error: the matrices must have the same number of rows and columns.");
     }else{
-   */
+
         Matrix res(rows,cols,0.0);
 
         for(int i = 0; i < rows; i++){
@@ -158,63 +170,47 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &mat) {
             }
         }
         return res;
-
+    }
 }
 
 //Subtraction of two matrices
 template<typename T>
 Matrix<T> Matrix<T>::operator-(const Matrix<T> &mat) {
-    Matrix res(rows,cols,0.0);
 
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < cols; j++){
-            res[i][j] = this->matrix[i][j] - mat(i,j);
+    if((rows != mat.getRows()) || (cols != mat.getCols())){
+        throw invalid_argument("Error: the matrices must have the same number of rows and columns.");
+    }else{
+        Matrix res(rows,cols,0.0);
+
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                res[i][j] = this->matrix[i][j] - mat(i,j);
+            }
         }
+        return res;
     }
-    return res;
 }
 
 //Multiplication of this matrix and another
 template<typename T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T> &mat) {
-    Matrix res(rows,cols,0.0);
+    if(cols != mat.getRows()){
+        throw invalid_argument("Error: for matrix multiplication, the number of columns in the first matrix must be equal to the number of rows in the second matrix. ");
+    } else {
 
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < cols; j++){
-            res[i][j] = this->matrix[i][j] * mat(i,j);
+        Matrix res(rows,cols,0.0);
+
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                res[i][j] = this->matrix[i][j] * mat(i,j);
+            }
         }
+        return res;
     }
-    return res;
 
 }
 
 // Assignment Operator
-
-/*
-template<typename T>
-Matrix<T>& Matrix<T>::operator=(const Matrix<T>& mat){
-    if(&mat == this)
-        return *this;
-
-    int new_rows = mat.getRows();
-    int new_cols = mat.getCols();
-
-    matrix.resize(new_rows);
-    for(int i = 0; i < matrix.size(); i ++){
-        matrix[i].resize(new_cols);
-    }
-
-    for(int i = 0; i < new_rows; i ++){
-        for(int j = 0; j < new_cols; j++){
-            matrix[i][j] = mat(i,j);
-        }
-    }
-    rows = new_rows;
-    cols = new_cols;
-
-    return *this;
-}
-*/
 template<typename T>
 Matrix<T>& Matrix<T>::operator=(const Matrix<T>& mat){
 
@@ -254,6 +250,7 @@ Matrix<T> Matrix<T>::transpose(){
     return mat_T;
 }
 
+//Lower triangular matrix
 template<typename T>
 Matrix<T> Matrix<T>::LowerTriangularMatrix(){
     Matrix mat_lower(cols, rows, 0.0);
@@ -269,14 +266,36 @@ Matrix<T> Matrix<T>::LowerTriangularMatrix(){
     return mat_lower;
 }
 
-//Try!!
-template <typename T>
-T Matrix<T>::norm(const vector<T>& vec){
-    T norm_;
-    auto add = [&norm_] (auto& el) {norm_ += pow(el,2);};
-    for_each(vec.begin(), vec.end(),add);
-    return sqrt(norm_);
+//Upper triangular matrix
+template<typename T>
+Matrix<T> Matrix<T>::UpperTriangularMatrix(){
+    Matrix mat_upper(cols, rows, 0.0);
+    for(int i = 0; i < rows; ++i){
+        for(int j = 0; j < cols; j++){
+            if (i > j){
+                mat_upper[i][j] = 0.0;
+            }else{
+                mat_upper[i][j] = matrix[i][j];
+            }
+        }
+    }
+    return mat_upper;
+}
 
+//Diagonal matrix
+template<typename T>
+Matrix<T> Matrix<T>::DiagonalMatrix(){
+    Matrix mat_diagonal(cols, rows, 0.0);
+    for(int i = 0; i < rows; ++i){
+        for(int j = 0; j < cols; j++){
+            if (i == j){
+                mat_diagonal[i][j] = matrix[i][j];
+            }else{
+                mat_diagonal[i][j] = 0.0;
+            }
+        }
+    }
+    return mat_diagonal;
 }
 
 //Print the matrix
@@ -298,11 +317,21 @@ int main(int argc, char * argv[]) {
     mat1.Print(std::cout);
 
     std::cout << "\t" <<std::endl;
-    int r = -4;
+    int r = 4;
     int c = 4;
     try{
         Matrix<int> mat2(r,c,4);
         mat2.Print(std::cout);
+        std::cout << "\t" <<std::endl;
+        Matrix<int> mat3(4,4,2.0);
+        std::cout << "Addition matrix:"<< "\n";
+        Matrix<int> mat4 = mat2 + mat3;
+        mat4.Print(std::cout);
+        std::cout << "\t" <<std::endl;
+        Matrix<int> mat5(4,5,3);
+        std::cout << "Multiplication matrix:"<< "\n";
+        Matrix<int> mat6 = mat2 * mat5;
+        mat5.Print(std::cout);
         std::cout << "\t" <<std::endl;
     } catch (const char* msg) {
         std::cerr<< msg << endl;
@@ -329,6 +358,11 @@ int main(int argc, char * argv[]) {
     Matrix<double> mat4(4, v);
     mat4.Print(std::cout);
 
+    std::cout << "\t" <<std::endl;
+    std::cout << "The norm:"<< "\n";
+    norm(v);
+
+
 
     std::cout << "\t" <<std::endl;
     vector<vector<int>> mat = {{2,3,4},{5,6,7}};
@@ -339,10 +373,21 @@ int main(int argc, char * argv[]) {
     Matrix<int> mat9 = mat8.transpose();
     mat9.Print(std::cout);
 
+
     std::cout << "\t" <<std::endl;
-    Matrix<int> mat10 = mat8.LowerTriangularMatrix();
+    std::cout << "Lower Triangular Matrix matrix:"<< "\n";
+    Matrix<int> mat10 = mat1.LowerTriangularMatrix();
     mat10.Print(std::cout);
 
+    std::cout << "\t" <<std::endl;
+    std::cout << "Upper Triangular Matrix:"<< "\n";
+    Matrix<int> mat11 = mat1.UpperTriangularMatrix();
+    mat11.Print(std::cout);
+
+    std::cout << "\t" <<std::endl;
+    std::cout << "Diagonal Matrix:"<< "\n";
+    Matrix<int> mat12 = mat1.DiagonalMatrix();
+    mat12.Print(std::cout);
 
     //std::cout << "\t" <<std::endl;
     //mat2.Print(std::cout);
