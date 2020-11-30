@@ -20,7 +20,11 @@ public:
     T& operator[](size_t);
     T operator()(size_t) const;
     T operator/(const Vector&) const;
+    T& operator=(const vector<T>&);
+
     void Push_back(const T&);
+    T norm();
+    void Print(std::ostream&);
 };
 
 #endif //LINEAR_SOLVERS_VECTOR_H
@@ -63,9 +67,40 @@ template <typename T> T Vector<T>::operator/(const Vector<T>& vec) const {
     return (*this)->matrix[0][0] / vec.matrix[0][0];
 }
 
+template <typename T> T& Vector<T>::operator=(const vector<T>& vec) {
+    this->cols = vec.size();
+    this->rows = 1;
+
+    this->matrix.clear();
+    this->matrix.resize(this->cols);
+    auto it = vec.begin();
+    auto func = [&it] (Vector& vec) {
+        vec.push_back(*it);
+        ++it;
+    };
+    for_each(this->matrix.begin(), this->matrix.end(), func);
+}
+
+//useful functions
 template <typename T> void Vector<T>::Push_back(const T& el) {
     this->matrix.push_back({el});
 }
+template <typename T> T Vector<T>::norm()
+{
+    T norm_;
+    for(int i = 0; i < this->cols; ++i)
+    {
+        norm_ += pow((*this)[i],2);
+    }
+    return sqrt(norm_);
+}
+
+template <typename T> void Vector<T>::Print(std::ostream& stream) {
+    for(auto el: this->matrix)
+        stream << el[0] << endl;
+}
+
+
 
 
 

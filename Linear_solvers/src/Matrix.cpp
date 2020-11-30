@@ -1,13 +1,14 @@
 #include<iostream>
 #include <exception>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 
 //Template declaration class Matrix
 template<typename T = double>
 class Matrix{
-private:
+protected:
     int rows; //number of rows
     int cols; //number of columns
     vector<vector<T>> matrix; //matrix
@@ -95,23 +96,25 @@ Matrix<T>::Matrix(int r, int c, const T& value){
 
 }
 
-//Constructor with the same vector for each row
+//Constructor with the same vector for each column
 template<typename T>
 Matrix<T>::Matrix(int r, vector<T> vec){
     if(r < 0){
         throw invalid_argument("Error: negative dimension!");
     }else{
-        rows = r;
-        cols = vec.size();
-        matrix = matrix = vector<vector<T>>(r, vec);
+        cols = r;
+        rows = vec.size();
+        matrix.resize(rows);
+        auto it = vec.begin();
+        auto func = [&it, r] (vector<T>& vec) {
+            vec.resize(r);
+            for(auto& el: vec)
+                el = *it;
+            ++it;
+        };
+        for_each(matrix.begin(), matrix.end(), func);
     }
 
-    /*
-    cols = c;
-    rows = vec.size();
-    matrix = vector<vector<T>>(c, vec);
-    *this = (*this).transpose();
-    */
 }
 
 //Constructor with a vector of vector as argument
@@ -311,7 +314,7 @@ void Matrix<T>::Print(std::ostream &s){
 
 
 
-int main(int argc, char * argv[]) {
+/*int main(int argc, char * argv[]) {
 
     Matrix<int> mat1(4,4,2.0);
     mat1.Print(std::cout);
@@ -409,5 +412,5 @@ int main(int argc, char * argv[]) {
 
     return 0;
 
-}
+}*/
 
