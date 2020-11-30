@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.17)
 #project(Linear_solvers)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 INCLUDE_DIRECTORIES( BEFORE tclap-1.2.2/include )
 
 #add_executable(Linear_solvers main.cpp)
@@ -10,3 +10,4 @@ add_executable(test test.cpp Test.cpp)
 add_executable(Matrix src/Matrix.cpp)
 add_executable(Solvers src/Solvers.cpp)
 add_executable(TestVector src/TestVector.cpp src/Matrix.cpp src/Vector.cpp)
+add_executable(TestNonIterative src/TestNonIterative.cpp src/Vector.cpp src/Matrix.cpp src/LinearSolver.h src/LU.cpp src/Cholesky.cpp src/NonIterative_Solver.cpp)
