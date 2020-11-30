@@ -2,6 +2,7 @@
 #include <exception>
 #include <vector>
 #include <algorithm>
+#include <initializer_list>
 using namespace std;
 
 
@@ -22,10 +23,11 @@ public:
      * -a copy constructor
     */
     Matrix();
-    Matrix(int r, int c, const T& value);
+    Matrix(int r, int c, const T& value = 0.0);
     Matrix(int r, vector <T> vec);
     Matrix(vector<vector<T>> mat);
     Matrix(const Matrix<T>& mat);
+    //Matrix(initializer_list<T>);
 
     //Destructor
     virtual ~Matrix();
@@ -58,6 +60,8 @@ public:
     Matrix<T> UpperTriangularMatrix();
     //Return a diagonal matrix (with the main diagonal)
     Matrix<T> DiagonalMatrix();
+    //Return Identity Matrix
+    template <typename R> friend Matrix<R> Identity(int);
 
 
     //Get rows size
@@ -134,6 +138,11 @@ Matrix<T>::Matrix(const Matrix<T>& mat){
     rows = mat.getRows();
     cols = mat.getCols();
 }
+
+//Initializer list constructor
+/*template <typename T> Matrix<T>::Matrix(initializer_list<T> it){
+
+}*/
 
 
 template<typename T>
@@ -306,6 +315,17 @@ Matrix<T> Matrix<T>::DiagonalMatrix(){
         }
     }
     return mat_diagonal;
+}
+
+//friend function
+template <typename T> Matrix<T> Identity(int n)
+{
+    Matrix<T> I(n,n);
+    for(int i = 0; i < n; ++i)
+    {
+        I.matrix[i][i] = 1;
+    }
+    return I;
 }
 
 //Print the matrix
