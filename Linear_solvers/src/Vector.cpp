@@ -1,43 +1,9 @@
 //
 // Created by descourt@INTRANET.EPFL.CH on 28.11.20.
 //
-#ifndef LINEAR_SOLVERS_VECTOR_H
-#define LINEAR_SOLVERS_VECTOR_H
-#include "Matrix.cpp"
-#include <vector>
-#include <cmath>
-
-template <typename T = double> class Vector: public Matrix<T>{
-public:
-    //constructors
-    Vector();
-    Vector(int n, T el= 0.0);
-    Vector(int n, vector<T> vec);
-    Vector(vector<T>); //needed for equal operator (cannot be called by itself since ambiguous call)
-    Vector(const Vector&);
-    Vector(const Matrix<T>&); //to check
-
-    //Destructor
-    ~Vector();
-
-    //overload operators
-    T& operator[](size_t);
-    T operator()(size_t) const;
-    T operator/(const Vector&) const;
-    Vector<T>& operator=(const vector<T>&);
-    Vector<T>& operator=(const Matrix<T>&) override;
-    Vector<T>& operator=(const Vector&);
-
-    T operator*(const Vector&) const;
-
-    //
-    void Push_back(const T&);
-    T Norm();
-};
-
-#endif //LINEAR_SOLVERS_VECTOR_H
-
 #include <cassert>
+#include <Vector.h>
+#include <complex>
 
 //a vector is defined as a column vector (cols = 1)
 
@@ -95,7 +61,7 @@ template <typename T> Vector<T>& Vector<T>::operator=(const vector<T>& vec) {
     this->matrix.clear();
     this->matrix.resize(this->cols);
     auto it = vec.begin();
-    auto func = [&it] (Vector& vec) {
+    auto func = [&it] (vector<T>& vec) {
         vec.push_back(*it);
         ++it;
     };
@@ -122,10 +88,10 @@ template <typename T> Vector<T>& Vector<T>::operator=(const Vector<T> & vec) {
 template <typename T> T Vector<T>::operator*(const Vector<T>& vec) const {
     if(vec.getRows() != this->rows)
         throw runtime_error("Incorrect dimensions for vector multiplication.");
-    auto scalar_prod = 0;
+    T scalar_prod = 0.0;
     for(int i = 0; i < this->rows; ++i)
     {
-        scalar_prod += vec(i) * (*this)(i);
+        scalar_prod = scalar_prod + vec(i) * (*this)(i);
     }
     return scalar_prod;
 
@@ -145,7 +111,14 @@ template <typename T> T Vector<T>::Norm()
     return sqrt(norm_);
 }
 
-
+//to make a happy compiler: supported types;
+template class Vector<double>;
+template class Vector<int>;
+template class Vector<long int>;
+template class Vector<long long int>;
+template class Vector<float>;
+template class Vector<complex<float>>;
+template class Vector<complex<double>>;
 
 
 
