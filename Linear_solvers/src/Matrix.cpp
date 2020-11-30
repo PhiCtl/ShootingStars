@@ -23,7 +23,7 @@ public:
     */
     Matrix();
     Matrix(int r, int c, const T& value);
-    Matrix(int c, vector <T> vec);
+    Matrix(int r, vector <T> vec);
     Matrix(vector<vector<T>> mat);
     Matrix(const Matrix<T>& mat);
 
@@ -42,7 +42,7 @@ public:
      * -Subtraction
      * -Multiplication
     */
-    Matrix<T>& operator=(const Matrix<T> &mat);
+    virtual Matrix<T>& operator=(const Matrix<T> &mat);
     Matrix<T> operator+(const Matrix<T> &mat);
     Matrix<T> operator*(const Matrix<T> &mat);
     Matrix<T> operator-(const Matrix<T> &mat);
@@ -64,6 +64,8 @@ public:
     int getRows() const;
     //Get cols size
     int getCols() const;
+    //Get matrix value as a vector or vector of T
+    vector<vector<T>> getValue() const;
 
     //Print the matrix
     void Print(std::ostream &s);
@@ -147,6 +149,10 @@ int Matrix<T>::getCols() const{
     return (*this).cols;
 }
 
+template <typename T> vector<vector<T>> Matrix<T>::getValue() const {
+    return matrix;
+}
+
 template<typename T>
 vector<T>& Matrix<T>::operator[](int i){
     return matrix[i];
@@ -201,11 +207,12 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> &mat) {
         throw invalid_argument("Error: for matrix multiplication, the number of columns in the first matrix must be equal to the number of rows in the second matrix. ");
     } else {
 
-        Matrix res(rows,cols,0.0);
+        Matrix res(rows,mat.getCols(),0.0);
 
         for(int i = 0; i < rows; i++){
-            for(int j = 0; j < cols; j++){
-                res[i][j] = this->matrix[i][j] * mat(i,j);
+            for(int j = 0; j < mat.getCols(); j++){
+                for(int k = 0; k < cols; ++k)
+                    res[i][j] += this->matrix[i][k] * mat(k,j);
             }
         }
         return res;
@@ -413,4 +420,5 @@ void Matrix<T>::Print(std::ostream &s){
     return 0;
 
 }*/
+
 
