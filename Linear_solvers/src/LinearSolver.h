@@ -7,7 +7,6 @@
 
 #endif //LINEAR_SOLVERS_SOLVER_H
 
-#include "Matrix.cpp"
 #include "Vector.cpp"
 
 template <typename T> class LinearSolver{

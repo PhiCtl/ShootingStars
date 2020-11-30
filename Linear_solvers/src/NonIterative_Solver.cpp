@@ -1,19 +1,19 @@
 //
 // Created by descourt@INTRANET.EPFL.CH on 27.11.20.
 //
-#ifndef LINEAR_SOLVERS_NONITERATIVE_SOLVER_H
-#define LINEAR_SOLVERS_NONITERATIVE_SOLVER_H
+#ifndef NONITERATIVE_SOLVER_H
+#define NONITERATIVE_SOLVER_H
 
 #include "LinearSolver.h"
 
 template <typename T> class NonIterative_Solver: public LinearSolver<T>{
 public:
-    NonIterative_Solver(int);
+    NonIterative_Solver();
     virtual ~NonIterative_Solver() override;
 
     Vector<T> Forward_subst(const Matrix<T>& A, const Vector<T>& b);
     Vector<T> Backward_subst(const Matrix<T>& A, const Vector<T>& b);
-    virtual void Decomposition() = 0;
+    virtual void Decomposition(const Matrix<T>&) = 0;
 
 protected:
     Matrix<T> L;
@@ -26,10 +26,7 @@ protected:
 
 using namespace std;
 
-template <typename T> NonIterative_Solver<T>::NonIterative_Solver(int n):LinearSolver<T>() {
-    L = Matrix<T>(n,n,0);
-    U = Matrix<T>(n,n,0);
-}
+template <typename T> NonIterative_Solver<T>::NonIterative_Solver():LinearSolver<T>() {}
 
 template <typename T> NonIterative_Solver<T>::~NonIterative_Solver() {}
 

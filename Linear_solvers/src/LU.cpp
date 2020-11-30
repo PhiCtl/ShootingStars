@@ -9,11 +9,13 @@
 
 template < typename T > class LU: public NonIterative_Solver<T>{
 public:
-    LU(int);
+    LU();
     ~LU() override;
 
     void Decomposition(const Matrix<T>&) override;
     Vector<T> Solve(const  Matrix<T>& A, const Vector<T>& b) override;
+    Matrix<T> getL();
+    Matrix<T> getU();
 };
 
 #endif //LINEAR_SOLVERS_LU_H
@@ -21,12 +23,12 @@ public:
 #include <iostream>
 using namespace std;
 
-template <typename T> LU<T>::LU(int n):NonIterative_Solver<T>(n) {}
+template <typename T> LU<T>::LU():NonIterative_Solver<T>() {}
 template <typename T> LU<T>::~LU<T>() {}
 
 template <typename T> void LU<T>::Decomposition(const Matrix<T>& A) {
     int n = A.getCols();
-    this->L = Identity(n);
+    this->L = Identity<T>(n);
     for(int i = 0; i < n; ++i)
     {
         for(int k = i; k < n; ++k)
@@ -66,6 +68,13 @@ template <typename T> Vector<T> LU<T>::Solve(const Matrix<T> &A, const Vector<T>
     {
         throw e;
     }
+}
+
+template <typename T> Matrix<T> LU<T>::getL() {
+    return this->L;
+}
+template <typename T> Matrix<T> LU<T>::getU() {
+    return this->U;
 }
 
 

@@ -39,11 +39,11 @@ template <typename T> Vector<T> Conjugate_Gradient<T>::Solve(const Matrix<T> &A,
 
         while ((res[res.size()] / r0 > this->tol) && (iter < this->nb_iter)) {
             Vector<T> w = A * p;
-            auto alpha = (p.transpose() * r) / (p.transpose() * w);
+            auto alpha = (p * r) / (p * w);
             x = x + p * alpha;
             r = r - w * alpha;
 
-            auto beta = (w.transpose() * r) / (w.transpose() * p);
+            auto beta = (w * r) / (w * p);
             p = r - p * beta;
 
             iter += 1;
