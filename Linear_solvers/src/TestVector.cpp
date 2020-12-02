@@ -72,7 +72,23 @@ int main()
         //vec13.Print(cout);
 
         Matrix<double> I(Identity<double>(3));
-        I.Print(cout);
+        //I.Print(cout);
+
+        Matrix<int> Mat4(2, 2,3);
+        //Mat4.Print(cout);
+        Matrix<int> Mat5 = Mat4*3;
+        //Mat5.Print(cout);
+        Matrix<int> Mat6 = Mat4 + Mat5*2;
+        //Mat6.Print(cout);
+
+        Vector<double> vec14(3,2);
+        //vec5.Print(cout);
+        Vector<double> vec15 = vec14*2;
+        vec15.Print(cout);
+
+
+
+
     }
     catch( const invalid_argument& e) { cerr << e.what(); }
     catch(const runtime_error& e) { cerr << e.what(); }
