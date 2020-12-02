@@ -28,12 +28,13 @@ public:
     Vector<T>& operator=(const vector<T>&);
     Vector<T>& operator=(const Matrix<T>&) override;
     Vector<T>& operator=(const Vector&);
+    Vector<T> operator*(const T&);
 
     T operator*(const Vector&) const;
 
-    //
+    //Utils
     void Push_back(const T&);
-    T Norm();
+    T Norm() const;
 };
 
 #endif //LINEAR_SOLVERS_VECTOR_H

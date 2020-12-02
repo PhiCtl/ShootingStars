@@ -97,16 +97,23 @@ template <typename T> T Vector<T>::operator*(const Vector<T>& vec) const {
 
 }
 
-//useful functions
+template <typename T> Vector<T> Vector<T>::operator*(const T& val) {
+    Vector<T> res = (*this);
+    for(auto& el: res.matrix)
+        el[0] *= val;
+    return res;
+}
+
+//Utils functions
 template <typename T> void Vector<T>::Push_back(const T& el) {
     this->matrix.push_back({el});
 }
-template <typename T> T Vector<T>::Norm()
+template <typename T> T Vector<T>::Norm() const
 {
     T norm_;
     for(int i = 0; i < this->rows; ++i)
     {
-        norm_ += pow((*this)[i],2);
+        norm_ += pow((*this)(i),2);
     }
     return sqrt(norm_);
 }
