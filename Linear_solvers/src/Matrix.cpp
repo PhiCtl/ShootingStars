@@ -10,8 +10,9 @@ using namespace std;
 //Default constructor
 template<typename T>
 Matrix<T>::Matrix(){
-    rows = 0;
-    cols = 0;
+    rows = 1;
+    cols = 1;
+    this->matrix = vector<vector<T>>(1,{0});
 
 }
 //Constructor with two parameters and an initialization value of type T
@@ -162,11 +163,7 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& mat) {
     rows = mat.getRows();
     cols = mat.getCols();
 
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < cols; j++){
-            matrix[i][j] = mat(i,j);
-        }
-    }
+    this->matrix = mat.matrix;
     return *this;
 }
 

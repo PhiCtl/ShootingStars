@@ -7,7 +7,7 @@
 
 int main()
 {
-    Vector<double> vec;
+    /*Vector<double> vec;
     //vec.Print(cout);
     Vector<double> vec0(9);
     //vec0.Print(cout);
@@ -84,15 +84,24 @@ int main()
         Vector<double> vec14(3,2);
         //vec5.Print(cout);
         Vector<double> vec15 = vec14*2;
-        vec15.Print(cout);
+        //vec15.Print(cout);
+
+
 
 
 
 
     }
     catch( const invalid_argument& e) { cerr << e.what(); }
-    catch(const runtime_error& e) { cerr << e.what(); }
+    catch(const runtime_error& e) { cerr << e.what(); }*/
 
+
+    Matrix<int> M;
+    //M = Identity<int>(3);
+    //M.Print(cout);
+    vector<int> vec = {1,2};
+    Vector<int> V(vec);
+    cout << V.Norm();
 
     return 0;
 }

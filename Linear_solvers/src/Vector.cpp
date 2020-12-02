@@ -107,13 +107,17 @@ template <typename T> Vector<T> Vector<T>::operator*(const T& val) {
 //Utils functions
 template <typename T> void Vector<T>::Push_back(const T& el) {
     this->matrix.push_back({el});
+    ++this->rows;
 }
-template <typename T> T Vector<T>::Norm() const
+template <typename T> double Vector<T>::Norm() const
 {
-    T norm_;
+    double norm_(0.0);
     for(int i = 0; i < this->rows; ++i)
     {
-        norm_ += pow((*this)(i),2);
+        auto real_part = real((*this)(i));
+        auto im_part = imag((*this)(i));
+        norm_ += pow(real_part,2);
+        norm_ += pow(im_part, 2);
     }
     return sqrt(norm_);
 }

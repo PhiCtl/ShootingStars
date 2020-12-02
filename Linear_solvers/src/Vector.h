@@ -34,7 +34,7 @@ public:
 
     //Utils
     void Push_back(const T&);
-    T Norm() const;
+    double Norm() const;
 };
 
 #endif //LINEAR_SOLVERS_VECTOR_H

@@ -1,28 +1,20 @@
 //
 // Created by descourt@INTRANET.EPFL.CH on 27.11.20.
 //
-#ifndef LINEAR_SOLVERS_CHOLESKY_H
-#define LINEAR_SOLVERS_CHOLESKY_H
 
-#include "NonIterative_Solver.cpp"
+#include "Cholesky.h"
 
-template <typename T> class Cholesky: public NonIterative_Solver<T>{
-public:
-    Cholesky(int);
-    ~Cholesky() override;
-
-    void Decomposition(const Matrix<T>&) override;
-    Vector<T> Solve(const  Matrix<T>& A, const Vector<T>& b) override;
-
-};
-
-#endif //LINEAR_SOLVERS_CHOLESKY_H
-
+#include <complex>
 #include <iostream>
 using namespace std;
 
-template <typename T> Cholesky<T>::Cholesky(int n):NonIterative_Solver<T>(n) {};
+//constructor destructor
+template <typename T> Cholesky<T>::Cholesky():NonIterative_Solver<T>() {};
 template <typename T> Cholesky<T>::~Cholesky<T>() {};
+template <typename T> Cholesky<T>::Cholesky(const Cholesky<T>& solver) {
+    this->L = solver.L;
+    this->U = solver.U;
+}
 
 template <typename T> void Cholesky<T>::Decomposition(const Matrix<T>& A) {
     int n = A.getCols();
@@ -31,27 +23,27 @@ template <typename T> void Cholesky<T>::Decomposition(const Matrix<T>& A) {
     {
         for(int j = 0; j <= i; ++j)
         {
-            auto sum(0.0);
+            T sum(0.0);
             if (i == j)
             {
                 for (int k = 0; k < j; ++k)
-                    sum += (this->L[j][k] * this->L[j][k]);
+                    sum += (this->L(j,k) * this->L(j,k));
                 /*if(A[j][j] - sum < 0 )
                     L[j][j] = ComplexNumber(0.0, A[j][j] - sum);*/
-                this->L[j][j] = sqrt(A[j][j] - sum);
+                this->L[j][j] = sqrt(A(j,j) - sum);
             }
             else{
                 for(int k = 0; k < j; ++k)
-                    sum += this->L[i][k] * this->L[j][k];
-                if(fabs(this->L[j][j]) < 1e-10)
+                    sum += this->L(i,k) * this->L(j,k);
+                if(fabs(this->L(j,j)) < 1e-10)
                     throw runtime_error("Division by 0 in Cholesky decomposition. "
                                         "Matrix A doesn't fulfill requirements.");
-                this->L[i][j] = 1/this->L[j][j]*(A[i][j] - sum);
+                this->L[i][j] = (A(i,j) - sum)/(this->L(j,j));
             }
         }
     }
 
-    this->U = this->L.Transpose();
+    this->U = this->L.transpose();
 }
 
 template <typename T> Vector<T> Cholesky<T>::Solve(const Matrix<T> &A, const Vector<T> &b) {
@@ -67,3 +59,12 @@ template <typename T> Vector<T> Cholesky<T>::Solve(const Matrix<T> &A, const Vec
     }
 
 }
+
+template class Cholesky<int>;
+template class Cholesky<double>;
+template class Cholesky<long int>;
+template class Cholesky<long long int>;
+template class Cholesky<float>;
+//template class Cholesky<complex<int>>;
+template class Cholesky<complex<double>>;
+template class Cholesky<complex<float>>;

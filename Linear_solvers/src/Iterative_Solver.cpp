@@ -2,27 +2,10 @@
 // Created by descourt@INTRANET.EPFL.CH on 27.11.20.
 //
 
-#ifndef LINEAR_SOLVERS_ITERATIVE_SOLVER_H
-#define LINEAR_SOLVERS_ITERATIVE_SOLVER_H
+#include "Iterative_Solver.h"
+#include <complex>
 
-#include "LinearSolver.h"
-
-template <typename T> class Iterative_Solver : public LinearSolver<T>{
-public:
-    Iterative_Solver(const Vector<T>&, int, double);
-    Iterative_Solver();
-    virtual ~Iterative_Solver() override;
-    void Set_parameters(const Vector<T>&, int, double);
-    void Print_parameters();
-
-protected:
-    Vector<T> initial_guess;
-    int nb_iter;
-    double tol;
-};
-
-#endif //LINEAR_SOLVERS_ITERATIVE_SOLVER_H
-
+//constructors destructor
 template <typename T> Iterative_Solver<T>::Iterative_Solver(const Vector<T>& Vec, int nb, double thresh):LinearSolver<T>() {
     initial_guess = Vec;
     nb_iter = nb;
@@ -35,6 +18,14 @@ template <typename T> Iterative_Solver<T>::Iterative_Solver() {
 }
 template <typename T> Iterative_Solver<T>::~Iterative_Solver<T>() {};
 
+//copy constructor
+template <typename T> Iterative_Solver<T>::Iterative_Solver(const Iterative_Solver<T>& solver) {
+    this->initial_guess = solver.initial_guess;
+    this->nb_iter = solver.nb_iter;
+    this->tol = solver.tol;
+}
+
+//getters setters
 template <typename T> void Iterative_Solver<T>::Set_parameters(const Vector<T> & x, int nb_it, double tol) {
     initial_guess = x;
     nb_iter = nb_it;
@@ -47,4 +38,12 @@ template <typename T> void Iterative_Solver<T>::Print_parameters() {
     cout << "Initial guess: " << endl;
     initial_guess.Print(cout);
 }
+
+template class Iterative_Solver<int>;
+template class Iterative_Solver<double>;
+template class Iterative_Solver<long int>;
+template class Iterative_Solver<long long int>;
+template class Iterative_Solver<float>;
+template class Iterative_Solver<complex<double>>;
+template class Iterative_Solver<complex<float>>;
 
