@@ -26,10 +26,10 @@ template <typename T>
 Vector<T> Richardson<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {}
 
 //make compiler happy
-template class Gauss_Seidel<int>;
-template class Gauss_Seidel<double>;
-template class Gauss_Seidel<long int>;
-template class Gauss_Seidel<long long int>;
-template class Gauss_Seidel<float>;
-template class Gauss_Seidel<complex<double>>;
-template class Gauss_Seidel<complex<float>>;
+template class Richardson<int>;
+template class Richardson<double>;
+template class Richardson<long int>;
+template class Richardson<long long int>;
+template class Richardson<float>;
+template class Richardson<complex<double>>;
+template class Richardson<complex<float>>;
