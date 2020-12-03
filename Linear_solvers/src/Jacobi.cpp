@@ -46,8 +46,7 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
                         sum += A(i,j) + x(j);
                     }
                 }
-
-                x[i] = 1.0 / A(i,i) * (b(i) - sum);
+                x[i] = (b(i) - sum) / A(i,i);
             }
             iter += 1;
         }
@@ -56,10 +55,6 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
     }catch(const runtime_error& e) {
     cout << e.what() << endl;
  }
-}
-
-bool operator<(const std::complex<double> &a, const std::complex<double> &b) {
-    return a.real() < b.real();
 }
 
 //make compiler happy

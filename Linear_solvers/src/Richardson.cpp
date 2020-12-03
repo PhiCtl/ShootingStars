@@ -47,8 +47,9 @@ Vector<T> Richardson<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
         }
     */
         while ((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
-            T alpha; //how define alpha??
-            x = x + alpha * r;
+            // T alpha; //how define alpha??
+            //x = x + r * alpha;
+            x = x + r;
             iter += 1;
         }
         return x;
