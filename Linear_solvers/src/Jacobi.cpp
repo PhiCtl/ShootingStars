@@ -3,6 +3,9 @@
 //
 
 #include "Jacobi.h"
+#include <iostream>
+#include <complex>
+
 template <typename T>
 Jacobi<T>::Jacobi(const Vector<T>& vec, int nb_iters, double tol) : Iterative_Solver<T>(vec, nb_iters, tol){};
 
