@@ -25,16 +25,20 @@ Jacobi<T>::Jacobi(const Jacobi<T>& solver){
 template <typename T>
 Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
     try {
+        T r0 = b.Norm();
+        if (fabs(r0) <0)
+            r0 = 1;
         if (this->initial_guess.getRows() <=1)
             this->initial_guess = Vector<T>(A.getCols());
 
         int n = A.getCols(); //A must be a square matrix
         Vector<T> x = this->initial_guess;
         Vector<T> r = A*x - b;
-        T res = r.Norm();
+        Vector<T> res(1, r.Norm()); //vector with column of size 1 and r.norm element
         size_t iter(0);
 
-        while((res > this->tol) && (iter < this->nb_iter)){
+        //this->tol < res
+        while((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)){
             for(int i = 0; i < n; i++){
                 auto sum = 0; //is it correct auto?
                 for(int j = 0; j < n; j++){
@@ -42,16 +46,20 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
                         sum += A(i,j) + x(j);
                     }
                 }
-                x[i] = 1/A(i,i) * (b(i) - sum);
+                x[i] = (1/A(i,i)) * (b(i) - sum);
             }
             iter += 1;
         }
+    return x;
 
     }catch(const runtime_error& e) {
     cout << e.what() << endl;
  }
 }
 
+bool operator<(const std::complex<double> &a, const std::complex<double> &b) {
+    return a.real() < b.real();
+}
 
 //make compiler happy
 template class Jacobi<int>;

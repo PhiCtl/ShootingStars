@@ -23,7 +23,50 @@ Richardson<T>::Richardson(const Richardson<T>& solver){
 }
 
 template <typename T>
-Vector<T> Richardson<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {}
+Vector<T> Richardson<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
+    try {
+        T r0 = b.Norm();
+        if (fabs(r0) <0)
+            r0 = 1;
+        if (this->initial_guess.getRows() <=1)
+            this->initial_guess = Vector<T>(A.getCols());
+
+        Vector<T> x = this->initial_guess;
+        Vector<T> r = b - A * x;
+        Vector<T> res(1, r.Norm());
+        size_t iter(0);
+    /*
+        while ((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
+            Vector<T> z = r/P; //P is the preconditioning matrix
+            Vector<T> w = A * z;
+            T alpha;
+            x = x + alpha * z;
+            r = r - alpha * w;
+
+            iter += 1;
+        }
+    */
+        while ((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
+            T alpha; //how define alpha??
+            x = x + alpha * r;
+            iter += 1;
+        }
+        return x;
+    } catch(const runtime_error& e){
+    cout << e.what() << endl;
+    }
+}
+
+template <typename T>
+vector<complex<T>> operator *(const vector<complex<T>>& v, const complex<T> z) {
+    vector<complex<T>> res;
+    transform(v.begin(), v.end(), back_inserter(res),
+              [&](complex<T> x) -> complex<T> {
+                  return x * z;
+              });
+    return res;
+}
+
 
 //make compiler happy
 template class Richardson<int>;

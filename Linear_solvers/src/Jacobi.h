@@ -6,6 +6,7 @@
 #define LINEAR_SOLVERS_JACOBI_H
 
 #include "Iterative_Solver.h"
+
 template <typename T>
 class Jacobi : public Iterative_Solver<T>{
 public:

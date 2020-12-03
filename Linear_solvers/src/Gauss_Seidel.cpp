@@ -48,6 +48,7 @@ Vector<T> Gauss_Seidel<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
             }
             iter += 1;
         }
+        return x;
     }catch(const runtime_error& e) {
     cout << e.what() << endl;
 }

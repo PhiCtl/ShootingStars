@@ -12,7 +12,7 @@ class Richardson : public Iterative_Solver<T>{
 public:
     /*
      * Constructors:
-     * three paramenters: initial guess vector, number of iterations, tolerance
+     * three parameters: initial guess vector, number of iterations, tolerance
      * default
      * copy constructor
      *
