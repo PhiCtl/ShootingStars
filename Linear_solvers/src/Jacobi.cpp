@@ -40,13 +40,14 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
         //this->tol < res
         while((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)){
             for(int i = 0; i < n; i++){
-                auto sum = 0; //is it correct auto?
+                T sum = 0;
                 for(int j = 0; j < n; j++){
                     if(j != i){
                         sum += A(i,j) + x(j);
                     }
                 }
-                x[i] = (1/A(i,i)) * (b(i) - sum);
+
+                x[i] = 1.0 / A(i,i) * (b(i) - sum);
             }
             iter += 1;
         }

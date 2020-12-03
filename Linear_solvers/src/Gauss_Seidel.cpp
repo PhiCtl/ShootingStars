@@ -25,6 +25,9 @@ Gauss_Seidel<T>::Gauss_Seidel(const Gauss_Seidel<T>& solver){
 template <typename T>
 Vector<T> Gauss_Seidel<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
     try {
+        T r0 = b.Norm();
+        if (fabs(r0) <0)
+            r0 = 1;
         if (this->initial_guess.getRows() <=1)
             this->initial_guess = Vector<T>(A.getCols());
 
@@ -32,12 +35,12 @@ Vector<T> Gauss_Seidel<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
         Vector<T> x = this->initial_guess;
         Vector<T> y = Vector<T>(A.getCols());
         Vector<T> r = A*x - b;
-        T res = r.Norm();
+        Vector<T> res(1, r.Norm());
         size_t iter(0);
 
-        while((res > this->tol) && (iter < this->nb_iter)){
+        while((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)){
             for(int i = 0; i < n; i ++){
-                auto sum = 0.0;
+                T sum = 0.0;
                 y[i] = b(i) / A(i,i);
                 for(int j = 0; j < n; j++){
                     if(j!=i){
