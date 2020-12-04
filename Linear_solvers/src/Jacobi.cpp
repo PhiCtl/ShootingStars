@@ -34,24 +34,24 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
         int n = A.getCols(); //A must be a square matrix
         Vector<T> x = this->initial_guess;
         Vector<T> r = A*x - b;
-        Vector<T> res(1, r.Norm()); //vector with column of size 1 and r.norm element
+        vector<T> res(1, r.Norm()); //vector with column of size 1 and r.norm element
         size_t iter(0);
 
-        //this->tol < res
-        while((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)){
+        while((fabs(res[res.size()-1] / r0) > this->tol) && (iter < this->nb_iter)){
+
             for(int i = 0; i < n; i++){
-                T sum = 0;
+                x[i] = b(i);
                 for(int j = 0; j < n; j++){
                     if(j != i){
-                        sum += A(i,j) + x(j);
+                        x[i] = x(i) - A(i,j) * x(j);
                     }
                 }
-                x[i] = (b(i) - sum) / A(i,i);
+                x[i] = x(i) / A(i,i);
             }
             iter += 1;
+            res.Push_back(r.Norm());
         }
-    return x;
-
+        return x;
     }catch(const runtime_error& e) {
     cout << e.what() << endl;
  }

@@ -35,10 +35,10 @@ Vector<T> Gauss_Seidel<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
         Vector<T> x = this->initial_guess;
         Vector<T> y = Vector<T>(A.getCols());
         Vector<T> r = A*x - b;
-        Vector<T> res(1, r.Norm());
+        vector<T> res(1, r.Norm());
         size_t iter(0);
 
-        while((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)){
+        while((fabs(res[res.size()-1] / r0) > this->tol) && (iter < this->nb_iter)){
             for(int i = 0; i < n; i ++){
                 T sum = 0.0;
                 y[i] = b(i) / A(i,i);
@@ -50,6 +50,7 @@ Vector<T> Gauss_Seidel<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
                 x[i] = y(i) - sum/A(i,i);
             }
             iter += 1;
+            res.Push_back(r.Norm());
         }
         return x;
     }catch(const runtime_error& e) {
