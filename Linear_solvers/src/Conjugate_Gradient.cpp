@@ -29,10 +29,10 @@ template <typename T> Vector<T> Conjugate_Gradient<T>::Solve(const Matrix<T> &A,
         Vector<T> x = this->initial_guess;
         Vector<T> r = b - A * x;
         Vector<T> p = r;
-        Vector<T> res(1, r.Norm());
+        vector<T> res(1, r.Norm());
         size_t iter(0);
 
-        while (( fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
+        while (( fabs(res[res.size()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
             Vector<T> w = A * p;
             T alpha = (p * r) / (p * w);
             x = x + p * alpha;
@@ -42,7 +42,7 @@ template <typename T> Vector<T> Conjugate_Gradient<T>::Solve(const Matrix<T> &A,
             p = r - p * beta;
 
             iter += 1;
-            res.Push_back(r.Norm());
+            res.push_back(r.Norm());
         }
         return x;
 

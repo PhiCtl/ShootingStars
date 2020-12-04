@@ -7,8 +7,8 @@
 
 int main()
 {
-    /*Vector<double> vec;
-    //vec.Print(cout);
+    Vector<double> vec;
+    vec.Print(cout);
     Vector<double> vec0(9);
     //vec0.Print(cout);
 

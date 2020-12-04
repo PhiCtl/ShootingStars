@@ -122,6 +122,13 @@ template <typename T> double Vector<T>::Norm() const
     return sqrt(norm_);
 }
 
+template <typename T> vector<T> Vector<T>::getValue() const {
+    vector<T> val;
+    for(auto el: this->matrix)
+        val.push_back(el[0]);
+    return val;
+}
+
 //to make a happy compiler: supported types;
 template class Vector<double>;
 template class Vector<int>;
