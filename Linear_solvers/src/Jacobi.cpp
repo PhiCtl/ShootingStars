@@ -34,10 +34,10 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
         int n = A.getCols(); //A must be a square matrix
         Vector<T> x = this->initial_guess;
         Vector<T> r = A*x - b;
-        Vector<T> res(1, r.Norm()); //vector with column of size 1 and r.norm element
+        vector<T> res(1, r.Norm()); //vector with column of size 1 and r.norm element
         size_t iter(0);
 
-        while((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)){
+        while((fabs(res[res.size()-1] / r0) > this->tol) && (iter < this->nb_iter)){
 
             for(int i = 0; i < n; i++){
                 x[i] = b(i);
@@ -49,6 +49,7 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
                 x[i] = x(i) / A(i,i);
             }
             iter += 1;
+            res.Push_back(r.Norm());
         }
         return x;
     }catch(const runtime_error& e) {
