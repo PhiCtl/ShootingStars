@@ -4,7 +4,7 @@
 
 #ifndef LINEAR_SOLVERS_VECTOR_H
 #define LINEAR_SOLVERS_VECTOR_H
-#include "Matrix.cpp"
+#include "../Matrix.cpp"
 #include <vector>
 #include <cmath>
 
