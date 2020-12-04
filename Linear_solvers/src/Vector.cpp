@@ -61,8 +61,8 @@ template <typename T> Vector<T>& Vector<T>::operator=(const vector<T>& vec) {
     this->matrix.clear();
     this->matrix.resize(this->cols);
     auto it = vec.begin();
-    auto func = [&it] (vector<T>& vec) {
-        vec.push_back(*it);
+    auto func = [&it] (vector<T>& v) {
+        v.push_back(*it);
         ++it;
     };
     for_each(this->matrix.begin(), this->matrix.end(), func);
