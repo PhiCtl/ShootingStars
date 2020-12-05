@@ -1,0 +1,8 @@
+//
+// Created by descourt@INTRANET.EPFL.CH on 05.12.20.
+//
+
+#ifndef LINEAR_SOLVERS_FILEREADER_H
+#define LINEAR_SOLVERS_FILEREADER_H
+
+#endif //LINEAR_SOLVERS_FILEREADER_H
