@@ -64,14 +64,15 @@ template<typename T> void Reader::Vector_Reader(Vector<T> & b, istream & is, int
     T el;
     vector<T> vec;
     size_t count(0);
-    while((is >> el) && (count <dim))
+    is >> el;
+    do
     {
         string check(to_string(el));
         if(found_complex(check) && !complex_entries)
             throw domain_error("Complex entries found while expecting only real entries.");
         vec.push_back(el);
         ++count;
-    }
+    } while((count <dim) && is >> el);
     if(vec.size() != dim)
         throw length_error("Incorrect dimensions provided for vector rows.");
     b = vec;
