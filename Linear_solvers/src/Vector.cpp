@@ -54,6 +54,7 @@ template <typename T> T Vector<T>::operator/(const Vector<T>& vec) const {
     return this->matrix[0][0] / vec.matrix[0][0];
 }
 
+
 template <typename T> Vector<T>& Vector<T>::operator=(const vector<T>& vec) {
     this->cols = vec.size();
     this->rows = 1;
