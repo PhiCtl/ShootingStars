@@ -1,63 +1,67 @@
 #include <iostream>
-#include "Utils.h"
-#include "Matrix.hpp"
+#include "Vector.h"
+#include "Reader.h"
 #include <vector>
+#include <string>
+#include <tclap/CmdLine.h>
+#include <tclap/ValuesConstraint.h>
 
-using namespace utilities;
+using namespace std;
 
+int main(int argc, char** argv)
+{
+    try{
+        TCLAP::CmdLine cmd("Command description message", ' ');
 
-//use should provide in right order: (program_name), wanted method,
-//if more : 2 files with A and B matrices, output name: default Sol.dat
-int main(int argc, char* argv[]) {
+        //constraints on solver names
+        vector<string> allowed_solver = {"LU", "Cholesky", "Conjugate gradient", "Jacobi", "Gauss Seidel", "Richardson"};
+        TCLAP::ValuesConstraint<string> allowedSolv(allowed_solver);
 
-    Matrix M;
-    Vector b;
-    string operation;
-    string output_file = "Solution.dat";
-    string M_file;
-    string b_file;
-    bool again = true;
-    vector<string> allowed_operations = {};
-    //have a list of allowed operations and check if operation belongs to it
-    //otherwise ask user again -> error handling
+        //Value arguments
+        TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, true);
+        TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Name of the file storing matrix A", false, "Noname", "string");
+        cmd.add(fileMatArg);
+        TCLAP::ValueArg<string> fileVecArg("B", "vector", "Name of the file storing vector B", false, "Noname", "string");
+        cmd.add(fileVecArg);
+        TCLAP::ValueArg<string> fileOutArg("O", "out", "Name of the output file storing the solution", false, "Sol.mat", "string");
+        cmd.add(fileOutArg);
+        TCLAP::ValueArg<string> solverNameArg("S", "solver", "Method chosen to solve the linear system", true, "LU", &allowedSolv);
+        cmd.add(solverNameArg);
+        TCLAP::ValueArg<int> matrixDimArg("D", "dimension", "Dimension of the square matrix", true, 3, "int");
+        cmd.add(matrixDimArg);
+        TCLAP::SwitchArg PrecisionArg("T", "precision", "Whether the output needs to be highly precise", cmd, true);
+        TCLAP::SwitchArg DataSizeArg("L", "large", "Whether the matrix/vector has large entries", cmd, false);
+        TCLAP::SwitchArg complexEntries("I", "complex", "Specify if there is any complex entry in the files", cmd, false);
 
-    //read part
-    while (again) {}
+        //parse
+        cmd.parse(argc, argv);
 
-    switch (argc) {
-        case 1: //only program name provided
-            cerr << "Error: Only program name provided. Please enter options again:" << endl;
-            break;
-        case 2: //only program name and type of operation
-            Read(M, b);
-            //check if operation supported
-            break;
-        case 3: //program name, operation type and 1 file were given
-            break;
-        case 4: //same, 2 files given
-            try { Read(argv[2], argv[3], M, b); }
-            catch (const runtime_error &e) {
-                cerr << e.what() << endl; //couldn't open files
-                cout << "Enter file name for matrix A:" << endl;
-                cin >> M_file;
-                cout << "Enter file name for vector b:" << endl;
-                cin >> b_file;
-                Read(M_file, b_file, M, b);
-                again = false;
-            }
-            again = false;
-            break;
-        default: //ask user info again
-            break;
+        //get values
+        string solver = solverNameArg.getValue();
+        string output_file = fileOutArg.getValue();
+        string M_file = fileMatArg.getValue();
+        string b_file = fileVecArg.getValue();
+        int dim = matrixDimArg.getValue();
+        bool complex = complexEntries.getValue();
+        bool readCmdl = readFromCmdl.getValue();
+
+        //test
+        cout << solver << " " << output_file << " " << M_file << endl;
+        cout << b_file << " " << dim <<" " << complex;
+
+        if(readCmdl)
+        {
+
+        }
+
     }
-
-}
-
-    //computation part
-    Vector x;
-    //write part
-    Write(output_file, x);
-
-
+    catch(TCLAP::ArgException &e)
+    {
+        cerr << "error: " << e.error() << " for arg " << e.argId() << endl;
+    }
+    catch(const runtime_error& e)
+    {
+        cerr <<"error: " << e.what() << endl;
+    }
     return 0;
 }
