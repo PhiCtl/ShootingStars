@@ -4,8 +4,7 @@
 
 #ifndef LINEAR_SOLVERS_VECTOR_H
 #define LINEAR_SOLVERS_VECTOR_H
-#include "../Matrix.cpp"
-#include <vector>
+#include "Matrix.h"
 #include <cmath>
 
 template <typename T = double> class Vector: public Matrix<T>{

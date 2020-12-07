@@ -7,7 +7,8 @@
 
 #include "Iterative_Solver.h"
 
-template <typename T> class Conjugate_Gradient: public Iterative_Solver<T>
+template <typename T>
+class Conjugate_Gradient: public Iterative_Solver<T>
 {
 public:
     //constructor destructor

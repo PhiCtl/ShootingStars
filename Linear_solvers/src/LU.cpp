@@ -4,8 +4,8 @@
 
 
 #include "LU.h"
-
 #include <iostream>
+#include <complex>
 using namespace std;
 
 //constructor destructor etc..
@@ -27,7 +27,7 @@ template <typename T> void LU<T>::Decomposition(const Matrix<T>& A) {
     {
         for(int k = i; k < n; ++k)
         {
-            auto tot = 0.0;
+            T tot = 0.0;
             for(int j = 0; j < i; ++j)
             {
                 tot += (this->L(i,j) * this->U(j,k));
@@ -37,7 +37,7 @@ template <typename T> void LU<T>::Decomposition(const Matrix<T>& A) {
 
         for(int k = i; k < n; ++k)
         {
-            auto tot =  0.0;
+            T tot =  0.0;
             for(int j = 0; j < i; ++j)
             {
                 tot += (this->L(k,j) * this->U(j,i));
@@ -63,5 +63,13 @@ template <typename T> Vector<T> LU<T>::Solve(const Matrix<T> &A, const Vector<T>
         throw e;
     }
 }
+
+template class LU<int>;
+template class LU<double>;
+template class LU<long int>;
+template class LU<long long int>;
+template class LU<float>;
+template class LU<complex<double>>;
+template class LU<complex<float>>;
 
 

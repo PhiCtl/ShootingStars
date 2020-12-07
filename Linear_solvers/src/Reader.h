@@ -18,7 +18,7 @@ using namespace  std;
 
 class Reader{
 public:
-    Reader(bool, bool, bool);
+    Reader(bool);
     ~Reader();
     template< typename T> void Matrix_Reader(Matrix<T>&, istream&, int);
     template <typename T> void Vector_Reader(Vector<T>&, istream&, int);
@@ -27,8 +27,7 @@ public:
 
 protected:
     bool complex_entries;
-    bool large_entries;
-    bool precision;
+
 };
 
 template <typename T> void Reader::Matrix_Reader(Matrix<T> & M, istream & is, int dim) {
@@ -42,7 +41,7 @@ template <typename T> void Reader::Matrix_Reader(Matrix<T> & M, istream & is, in
             throw domain_error("Complex entries found while expecting only real entries.");
 
         istringstream iss(line);
-        T tp; //deal with complex entries: a+ib vs (a,b) ?
+        T tp; //deal with complex entries:(a,b) ?
         vector<T> V1;
         while(iss  >> tp)
         {
@@ -67,7 +66,7 @@ template<typename T> void Reader::Vector_Reader(Vector<T> & b, istream & is, int
     is >> el;
     do
     {
-        string check(to_string(el));
+        string check("el");
         if(found_complex(check) && !complex_entries)
             throw domain_error("Complex entries found while expecting only real entries.");
         vec.push_back(el);

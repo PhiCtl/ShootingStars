@@ -1,6 +1,5 @@
 #include<iostream>
 #include <exception>
-#include <vector>
 #include <algorithm>
 #include <complex>
 using namespace std;
@@ -235,18 +234,6 @@ Matrix<T> Matrix<T>::DiagonalMatrix() const{
         }
     }
     return mat_diagonal;
-}
-
-//friend function
-template <typename T>
-Matrix<T> Identity(int n)
-{
-    Matrix<T> I(n,n);
-    for(int i = 0; i < n; ++i)
-    {
-        I.matrix[i][i] = 1;
-    }
-    return I;
 }
 
 /*
