@@ -47,7 +47,7 @@ template <typename T> T& Vector<T>::operator[](size_t i) {
 }
 
 template <typename T> T Vector<T>::operator/(const Vector<T>& vec) const {
-    if( (this->getCols() !=1) and (vec.getCols() !=1) )
+    if( (this->getRows() !=1) and (vec.getRows() !=1) )
     {
         throw runtime_error("Cannot divide vectors of size larger than 1");
     }
@@ -59,7 +59,7 @@ template <typename T> Vector<T>& Vector<T>::operator=(const vector<T>& vec) {
     this->rows = 1;
 
     (*this) = Vector<T>(vec);
-    
+
     return (*this);
 }
 
