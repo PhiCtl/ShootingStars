@@ -236,18 +236,6 @@ Matrix<T> Matrix<T>::DiagonalMatrix() const{
     return mat_diagonal;
 }
 
-//friend function
-template <typename T>
-Matrix<T> Identity(int n)
-{
-    Matrix<T> I(n,n);
-    for(int i = 0; i < n; ++i)
-    {
-        I.matrix[i][i] = 1;
-    }
-    return I;
-}
-
 /*
 template<typename T>
 vector<T> Matrix<T>::solve(const vector<T>& vec){

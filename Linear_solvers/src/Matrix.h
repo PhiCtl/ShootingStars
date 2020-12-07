@@ -78,4 +78,16 @@ public:
     void Print(std::ostream &s) const;
 };
 
+//friend function
+template <typename T>
+Matrix<T> Identity(int n)
+{
+    Matrix<T> I(n,n);
+    for(int i = 0; i < n; ++i)
+    {
+        I.matrix[i][i] = 1;
+    }
+    return I;
+}
+
 #endif //LINEAR_SOLVERS_MATRIX_H
