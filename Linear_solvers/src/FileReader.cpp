@@ -3,3 +3,7 @@
 //
 
 #include "FileReader.h"
+FileReader::FileReader(string matfile, string vecfile, bool complex):Reader(complex) {
+    fileA = matfile;
+    fileB = vecfile ;
+}

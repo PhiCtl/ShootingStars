@@ -3,5 +3,5 @@
 //
 #include "CommandLineReader.h"
 
-CommandLineReader::CommandLineReader(bool complex, bool large, bool precision):Reader(complex, large, precision) {};
+CommandLineReader::CommandLineReader(bool complex):Reader(complex) {};
 
