@@ -33,46 +33,40 @@ Vector<T> Richardson<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
 
         Vector<T> x = this->initial_guess;
         Vector<T> r = b - A * x;
-        //Matrix<T> P = Identity<T>(A.getCols());
+        Matrix<T> P = Identity<T>(A.getCols());
         vector<T> res(1, r.Norm());
         size_t iter(0);
-        Vector<T> z = r;
+        //Vector<T> z(A.getRows()); //vector with one column and the same number of rows of the matrix A
+        Vector<T> z;
 
         while ((fabs(res[res.size()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
-            //z = P.solve(r); //P is the preconditioning matrix
+            z = r; //P = I is the preconditioning matrix
+            Vector<T> t = A * r; //row vector of size n
+            T alpha = (z * r) / (z * t); //want to use transpose on a vector seen as a 1D matrix
             Vector<T> w = A * z;
             //double alpha = 0.2;
-            x = x + z;
-            r = r - w;
+            x = x + z * alpha;
+            r = r - w * alpha;
 
             iter += 1;
-            res.Push_back(r.Norm());
+            res.push_back(r.Norm());
         }
         return x;
         /*
-           while ((fabs(res[res.getRows()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
+           while ((fabs(res[res.size()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
                // T alpha; //how define alpha??
-               //x = x + r * alpha;
-               x = x + r;
+               Vector<T> t = A * r;
+               T alpha = (r * r) / (r * r);
+               x = x + r * alpha;
                iter += 1;
+               res.push_back(r.Norm());
            }
            return x;
-        */
+           */
        } catch(const runtime_error& e){
        cout << e.what() << endl;
        }
    }
-
-   template <typename T>
-   vector<complex<T>> operator *(const vector<complex<T>>& v, const complex<T> z) {
-       vector<complex<T>> res;
-       transform(v.begin(), v.end(), back_inserter(res),
-                 [&](complex<T> x) -> complex<T> {
-                     return x * z;
-                 });
-       return res;
-   }
-
 
    //make compiler happy
    template class Richardson<int>;
