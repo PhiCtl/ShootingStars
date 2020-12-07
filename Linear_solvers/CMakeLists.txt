@@ -1,14 +1,28 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.0)
 project(Linear_solvers)
 
-set(CMAKE_CXX_STANDARD 20)
-INCLUDE_DIRECTORIES( BEFORE tclap-1.2.2/include )
+set(CMAKE_CXX_STANDARD 17)
 
-#add_executable(Linear_solvers main.cpp)
-include_directories(${GTEST_INCLUDE_DIRS}/test ${CMAKE_SOURCE_DIR}/src)
-add_executable(test test.cpp Test.cpp)
-add_executable(Matrix src/Matrix.cpp)
-add_executable(Solvers src/Solvers.cpp)
-add_executable(TestVector src/TestVector.cpp src/Matrix.cpp src/Vector.cpp)
-add_executable(TestNonIterative src/TestNonIterative.cpp src/Vector.cpp src/Matrix.cpp src/LinearSolver.h src/LU.cpp src/Cholesky.cpp src/NonIterative_Solver.cpp)
-add_executable(TestIterativeSolver src/TestIterativeSolver.cpp src/Vector.cpp src/Matrix.cpp src/LinearSolver.h src/Iterative_Solver.cpp src/Conjugate_Gradient.cpp)
+INCLUDE_DIRECTORIES( BEFORE lib/tclap-1.2.2/include )
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src)
+
+add_library(Matrix src/Matrix.cpp)
+add_library(Vector src/Vector.cpp)
+add_library(NonItSolvers src/LinearSolver.h src/NonIterative_Solver.cpp src/Cholesky.cpp  src/LU.cpp)
+add_library(ItSolvers src/LinearSolver.h src/Iterative_Solver.cpp src/Conjugate_Gradient.cpp)
+add_library(ReadWrite src/Reader.cpp src/Writer.cpp src/CommandLineReader.cpp)
+
+add_subdirectory(lib/googletest)
+
+add_executable(main src/main.cpp)
+target_link_libraries(main Matrix Vector ItSolvers ReadWrite)
+
+add_executable(test_Vector test/VectorTest.cpp)
+target_link_libraries(test_Vector gtest_main gtest pthread Vector Matrix)
+add_custom_target(test ./test_Vector DEPENDS test_Vector)
+#add_executable(TestVector src/TestVector.cpp src/Matrix.cpp src/Vector.cpp)
+#add_executable(TestNonIterative src/TestNonIterative.cpp src/Vector.cpp src/Matrix.cpp src/LinearSolver.h src/LU.cpp src/Cholesky.cpp src/NonIterative_Solver.cpp)
+#add_executable(TestIterativeSolver src/TestIterativeSolver.cpp src/Vector.cpp src/Matrix.cpp src/LinearSolver.h src/Iterative_Solver.cpp src/Conjugate_Gradient.cpp)
+#add_executable(TestInterface src/TestInterface.cpp src/Vector.cpp src/Matrix.cpp src/Writer.cpp src/Reader.cpp src/CommandLineReader.cpp)
+
+
