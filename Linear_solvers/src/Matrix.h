@@ -4,7 +4,9 @@
 
 #ifndef LINEAR_SOLVERS_MATRIX_H
 #define LINEAR_SOLVERS_MATRIX_H
-
+#include <vector>
+#include <iostream>
+using namespace std;
 //Template declaration class Matrix
 template<typename T = double>
 class Matrix{
