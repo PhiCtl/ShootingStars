@@ -44,7 +44,6 @@ Vector<T> Richardson<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
             Vector<T> t = A * r; //row vector of size n
             T alpha = (z * r) / (z * t); //want to use transpose on a vector seen as a 1D matrix
             Vector<T> w = A * z;
-            //double alpha = 0.2;
             x = x + z * alpha;
             r = r - w * alpha;
 
@@ -52,17 +51,6 @@ Vector<T> Richardson<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
             res.push_back(r.Norm());
         }
         return x;
-        /*
-           while ((fabs(res[res.size()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
-               // T alpha; //how define alpha??
-               Vector<T> t = A * r;
-               T alpha = (r * r) / (r * r);
-               x = x + r * alpha;
-               iter += 1;
-               res.push_back(r.Norm());
-           }
-           return x;
-           */
        } catch(const runtime_error& e){
        cout << e.what() << endl;
        }
