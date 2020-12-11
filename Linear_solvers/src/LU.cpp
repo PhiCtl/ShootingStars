@@ -54,7 +54,6 @@ template <typename T> Vector<T> LU<T>::Solve(const Matrix<T> &A, const Vector<T>
     try {
         this->Decomposition(A);
         Vector<T> y = this->Forward_subst(this->L,b);
-        y.Print(cout);
         Vector<T> sol = this->Backward_subst(this->U,y);
         return sol;
     }
