@@ -12,7 +12,7 @@ Matrix<T>::Matrix(){
     rows = 0;
     cols = 0;
 
-}NĸĦŒ̡
+}
 //Constructor with two parameters and an initialization value of type T
 template<typename T>
 Matrix<T>::Matrix(int r, int c, const T& value){
