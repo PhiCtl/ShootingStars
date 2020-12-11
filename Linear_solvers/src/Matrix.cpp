@@ -236,6 +236,7 @@ Matrix<T> Matrix<T>::DiagonalMatrix() const{
     return mat_diagonal;
 }
 
+
 /*
 template<typename T>
 vector<T> Matrix<T>::solve(const vector<T>& vec){
