@@ -7,7 +7,7 @@
 
 #endif //LINEAR_SOLVERS_SOLVER_H
 
-#include "Vector.cpp"
+#include "Vector.h"
 
 template <typename T> class LinearSolver{
 public:
