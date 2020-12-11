@@ -8,14 +8,11 @@
 //a vector is defined as a column vector (cols = 1)
 
 template <typename T> Vector<T>::Vector():Matrix<T>() {}
-template <typename T> Vector<T>::~Vector<T>() = default;;
+template <typename T> Vector<T>::~Vector<T>() = default;
 
 //redefining the constructors
 template <typename T> Vector<T>::Vector(int n, T el):Matrix<T>(n,1,el) {} //vector is a matrix with n rows and 1 col
-//template <typename T> Vector<T>::Vector(int n, int m, T el):Matrix<T>(n,1,el) {} //correction
-template <typename T> Vector<T>::Vector(int n, vector<T> vec):Matrix<T>(1, vec) {
-    //std::cerr << "Ambiguous call to constructor. Vector size will be automatically set to size of parameter." << std::endl;
-}
+template <typename T> Vector<T>::Vector(int n, vector<T> vec):Matrix<T>(1, vec) {}
 template <typename T> Vector<T>::Vector(vector<T> vec):Matrix<T>(1,vec) {}
 
 //copy constructors
