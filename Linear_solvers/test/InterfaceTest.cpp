@@ -22,24 +22,28 @@ public:
                 cout << "3 4 5 6 \n4 5 6 7 \n7 8 9 10 \n2 3 4 5 \n" << endl;
                 cout << "Enter those numbers for vector (dim 4):" << endl;
                 cout << "3 \n4 \n5 \n6\n" << endl;
+
                 break;
             case 1:
                 cout << "Enter those numbers for matrix (dim 2):" << endl;
                 cout << "3 (4,6) \n4 (5,1) \n " << endl;
                 cout << "Enter those numbers for vector (dim 2):" << endl;
                 cout << "3 \n(5,8) \n" << endl;
+
                 break;
             case 2:
                 cout << "Enter those numbers for matrix (dim 2):" << endl;
                 cout << "3 (4,6) \n4 (5,1) \n " << endl;
                 cout << "Enter those numbers for vector (dim 2):" << endl;
                 cout << "3 \n(5,8)\n" << endl;
+
                 break;
             case 3:
                 cout << "Enter those numbers for matrix (dim 2):" << endl;
                 cout << "3 5 \n4 7 5 " << endl;
                 cout << "Enter those numbers for vector (dim 2):" << endl;
                 cout << "3 \n9" << endl;
+
                 break;
             default:
                 break;
@@ -49,8 +53,7 @@ public:
     }
 
     void TearDown( ) override {
-        // code here will be called just after the test completes
-        // ok to through exceptions from here if need be
+        cin.clear();
     }
 
     ~CommandLineTest( )  {
@@ -86,6 +89,22 @@ using CommandLineTestF4 = CommandLineTest<false,3>;
 using FileReaderTestF1 = FileReaderTest<true>;
 using FileReaderTestF2 = FileReaderTest<false>;
 
+TEST_F(CommandLineTestF2,correct_complex_entries)
+{
+    vector<vector<complex<double>>> mat = {{3,(4,6)},{4,(5,1)}};
+    mat[0][1] = complex<double>(4,6);
+    mat[1][1] = complex<double>(5,1);
+    vector<complex<double>> vec {3,(5,8)};
+    vec[1] = complex<double>(5,8);
+    cin.clear();
+
+    reader.Read(M,V,2);
+    EXPECT_EQ(M.getValue(),mat );
+    EXPECT_EQ(V.getValue(), vec);
+    cin.clear();
+
+}
+
 TEST_F(CommandLineTestF1, correct_real_entries)
 {
     reader.Read(M,V,4);
@@ -94,20 +113,7 @@ TEST_F(CommandLineTestF1, correct_real_entries)
     vector<complex<double>> vec = {3,4,5,6};
     EXPECT_EQ(M.getValue(),mat);
     EXPECT_EQ(V.getValue(), vec);
-}
-
-TEST_F(CommandLineTestF2,correct_complex_entries)
-{
-    vector<vector<complex<double>>> mat = {{3,(4,6)},{4,(5,1)}};
-    mat[0][1] = complex<double>(4,6);
-    mat[1][1] = complex<double>(5,1);
-    vector<complex<double>> vec {3,(5,8)};
-    vec[1] = complex<double>(5,8);
-
-    reader.Read(M,V,2);
-    EXPECT_EQ(M.getValue(),mat );
-    EXPECT_EQ(V.getValue(), vec);
-
+    cin.clear();
 }
 
 TEST_F(CommandLineTestF3, complex_entry_found)

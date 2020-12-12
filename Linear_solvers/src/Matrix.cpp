@@ -177,14 +177,14 @@ Matrix<T> Matrix<T>::operator*(const T& value) const{
 }
 
 //specialization
-/*template <> Matrix<complex<double>> Matrix<complex<double>>::transpose() const {
-    Matrix mat_T(cols, rows, 0.0);
-    for(int i = 0; i < rows; ++i){
-        for(int j = 0; j < cols; ++j)
-            mat_T[j][i] = conj(matrix[i][j]);
-    }
-    return mat_T;
-}*/
+template<typename T> complex<T> conjug(const complex<T>& el)
+{
+    return conj(el);
+}
+template <typename T> T conjug(const T& el)
+{
+    return el;
+}
 
 //Transpose matrix
 template<typename T>
@@ -192,7 +192,7 @@ Matrix<T> Matrix<T>::transpose() const{
     Matrix mat_T(cols, rows, 0.0);
     for(int i = 0; i < rows; ++i){
         for(int j = 0; j < cols; ++j)
-            mat_T[j][i] = matrix[i][j];
+            mat_T[j][i] = conjug(matrix[i][j]);
     }
     return mat_T;
 }

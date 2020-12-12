@@ -89,5 +89,6 @@ Matrix<T> Identity(int n)
     }
     return I;
 }
+template<typename T> T conjug(const T&);
 
 #endif //LINEAR_SOLVERS_MATRIX_H
