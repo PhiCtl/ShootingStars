@@ -61,8 +61,6 @@ public:
     Matrix<T> UpperTriangularMatrix() const;
     //Return a diagonal matrix (with the main diagonal)
     Matrix<T> DiagonalMatrix() const;
-    //Return conjugate matrix
-    //Matrix<complex<T>> Conjugate() const;
 
     //Return Identity Matrix
     template <typename R> friend Matrix<R> Identity(int);

@@ -176,6 +176,15 @@ Matrix<T> Matrix<T>::operator*(const T& value) const{
     return res;
 }
 
+//specialization
+/*template <> Matrix<complex<double>> Matrix<complex<double>>::transpose() const {
+    Matrix mat_T(cols, rows, 0.0);
+    for(int i = 0; i < rows; ++i){
+        for(int j = 0; j < cols; ++j)
+            mat_T[j][i] = conj(matrix[i][j]);
+    }
+    return mat_T;
+}*/
 
 //Transpose matrix
 template<typename T>
