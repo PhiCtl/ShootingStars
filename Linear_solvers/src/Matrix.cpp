@@ -12,7 +12,7 @@ Matrix<T>::Matrix(){
     rows = 0;
     cols = 0;
 
-}NĸĦŒ̡
+}
 //Constructor with two parameters and an initialization value of type T
 template<typename T>
 Matrix<T>::Matrix(int r, int c, const T& value){
@@ -176,6 +176,15 @@ Matrix<T> Matrix<T>::operator*(const T& value) const{
     return res;
 }
 
+//specialization
+template<typename T> complex<T> conjug(const complex<T>& el)
+{
+    return conj(el);
+}
+template <typename T> T conjug(const T& el)
+{
+    return el;
+}
 
 //Transpose matrix
 template<typename T>
@@ -183,7 +192,7 @@ Matrix<T> Matrix<T>::transpose() const{
     Matrix mat_T(cols, rows, 0.0);
     for(int i = 0; i < rows; ++i){
         for(int j = 0; j < cols; ++j)
-            mat_T[j][i] = matrix[i][j];
+            mat_T[j][i] = conjug(matrix[i][j]);
     }
     return mat_T;
 }
@@ -235,6 +244,7 @@ Matrix<T> Matrix<T>::DiagonalMatrix() const{
     }
     return mat_diagonal;
 }
+
 
 /*
 template<typename T>

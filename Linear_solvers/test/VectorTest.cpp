@@ -88,5 +88,10 @@ TEST(VectorOperations, not_allowed)
     ASSERT_THROW(vec1*vec2, runtime_error);
 
 }
+int main(int argc, char** argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
 
 
