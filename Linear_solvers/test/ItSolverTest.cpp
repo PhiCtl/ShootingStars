@@ -6,99 +6,88 @@
 #include <Gauss_Seidel.h>
 #include <Richardson.h>
 
-TEST(Conjugate_GradientBuildertTest, Conjugate_Gradient){
+template<int test>
+class IterativeTestReal:public::testing::Test{
+public:
 
-    vector<vector<double>> mat = {{4,1},{1,3}};
-    Matrix<double> A(mat);
-    vector<double> vec = {1,2};
-    Vector<double> b(vec);
-    vector<double> sol = {0.0909091, 0.636364};
+    void SetUp() override{
+        switch (test) {
+            case 0:
+                A = {{4,1},{1,3}};
+                b = {1,2};
+                sol = {0.0909091, 0.636364};
+                break;
+            case 1:
+                A = {{5,1,1,0},{1,5,1,1},{1,1,5,1},{0,1,1,5}};
+                b = {7,8,8,7};
+                sol = {1,1,1,1,1};
+                break;
+        }
+    }
+
+    //Matrix<double> A;
+    vector<vector<double>> A;
+    vector<double> b;
+    //Vector<double> b;
+    vector<double> sol;
+};
+
+using IterativeTestRealF1 = IterativeTestReal<0>;
+using IterativeTestRealF2 = IterativeTestReal<1>;
+
+TEST_F(IterativeTestRealF1, Conjugate_Gradient){
+
     Conjugate_Gradient<double> solver;
     ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
 
 }
 
-TEST(JacobiBuildertTest, Jacobi){
+TEST_F(IterativeTestRealF1, Jacobi){
 
-    vector<vector<double>> mat = {{4,1},{1,3}};
-    Matrix<double> A(mat);
-    vector<double> vec = {1,2};
-    Vector<double> b(vec);
-    vector<double> sol = {0.0909091, 0.636364};
     Jacobi<double> solver;
     ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
 
 }
 
 
-TEST(Gauss_SeidelBuildertTest, Gauss_Seidel){
+TEST_F(IterativeTestRealF1, Gauss_Seidel){
 
-    vector<vector<double>> mat = {{4,1},{1,3}};
-    Matrix<double> A(mat);
-    vector<double> vec = {1,2};
-    Vector<double> b(vec);
-    vector<double> sol = {0.0909091, 0.636364};
     Gauss_Seidel<double> solver;
     ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
 
 }
 
-TEST(RichardsonBuildertTest, Richardson){
+TEST_F(IterativeTestRealF1, Richardson){
 
-    vector<vector<double>> mat = {{4,1},{1,3}};
-    Matrix<double> A(mat);
-    vector<double> vec = {1,2};
-    Vector<double> b(vec);
-    vector<double> sol = {0.0909091, 0.636364};
     Richardson<double> solver;
     ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
 
 }
 
-TEST(Conjugate_GradientBuildertTest1, Conjugate_Gradient1){
+TEST_F(IterativeTestRealF2, Conjugate_Gradient1){
 
-    vector<vector<double>> mat = {{5,1,1,0},{1,5,1,1},{1,1,5,1},{0,1,1,5}};
-    Matrix<double> A(mat);
-    vector<double> vec = {7,8,8,7};
-    Vector<double> b(vec);
-    vector<double> sol = {1,1,1,1};
     Conjugate_Gradient<double> solver;
     ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
 
 }
 
-TEST(JacobiBuildertTest1, Jacobi1){
+TEST_F(IterativeTestRealF2, Jacobi1){
 
-    vector<vector<double>> mat = {{5,1,1,0},{1,5,1,1},{1,1,5,1},{0,1,1,5}};
-    Matrix<double> A(mat);
-    vector<double> vec = {7,8,8,7};
-    Vector<double> b(vec);
-    vector<double> sol = {1,1,1,1};
     Jacobi<double> solver;
     ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
 
 }
 
 
-TEST(Gauss_SeidelBuildertTest1, Gauss_Seidel1){
+TEST_F(IterativeTestRealF2, Gauss_Seidel1){
 
-    vector<vector<double>> mat = {{5,1,1,0},{1,5,1,1},{1,1,5,1},{0,1,1,5}};
-    Matrix<double> A(mat);
-    vector<double> vec = {7,8,8,7};
-    Vector<double> b(vec);
-    vector<double> sol = {1,1,1,1};
     Gauss_Seidel<double> solver;
     ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
 
 }
 
-TEST(RichardsonBuildertTest1, Richardson1){
+TEST_F(IterativeTestRealF2, Richardson1){
 
-    vector<vector<double>> mat = {{5,1,1,0},{1,5,1,1},{1,1,5,1},{0,1,1,5}};
-    Matrix<double> A(mat);
-    vector<double> vec = {7,8,8,7};
-    Vector<double> b(vec);
-    vector<double> sol = {1,1,1,1};
     Richardson<double> solver;
     ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
 
