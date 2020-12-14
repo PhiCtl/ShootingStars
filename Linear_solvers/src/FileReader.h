@@ -13,6 +13,7 @@ public:
     FileReader();
     template <typename T> void Read(Matrix<T>&, Vector<T>&, int);
     FileReader(const FileReader&);
+    ~FileReader() {};
 
     void SetFiles(string, string);
 

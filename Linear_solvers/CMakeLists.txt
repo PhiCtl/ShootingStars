@@ -39,7 +39,7 @@ add_executable(test_ItSol test/ItSolverTest.cpp)
 
 target_link_libraries(test_Vector gtest_main gtest pthread Vector Matrix)
 target_link_libraries(test_Matrix gtest_main gtest pthread Matrix)
-target_link_libraries(test_nonItSol gtest_main gtest pthread Vector Matrix NonItSolvers)
+target_link_libraries(test_nonItSol gtest_main gtest pthread Vector Matrix NonItSolvers ReadWrite)
 target_link_libraries(test_interface gtest_main gtest pthread  Vector Matrix ReadWrite)
 target_link_libraries(test_ItSol gtest_main gtest pthread Vector Matrix ItSolvers)
 
