@@ -50,7 +50,7 @@ Vector<T> Gauss_Seidel<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
                 x[i] = y(i) - sum/A(i,i);
             }
             iter += 1;
-            res.Push_back(r.Norm());
+            res.push_back(r.Norm());
         }
         return x;
     }catch(const runtime_error& e) {
