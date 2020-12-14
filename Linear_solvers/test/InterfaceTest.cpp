@@ -11,43 +11,31 @@
 #include <gtest/gtest.h>
 
 template <bool complex_entry, int test>
-class CommandLineTest: public ::testing::Test {
+class ReaderTest: public ::testing::Test {
 public:
-     CommandLineTest():reader(complex_entry) {}
+    ReaderTest():reader(complex_entry) {}
 
     void SetUp() override {
         switch(test){
             case 0:
-                cout << "Enter those numbers for matrix (dim 4):" << endl;
-                cout << "3 4 5 6 \n4 5 6 7 \n7 8 9 10 \n2 3 4 5 \n" << endl;
-                cout << "Enter those numbers for vector (dim 4):" << endl;
-                cout << "3 \n4 \n5 \n6\n" << endl;
-
+                is = istringstream("3 (4,6)\n4 (5,1)\n");
+                is2 = istringstream("3\n(7,8)");
+                mat = {{3,complex<double>(4,6)},{4, complex<double>(5,1)}};
+                vec = {3, complex<double>(7,8)};
                 break;
             case 1:
-                cout << "Enter those numbers for matrix (dim 2):" << endl;
-                cout << "3 (4,6) \n4 (5,1) \n " << endl;
-                cout << "Enter those numbers for vector (dim 2):" << endl;
-                cout << "3 \n(5,8) \n" << endl;
-
+                mat    = {{3,4},{5,6}};
+                vec = {8,9};
+                is = istringstream("3 4\n5 6\n");
+                is2 = istringstream("8\n9");
                 break;
             case 2:
-                cout << "Enter those numbers for matrix (dim 2):" << endl;
-                cout << "3 (4,6) \n4 (5,1) \n " << endl;
-                cout << "Enter those numbers for vector (dim 2):" << endl;
-                cout << "3 \n(5,8)\n" << endl;
-
-                break;
-            case 3:
-                cout << "Enter those numbers for matrix (dim 2):" << endl;
-                cout << "3 5 \n4 7 5 " << endl;
-                cout << "Enter those numbers for vector (dim 2):" << endl;
-                cout << "3 \n9" << endl;
-
+                is = istringstream("3 4\n5 6 7\n");
+                is2 = istringstream("8\n9 9\n");
+                vec = {8,9};
                 break;
             default:
                 break;
-
         }
 
     }
@@ -56,13 +44,16 @@ public:
         cin.clear();
     }
 
-    ~CommandLineTest( )  {
+    ~ReaderTest( )  {
         // cleanup any pending stuff, but no exceptions allowed
     }
 
     Vector<complex<double>> V;
     Matrix<complex<double>> M;
-    CommandLineReader reader;
+    vector<vector<complex<double>>> mat;
+    vector<complex<double>> vec;
+    istringstream is, is2;
+    Reader reader;
 
 };
 
@@ -81,50 +72,44 @@ public:
     FileReader F;
 };
 
-using CommandLineTestF1 = CommandLineTest<false,0>;
-using CommandLineTestF2 = CommandLineTest<true,1>;
-using CommandLineTestF3 = CommandLineTest<false,2>;
-using CommandLineTestF4 = CommandLineTest<false,3>;
+using Reader1 = ReaderTest<true,0>;
+using Reader2 = ReaderTest<false,1>;
+using Reader3 = ReaderTest<false,0>;
+using Reader4 = ReaderTest<false,2>;
 
 using FileReaderTestF1 = FileReaderTest<true>;
 using FileReaderTestF2 = FileReaderTest<false>;
 
-TEST_F(CommandLineTestF2,correct_complex_entries)
+TEST_F(Reader1,correct_complex_entries)
 {
-    vector<vector<complex<double>>> mat = {{3,(4,6)},{4,(5,1)}};
-    mat[0][1] = complex<double>(4,6);
-    mat[1][1] = complex<double>(5,1);
-    vector<complex<double>> vec {3,(5,8)};
-    vec[1] = complex<double>(5,8);
-    cin.clear();
-
-    reader.Read(M,V,2);
-    EXPECT_EQ(M.getValue(),mat );
-    EXPECT_EQ(V.getValue(), vec);
-    cin.clear();
-
-}
-
-TEST_F(CommandLineTestF1, correct_real_entries)
-{
-    reader.Read(M,V,4);
-
-    vector<vector<complex<double>>> mat = {{3,4,5,6},{4,5,6,7},{7,8,9,10},{2,3,4,5}};
-    vector<complex<double>> vec = {3,4,5,6};
+    reader.Matrix_Reader(M,is,2);
     EXPECT_EQ(M.getValue(),mat);
+    reader.Vector_Reader(V,is2,2);
     EXPECT_EQ(V.getValue(), vec);
-    cin.clear();
-}
-
-TEST_F(CommandLineTestF3, complex_entry_found)
-{
-    ASSERT_THROW(reader.Read(M,V,2), domain_error);
 
 }
 
-TEST_F(CommandLineTestF4, invalid_entries)
+TEST_F(Reader2, correct_real_entries)
 {
-    ASSERT_THROW(reader.Read(M,V,2), length_error);
+    reader.Matrix_Reader(M,is,2);
+    EXPECT_EQ(M.getValue(),mat);
+    reader.Vector_Reader(V,is2,2);
+    EXPECT_EQ(V.getValue(), vec);
+}
+
+TEST_F(Reader3, complex_entry_found)
+{
+
+    ASSERT_THROW(reader.Matrix_Reader(M,is,2), domain_error);
+    ASSERT_THROW(reader.Vector_Reader(V,is2,2), domain_error);
+
+}
+
+TEST_F(Reader4, invalid_entries)
+{
+    ASSERT_THROW(reader.Matrix_Reader(M,is,2), length_error);
+    reader.Vector_Reader(V,is2,2);
+    EXPECT_EQ(V.getValue(), vec) ;
 }
 
 TEST_F(FileReaderTestF2, complex_entries_found)

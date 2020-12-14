@@ -60,18 +60,21 @@ template <typename T> void Reader::Matrix_Reader(Matrix<T> & M, istream & is, in
 
 template<typename T> void Reader::Vector_Reader(Vector<T> & b, istream & is, int dim) {
 
+    string line;
+
     T el;
     vector<T> vec;
     size_t count(0);
     is >> el;
-    do
+    while(getline(is, line) && count < dim)
     {
-        string check("el");
-        if(found_complex(check) && !complex_entries)
+        istringstream iss(line);
+        iss >> el;
+        if(found_complex(line) && !complex_entries)
             throw domain_error("Complex entries found while expecting only real entries.");
         vec.push_back(el);
         ++count;
-    } while((count <dim) && is >> el);
+    }
     if(vec.size() != dim)
         throw length_error("Incorrect dimensions provided for vector rows.");
     b = vec;

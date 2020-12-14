@@ -64,6 +64,8 @@ public:
 
     //Return Identity Matrix
     template <typename R> friend Matrix<R> Identity(int);
+    //== operator overloading
+    template <typename R> friend bool operator==(const Matrix<R>&, const Matrix<R>&);
 
     //vector<T> solve(const vector<T>& vec);
 
@@ -90,5 +92,10 @@ Matrix<T> Identity(int n)
     return I;
 }
 template<typename T> T conjug(const T&);
+
+template <typename T> bool operator==(const Matrix<T>& A, const Matrix<T>& B)
+{
+    return ((A.matrix == B.matrix) && (A.getCols() == B.getCols()) &&(A.getRows() == B.getRows()) );
+}
 
 #endif //LINEAR_SOLVERS_MATRIX_H
