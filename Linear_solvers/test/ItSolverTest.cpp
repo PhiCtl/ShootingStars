@@ -24,25 +24,51 @@ public:
                 sol = {1,1,1,1};
                 break;
             case 2:
-                f = FileReader("MatSDP.mat", "Vec.mat", false)
-                f.setFiles("MatSDP.mat", "Vec.mat")
+                ifstream sol_vec("../data/Sol.mat");
+                ifstream b_vec("../data/VecSDP.mat");
+                ifstream mat("../data/MatSDP.mat");
+                read.Matrix_Reader(A_file, mat,20);
+                read.Vector_Reader(b_file, b_vec ,20);
+                read.Vector_Reader(sol_file, sol_vec ,20);
+                break;
+        }
+    }
+
+    vector<vector<double>> A;
+    vector<double> b;
+    vector<double> sol;
+    FileReader read;
+    Matrix<double> A_file;
+    Vector<double> b_file;
+    Vector<double> sol_file;
+
+};
+
+template<int test>
+class IterativeTestComplex:public::testing::Test{
+public:
+    void SetUp(){
+        switch(test){
+            case 0:
+                break;
+            case 1:
                 break;
             default:
                 break;
         }
     }
 
-    Matrix<double> A_file;
-    vector<vector<double>> A;
-    vector<double> b;
-    Vector<double> b_file;
-    vector<double> sol;
-    FileReader f;
+    vector<vector<complex<double>>> A;
+    vector<complex<double>> b;
+    vector<complex<double>> sol;
 };
+
 
 using IterativeTestRealF0 = IterativeTestReal<0>;
 using IterativeTestRealF1 = IterativeTestReal<1>;
 using IterativeTestRealF2 = IterativeTestReal<2>;
+using IterativeTestComlexF0 = IterativeTestComplex<0>;
+using IterativeTestComplexF1 = IterativeTestComplex<1>;
 
 TEST_F(IterativeTestRealF0, Conjugate_Gradient){
     Conjugate_Gradient<double> solver;
@@ -53,7 +79,6 @@ TEST_F(IterativeTestRealF0, Jacobi){
     Jacobi<double> solver;
     ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
 }
-
 
 TEST_F(IterativeTestRealF0, Gauss_Seidel){
     Gauss_Seidel<double> solver;
@@ -87,7 +112,6 @@ TEST_F(IterativeTestRealF1, Richardson1){
 }
 
 TEST_F(IterativeTestRealF2, Conjugate_Gradient2){
-    Matrix
     Conjugate_Gradient<double> solver;
-    ASSERT_NEAR(solver.Solve(A,b).getValue()[0], sol[0], 1e-4);
+    ASSERT_NEAR(solver.Solve(A_file,b_file).getValue()[0], sol_file[0], 1e-4);
 }
