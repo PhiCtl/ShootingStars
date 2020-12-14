@@ -24,9 +24,9 @@ public:
                 sol = {1,1,1,1};
                 break;
             case 2:
-                ifstream sol_vec("../data/Sol.mat");
-                ifstream b_vec("../data/VecSDP.mat");
                 ifstream mat("../data/MatSDP.mat");
+                ifstream b_vec("../data/VecSDP.mat");
+                ifstream sol_vec("../data/Sol.mat");
                 read.Matrix_Reader(A_file, mat,20);
                 read.Vector_Reader(b_file, b_vec ,20);
                 read.Vector_Reader(sol_file, sol_vec ,20);
@@ -44,12 +44,14 @@ public:
 
 };
 
+/*
 template<int test>
 class IterativeTestComplex:public::testing::Test{
 public:
     void SetUp(){
         switch(test){
             case 0:
+                A = {{complex<double>}}
                 break;
             case 1:
                 break;
@@ -63,12 +65,13 @@ public:
     vector<complex<double>> sol;
 };
 
+*/
 
 using IterativeTestRealF0 = IterativeTestReal<0>;
 using IterativeTestRealF1 = IterativeTestReal<1>;
 using IterativeTestRealF2 = IterativeTestReal<2>;
-using IterativeTestComlexF0 = IterativeTestComplex<0>;
-using IterativeTestComplexF1 = IterativeTestComplex<1>;
+//using IterativeTestComlexF0 = IterativeTestComplex<0>;
+//using IterativeTestComplexF1 = IterativeTestComplex<1>;
 
 TEST_F(IterativeTestRealF0, Conjugate_Gradient){
     Conjugate_Gradient<double> solver;
@@ -113,5 +116,20 @@ TEST_F(IterativeTestRealF1, Richardson1){
 
 TEST_F(IterativeTestRealF2, Conjugate_Gradient2){
     Conjugate_Gradient<double> solver;
+    ASSERT_NEAR(solver.Solve(A_file,b_file).getValue()[0], sol_file[0], 1e-4);
+}
+
+TEST_F(IterativeTestRealF2, Jacobi2){
+    Jacobi<double> solver;
+    ASSERT_NEAR(solver.Solve(A_file,b_file).getValue()[0], sol_file[0], 1e-4);
+}
+
+TEST_F(IterativeTestRealF2, Gauss_Seidel2){
+    Gauss_Seidel<double> solver;
+    ASSERT_NEAR(solver.Solve(A_file,b_file).getValue()[0], sol_file[0], 1e-4);
+}
+
+TEST_F(IterativeTestRealF2, Ricahrdson2){
+    Richardson<double> solver;
     ASSERT_NEAR(solver.Solve(A_file,b_file).getValue()[0], sol_file[0], 1e-4);
 }
