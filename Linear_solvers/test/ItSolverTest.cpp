@@ -22,6 +22,8 @@ public:
                 b = {7,8,8,7};
                 sol = {1,1,1,1,1};
                 break;
+            default:
+                break;
         }
     }
 
