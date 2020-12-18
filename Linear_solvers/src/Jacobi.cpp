@@ -36,20 +36,23 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
         Vector<T> r = A*x - b;
         vector<T> res(1, r.Norm()); //vector with column of size 1 and r.norm element
         size_t iter(0);
+        Vector<T> sum = Vector<T>(A.getCols());
 
         while((fabs(res[res.size()-1] / r0) > this->tol) && (iter < this->nb_iter)){
 
             for(int i = 0; i < n; i++){
-                x[i] = b(i);
-                for(int j = 0; j < n; j++){
-                    if(j != i){
-                        x[i] = x(i) - A(i,j) * x(j);
-                    }
-                }
-                x[i] = x(i) / A(i,i);
-            }
-            iter += 1;
-            res.push_back(r.Norm());
+               sum[i] = b(i);
+               for(int j = 0; j < n; j++){
+                   if(i!=j){
+                       sum[i] = sum[i]- A(i,j)*x(j);
+                   }
+               }
+           }
+           for(int i = 0; i <n; i++){
+               x[i] = sum[i]/A(i,i);
+           }
+           iter += 1;
+           res.push_back(r.Norm());
         }
         return x;
     }catch(const runtime_error& e) {
