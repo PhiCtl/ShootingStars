@@ -121,15 +121,18 @@ TEST_F(IterativeTestRealF2, Conjugate_Gradient2){
 
 TEST_F(IterativeTestRealF2, Jacobi2){
     Jacobi<double> solver;
+    solver.Set_parameters_it(700);
     ASSERT_NEAR(solver.Solve(A_file,b_file).getValue()[0], sol_file[0], 1e-4);
 }
 
 TEST_F(IterativeTestRealF2, Gauss_Seidel2){
     Gauss_Seidel<double> solver;
+    solver.Set_parameters_it(700);
     ASSERT_NEAR(solver.Solve(A_file,b_file).getValue()[0], sol_file[0], 1e-4);
 }
 
 TEST_F(IterativeTestRealF2, Ricahrdson2){
     Richardson<double> solver;
+    solver.Set_parameters_it(700);
     ASSERT_NEAR(solver.Solve(A_file,b_file).getValue()[0], sol_file[0], 1e-4);
 }
