@@ -26,9 +26,18 @@ template <typename T> Iterative_Solver<T>::Iterative_Solver(const Iterative_Solv
 }
 
 //getters setters
-template <typename T> void Iterative_Solver<T>::Set_parameters(const Vector<T> & x, int nb_it, double tol) {
+template <typename T>
+void Iterative_Solver<T>::Set_parameters_vec(const Vector<T> & x){
     initial_guess = x;
+}
+
+template <typename T>
+void Iterative_Solver<T>::Set_parameters_it(int nb_it){
     nb_iter = nb_it;
+}
+
+template <typename T>
+void Iterative_Solver<T>::Set_parameters_tol(double tol){
     tol = tol;
 }
 

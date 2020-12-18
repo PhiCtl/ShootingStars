@@ -19,7 +19,9 @@ public:
     Iterative_Solver(const Iterative_Solver<T>&);
 
     //setters and getters
-    void Set_parameters(const Vector<T>&, int, double);
+    void Set_parameters_vec(const Vector<T>&);
+    void Set_parameters_it(int);
+    void Set_parameters_tol(double);
     void Print_parameters();
 
 protected:
