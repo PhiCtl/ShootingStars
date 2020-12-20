@@ -3,6 +3,57 @@
 //
 #include <gtest/gtest.h>
 #include <Vector.cpp>
+#include <FileReader.h>
+
+
+template <bool complex_entry, int test>
+class VectorOperationTest: public ::testing::Test{
+public:
+    VectorOperationTest():reader("../data/Vector/ComplexMat.mat", "../data/Vector/ComplexVec.mat",complex_entry) {};
+
+    void SetUp()
+    {
+        reader.Read(A,b,3);
+        string name;
+        switch(test){
+            case 1:{
+                Res = A*b;
+                name = "Res1.txt";
+                break;
+            }
+            case 2:{
+                Res = A*b - b*3;
+                name = "Res2.txt";
+                break;
+            }
+            default:
+                break;
+
+        }
+        ifstream f("../data/Vector/"+name);
+        reader.Vector_Reader(Truth, f, 3);
+
+    }
+
+    void Compare()
+    {
+        for(int i = 0; i < Res.getRows(); ++i)
+        {
+            ASSERT_NEAR(Res(i).real(), Truth(i).real(), 1e-9);
+            ASSERT_NEAR(Res(i).imag(), Truth(i).imag(), 1e-9);
+        }
+
+    }
+    Vector<complex<double>> b;
+    Matrix<complex<double>> A;
+    Vector<complex<double>> Res;
+    Vector<complex<double>> Truth;
+    FileReader reader;
+
+};
+using Operation1 = VectorOperationTest<true, 1>;
+using Operation2 = VectorOperationTest<true,2>;
+
 
 TEST(VectorBuilderTest, vector_constructors)
 {
@@ -65,17 +116,21 @@ TEST(VectorBuilder, not_allowed)
     ASSERT_THROW(Vector<double> vec1(M),runtime_error);
 }
 
-TEST(VectorOperations, allowed_operations)
+TEST(VectorOperations, division_allowed)
 {
     Vector<double> vec1(1,2);
     Vector<double> vec2(1,4);
-    EXPECT_EQ(vec2/vec1, 2);
+    auto res = vec1/vec2;
+    EXPECT_EQ(res, 0.5);
+}
 
-    Vector<double> vec3(3,1);
-    Vector<double> vec4(3,2);
-    EXPECT_EQ(vec3*vec4, 6);
-    vec4 = vec3*3;
-    EXPECT_EQ(vec4(0),3);
+TEST(VectorOperations, multiplication_allowed)
+{
+    Vector<double> vec1(3,1);
+    Vector<double> vec2(3,2);
+    EXPECT_EQ(vec1*vec2, 6);
+    vec1 = vec2*3;
+    EXPECT_EQ(vec1(0),6);
 }
 
 TEST(VectorOperations, not_allowed)
@@ -88,6 +143,17 @@ TEST(VectorOperations, not_allowed)
     ASSERT_THROW(vec1*vec2, runtime_error);
 
 }
+
+TEST_F(Operation1, complex_operations_1)
+{
+    Compare();
+}
+
+TEST_F(Operation2, complex_operations_2)
+{
+    Compare();
+}
+
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
