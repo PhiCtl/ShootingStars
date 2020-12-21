@@ -11,7 +11,7 @@
 
 template <typename T> class LinearSolver{
 public:
-    LinearSolver() = default;
-    virtual ~LinearSolver() = default;
-    virtual Vector<T> Solve(const Matrix<T>&, const Vector<T>&) = 0;
+    LinearSolver() {};
+    virtual ~LinearSolver() {};
+    virtual Vector<T> Solve(const Matrix<T>&, const Vector<T>&) {};
 };
