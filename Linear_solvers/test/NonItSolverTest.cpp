@@ -38,6 +38,11 @@ public:
                 read.Vector_Reader(sol, f, 20);
                 break;
             }//Solution
+            case 3:{
+                ifstream f("../data/NonItSolver/sparseA2.txt");
+                read.Matrix_Reader(A,f,10);
+                break;
+            }
 
             default:
                 break;
@@ -45,27 +50,26 @@ public:
         }
     }
     void Compare(const Matrix<double>& mat, int casus) {
+        Matrix<double> ref;
         switch (casus) {
             case 0 : //L U decomposition: L matrix
-                for (int i = 0; i < mat.getRows(); ++i) {
-                    for (int j = 0; j < mat.getCols(); ++j) {
-                        ASSERT_NEAR(L(i,j), mat(i, j), 1e-5);
-                    }
-                }
+                ref = L;
                 break;
             case 1: //U matrix
-                for(int i = 0; i <mat.getRows(); ++i)
-                {
-                    for(int j = 0; j < mat.getCols(); ++j)
-                        ASSERT_NEAR(U(i,j), mat(i,j), 1e-5);
-                }
+                ref = U;
                 break;
             case 2: //solution
-                for(int i = 0; i < sol.getRows(); ++i)
-                    ASSERT_NEAR(mat(i,0), sol(i), 1e-5);
+                ref = sol;
+                break;
+            case 3: // A Matrix
+                ref = A;
             default:
                 break;
-
+        }
+        for (int i = 0; i < mat.getRows(); ++i) {
+            for (int j = 0; j < mat.getCols(); ++j) {
+                ASSERT_NEAR(ref(i,j), mat(i, j), 1e-5);
+            }
         }
     }
 
@@ -93,8 +97,10 @@ public:
             case 1:{
                 ifstream f("../data/NonItSolver/ComplexCholA.txt");
                 read.Matrix_Reader(A, f,3);
+                f = ifstream("../data/NonItSolver/ComplexCholSol.txt");
+                read.Vector_Reader(sol, f, 3);
                 break;
-            }
+            }//RR'x = b
             default:
                 break;
 
@@ -138,6 +144,7 @@ public:
 using NonIterativeTestRealF1 = NonIterativeTestReal<0>;
 using NonIterativeTestRealF2 = NonIterativeTestReal<1>;
 using NonIterativeTestRealF3 = NonIterativeTestReal<2>;
+using NonIterativeTestRealF4 = NonIterativeTestReal<3>;
 using NonItTeComp0 = NonIterativeTestComplex<0>;
 using NonItTeComp1 = NonIterativeTestComplex<1>;
 
@@ -172,6 +179,14 @@ TEST_F(NonIterativeTestRealF3, chol_solution)
     Compare(solver.Solve(A,b), 2);
 }
 
+TEST_F(NonIterativeTestRealF4, chol_decomposition_bigger_matrix)
+{
+    Cholesky<double> solver;
+    solver.Decomposition(A);
+    auto res = solver.getL() * solver.getU();
+    Compare(res, 3);
+}
+
 TEST_F(NonItTeComp0, lu_fact_complex)
 {
     LU<complex<double>> solver;
@@ -190,8 +205,14 @@ TEST_F(NonItTeComp1, chol_decomposition_complex)
     Cholesky<complex<double>> solver;
     solver.Decomposition(A);
     auto res = solver.getL() * solver.getU();
-    solver.getL().Print(cout);
     Compare(res, 0);
+}
+
+TEST_F(NonItTeComp1, chol_complex_sol)
+{
+    Cholesky<complex<double>> solver;
+    auto res = solver.Solve(A,b);
+    Compare(res, 1);
 }
 
 int main(int argc, char** argv)

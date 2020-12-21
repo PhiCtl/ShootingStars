@@ -176,16 +176,6 @@ Matrix<T> Matrix<T>::operator*(const T& value) const{
     return res;
 }
 
-//specialization
-template<typename T> complex<T> conjug(const complex<T>& el)
-{
-    return conj(el);
-}
-template <typename T> T conjug(const T& el)
-{
-    return el;
-}
-
 //Transpose matrix
 template<typename T>
 Matrix<T> Matrix<T>::transpose() const{

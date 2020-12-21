@@ -27,14 +27,13 @@ template <typename T> void Cholesky<T>::Decomposition(const Matrix<T>& A) {
             if (i == j)
             {
                 for (int k = 0; k < j; ++k)
-                    sum += (this->L(j,k) * this->L(j,k));
-                cout << A(j,j) - sum << endl;
+                    sum += this->L(j,k) * conjug(this->L(j,k));
                 this->L[j][j] = sqrt(A(j,j) - sum);
 
             }
             else{
                 for(int k = 0; k < j; ++k)
-                    sum += this->L(i,k) * this->L(j,k);
+                    sum += this->L(i,k) * conjug(this->L(j,k));
                 if(fabs(this->L(j,j)) < 1e-10)
                     throw runtime_error("Division by 0 in Cholesky decomposition. "
                                         "Matrix A doesn't fulfill requirements.");

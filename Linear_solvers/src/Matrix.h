@@ -6,6 +6,7 @@
 #define LINEAR_SOLVERS_MATRIX_H
 #include <vector>
 #include <iostream>
+#include <complex>
 using namespace std;
 //Template declaration class Matrix
 template<typename T = double>
@@ -91,11 +92,21 @@ Matrix<T> Identity(int n)
     }
     return I;
 }
-template<typename T> T conjug(const T&);
+
 
 template <typename T> bool operator==(const Matrix<T>& A, const Matrix<T>& B)
 {
     return ((A.matrix == B.matrix) && (A.getCols() == B.getCols()) &&(A.getRows() == B.getRows()) );
+}
+
+//specialization
+template<typename T> complex<T> conjug(const complex<T>& el)
+{
+    return conj(el);
+}
+template <typename T> T conjug(const T& el)
+{
+    return el;
 }
 
 #endif //LINEAR_SOLVERS_MATRIX_H
