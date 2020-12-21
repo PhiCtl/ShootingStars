@@ -8,6 +8,8 @@ FileReader::FileReader(string matfile, string vecfile, bool complex):Reader(comp
     fileB = vecfile ;
 }
 
+FileReader::FileReader( bool complex):Reader(complex) {}
+
 FileReader::FileReader():Reader(false) {}
 
 FileReader::FileReader(const FileReader& f):Reader(f.complex_entries) {
