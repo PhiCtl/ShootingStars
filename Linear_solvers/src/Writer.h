@@ -28,7 +28,7 @@ private:
 };
 
 template <typename T> void Writer::Write(const Vector<T>& vec, int precision){
-    ofstream out(file_out);
+    ofstream out("../Solution/"+file_out);
     bool doAgain(true);
 
     while(doAgain){

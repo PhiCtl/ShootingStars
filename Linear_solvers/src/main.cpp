@@ -34,15 +34,17 @@ int main(int argc, char** argv)
         TCLAP::ValuesConstraint<string> allowedTyp(allowed_type);*/
 
         //Value arguments
-        TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, true);
+        TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, false);
         TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Name of the file storing matrix A", false, "Noname", "string");
         cmd.add(fileMatArg);
         TCLAP::ValueArg<string> fileVecArg("B", "vector", "Name of the file storing vector B", false, "Noname", "string");
         cmd.add(fileVecArg);
         TCLAP::ValueArg<string> fileOutArg("O", "out", "Name of the output file storing the solution", false, "Sol.mat", "string");
         cmd.add(fileOutArg);
-        TCLAP::ValueArg<int> solverNameArg("S", "solver", "Method chosen to solve the linear system", true, Lu, &allowedSolv);
+        TCLAP::ValueArg<int> solverNameArg("S", "solver", "Method chosen to solve the linear system \n: 0:lu, 1:cholesky, 2: conjugate gradient, 3: jacobi, 4: gauss seidel, 5: richardson \n", true, Lu, &allowedSolv);
         cmd.add(solverNameArg);
+        TCLAP::ValueArg<int> precisionArg("P", "precision", "significant digits of solution", false,20, "int");
+        cmd.add(precisionArg);
         /*TCLAP::ValueArg<string> dataTypeArg("T", "type", "Data type to store entries", true, "double", &allowedTyp);
         cmd.add(dataTypeArg);*/
 
@@ -62,10 +64,11 @@ int main(int argc, char** argv)
         int dim = matrixDimArg.getValue();
         bool complex = complexEntries.getValue();
         bool readCmdl = readFromCmdl.getValue();
+        int precision = precisionArg.getValue();
 
         //readers
         CommandLineReader reader1(complex);
-        FileReader reader2(M_file, b_file, complex);
+        FileReader reader2(complex);
         Writer writer(output_file);
 
         //Compute solution and assign solver
@@ -77,8 +80,10 @@ int main(int argc, char** argv)
 
             if(readCmdl)
                 reader1.Read(A,b,dim);
-            else
+            else{
+                reader2.SetFiles(M_file, b_file);
                 reader2.Read(A,b,dim);
+            }
             auto Solution = solver->Solve(A,b);
             writer.Write(Solution, 10);
         }
@@ -89,10 +94,13 @@ int main(int argc, char** argv)
 
             if(readCmdl)
                 reader1.Read(A,b,dim);
-            else
+            else {
+                reader2.SetFiles(M_file, b_file);
                 reader2.Read(A,b,dim);
+            }
+
             auto Solution = solver->Solve(A,b);
-            writer.Write(Solution, 10);
+            writer.Write(Solution, precision);
         }
     }
 
