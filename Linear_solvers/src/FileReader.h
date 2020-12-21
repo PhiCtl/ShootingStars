@@ -10,6 +10,7 @@
 class FileReader: public Reader{
 public:
     FileReader(string, string, bool);
+    FileReader(bool);
     FileReader();
     template <typename T> void Read(Matrix<T>&, Vector<T>&, int);
     FileReader(const FileReader&);
