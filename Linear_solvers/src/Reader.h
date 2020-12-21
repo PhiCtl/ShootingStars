@@ -22,7 +22,6 @@ public:
     ~Reader();
     template< typename T> void Matrix_Reader(Matrix<T>&, istream&, int);
     template <typename T> void Vector_Reader(Vector<T>&, istream&, int);
-    virtual void Read();
     bool found_complex(string);
     //template <typename T> complex<T> Converter(string);
 

@@ -1,13 +1,25 @@
-#include <iostream>
 #include "Vector.h"
 #include "CommandLineReader.h"
 #include "FileReader.h"
+#include <Writer.h>
+
+#include <Jacobi.h>
+#include <Gauss_Seidel.h>
+#include <Conjugate_Gradient.h>
+#include <Richardson.h>
+#include <LU.h>
+#include <Cholesky.h>
+
+#include <iostream>
 #include <vector>
 #include <string>
 #include <tclap/CmdLine.h>
 #include <tclap/ValuesConstraint.h>
+#include <complex>
 
 using namespace std;
+enum{ Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson}; //enum type for solver type
+template <typename T> LinearSolver<T>* Solver(int solver_type);
 
 int main(int argc, char** argv)
 {
@@ -15,11 +27,11 @@ int main(int argc, char** argv)
         TCLAP::CmdLine cmd("Command description message", ' ');
 
         //constraints on solver names
-        vector<string> allowed_solver = {"LU", "Cholesky", "Conjugate gradient", "Jacobi", "Gauss Seidel", "Richardson"};
-        TCLAP::ValuesConstraint<string> allowedSolv(allowed_solver);
+        vector<int> allowed_solver = {Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
+        TCLAP::ValuesConstraint<int> allowedSolv(allowed_solver);
         //constraints on data type
-        vector<string> allowed_type = {"double","float", "long double"};
-        TCLAP::ValuesConstraint<string> allowedTyp(allowed_type);
+        /*vector<string> allowed_type = {"double","float", "long double"};
+        TCLAP::ValuesConstraint<string> allowedTyp(allowed_type);*/
 
         //Value arguments
         TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, true);
@@ -29,10 +41,10 @@ int main(int argc, char** argv)
         cmd.add(fileVecArg);
         TCLAP::ValueArg<string> fileOutArg("O", "out", "Name of the output file storing the solution", false, "Sol.mat", "string");
         cmd.add(fileOutArg);
-        TCLAP::ValueArg<string> solverNameArg("S", "solver", "Method chosen to solve the linear system", true, "LU", &allowedSolv);
+        TCLAP::ValueArg<int> solverNameArg("S", "solver", "Method chosen to solve the linear system", true, Lu, &allowedSolv);
         cmd.add(solverNameArg);
-        TCLAP::ValueArg<string> dataTypeArg("T", "type", "Data type to store entries", true, "double", &allowedTyp);
-        cmd.add(dataTypeArg);
+        /*TCLAP::ValueArg<string> dataTypeArg("T", "type", "Data type to store entries", true, "double", &allowedTyp);
+        cmd.add(dataTypeArg);*/
 
         TCLAP::ValueArg<int> matrixDimArg("D", "dimension", "Dimension of the square matrix", true, 3, "int");
         cmd.add(matrixDimArg);
@@ -42,8 +54,8 @@ int main(int argc, char** argv)
         cmd.parse(argc, argv);
 
         //get values
-        string solver = solverNameArg.getValue();
-        string data_type = dataTypeArg.getValue();
+        int solver_type = solverNameArg.getValue();
+        //string data_type = dataTypeArg.getValue();
         string output_file = fileOutArg.getValue();
         string M_file = fileMatArg.getValue();
         string b_file = fileVecArg.getValue();
@@ -51,16 +63,39 @@ int main(int argc, char** argv)
         bool complex = complexEntries.getValue();
         bool readCmdl = readFromCmdl.getValue();
 
+        //readers
+        CommandLineReader reader1(complex);
+        FileReader reader2(M_file, b_file, complex);
+        Writer writer(output_file);
 
-
-
-        if(readCmdl)
+        //Compute solution and assign solver
+        if (complex)
         {
-            CommandLineReader Reader(complex);
+            LinearSolver<std::complex<long double>>* solver(Solver<std::complex<long double>>(solver_type));
+            Matrix<std::complex<long double>> A;
+            Vector<std::complex<long double>> b;
 
+            if(readCmdl)
+                reader1.Read(A,b,dim);
+            else
+                reader2.Read(A,b,dim);
+            auto Solution = solver->Solve(A,b);
+            writer.Write(Solution, 10);
         }
+        else{
+            LinearSolver<long double>* solver(Solver<long double>(solver_type));
+            Matrix<long double> A;
+            Vector<long double> b;
 
+            if(readCmdl)
+                reader1.Read(A,b,dim);
+            else
+                reader2.Read(A,b,dim);
+            auto Solution = solver->Solve(A,b);
+            writer.Write(Solution, 10);
+        }
     }
+
     catch(TCLAP::ArgException &e)
     {
         cerr << "error: " << e.error() << " for arg " << e.argId() << endl;
@@ -70,4 +105,31 @@ int main(int argc, char** argv)
         cerr <<"error: " << e.what() << endl;
     }
     return 0;
+}
+
+template <typename T> LinearSolver<T>* Solver(int solver_type)
+{
+    LinearSolver<T>* solver;
+    switch(solver_type){
+        case Lu:
+            solver = new LU<T>;
+            break;
+        case cholesky:
+            solver = new Cholesky<T>;
+            break;
+        case Conjugate_gradient:
+            solver = new Conjugate_Gradient<T>;
+            break;
+        case jacobi:
+            solver = new Jacobi<T>;
+            break;
+        case richardson:
+            solver = new Richardson<T>;
+            break;
+        case GaussSeidel:
+            solver = new Gauss_Seidel<T>;
+            break;
+        default:
+            break;
+    }
 }

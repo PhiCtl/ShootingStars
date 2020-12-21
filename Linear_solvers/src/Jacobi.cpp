@@ -64,7 +64,9 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
 template class Jacobi<int>;
 template class Jacobi<double>;
 template class Jacobi<long int>;
+template class Jacobi<long double>;
 template class Jacobi<long long int>;
 template class Jacobi<float>;
 template class Jacobi<complex<double>>;
+template class Jacobi<complex<long double>>;
 template class Jacobi<complex<float>>;

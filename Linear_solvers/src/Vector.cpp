@@ -125,10 +125,12 @@ template <typename T> vector<T> Vector<T>::getValue() const {
 template class Vector<double>;
 template class Vector<int>;
 template class Vector<long int>;
+template class Vector<long double>;
 template class Vector<long long int>;
 template class Vector<float>;
 template class Vector<complex<float>>;
 template class Vector<complex<double>>;
+template class Vector<complex<long double>>;
 
 
 

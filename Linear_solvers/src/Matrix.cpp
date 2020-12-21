@@ -275,7 +275,9 @@ template class Matrix<int>;
 template class Matrix<double>;
 template class Matrix<long long int>;
 template class Matrix<long int>;
+template class Matrix<long double>;
 template class Matrix<float>;
 template class Matrix<complex<float>>;
+template class Matrix<complex<long double>>;
 template class Matrix<complex<double>>;
 
