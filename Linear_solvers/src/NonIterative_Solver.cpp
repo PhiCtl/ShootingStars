@@ -72,8 +72,10 @@ template <typename T> Matrix<T> NonIterative_Solver<T>::getU() {
 template class NonIterative_Solver<int>;
 template class NonIterative_Solver<double>;
 template class NonIterative_Solver<long int>;
+template class NonIterative_Solver<long double>;
 template class NonIterative_Solver<long long int>;
 template class NonIterative_Solver<float>;
 template class NonIterative_Solver<complex<double>>;
+template class NonIterative_Solver<complex<long double>>;
 template class NonIterative_Solver<complex<float>>;
 

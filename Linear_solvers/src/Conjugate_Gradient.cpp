@@ -57,7 +57,9 @@ template <typename T> Vector<T> Conjugate_Gradient<T>::Solve(const Matrix<T> &A,
 template class Conjugate_Gradient<int>;
 template class Conjugate_Gradient<double>;
 template class Conjugate_Gradient<long int>;
+template class Conjugate_Gradient<long double>;
 template class Conjugate_Gradient<long long int>;
 template class Conjugate_Gradient<float>;
 template class Conjugate_Gradient<complex<double>>;
+template class Conjugate_Gradient<complex<long double>>;
 template class Conjugate_Gradient<complex<float>>;

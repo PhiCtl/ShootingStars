@@ -62,8 +62,10 @@ Vector<T> Gauss_Seidel<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
 //make compiler happy
 template class Gauss_Seidel<int>;
 template class Gauss_Seidel<double>;
+template class Gauss_Seidel<long double>;
 template class Gauss_Seidel<long int>;
 template class Gauss_Seidel<long long int>;
 template class Gauss_Seidel<float>;
 template class Gauss_Seidel<complex<double>>;
+template class Gauss_Seidel<complex<long double>>;
 template class Gauss_Seidel<complex<float>>;

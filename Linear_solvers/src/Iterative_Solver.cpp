@@ -51,8 +51,10 @@ template <typename T> void Iterative_Solver<T>::Print_parameters() {
 template class Iterative_Solver<int>;
 template class Iterative_Solver<double>;
 template class Iterative_Solver<long int>;
+template class Iterative_Solver<long double>;
 template class Iterative_Solver<long long int>;
 template class Iterative_Solver<float>;
 template class Iterative_Solver<complex<double>>;
+template class Iterative_Solver<complex<long double>>;
 template class Iterative_Solver<complex<float>>;
 

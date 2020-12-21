@@ -4,6 +4,7 @@
 #include <iostream>
 #include "LU.cpp"
 #include "Cholesky.cpp"
+#include <FileReader.h>
 
 int main()
 {
@@ -28,7 +29,7 @@ int main()
     */
 
     //Test cholesky
-    vector<vector<double>> mat2 = {{4,12,-16},{12,37,-43},{-16,-43,98}};
+    /*vector<vector<double>> mat2 = {{4,12,-16},{12,37,-43},{-16,-43,98}};
     Matrix<double> A2(mat2);
     vector<double> vec = {1,6,4};
     Vector<double> b(vec);
@@ -42,6 +43,14 @@ int main()
 
     auto Solution_2 = chol_solver.Solve(A2,b);
     Solution_2.Print(cout);
+    Matrix<complex<double>> Mat(vector<vector<complex<double>>>({{4, complex<double>(0,2)},{complex<double>(0,-2),2}}));
+    Vector<complex<double>> Vec(vector<complex<double>>({1,1}));
+    Cholesky<complex<double>> solver1;
+    solver1.Decomposition(Mat);
+    auto sol = solver1.Solve(Mat, Vec);
+    sol.Print(cout);*/
+
+
 
 
 

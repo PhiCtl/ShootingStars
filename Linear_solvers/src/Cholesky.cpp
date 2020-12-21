@@ -28,9 +28,9 @@ template <typename T> void Cholesky<T>::Decomposition(const Matrix<T>& A) {
             {
                 for (int k = 0; k < j; ++k)
                     sum += (this->L(j,k) * this->L(j,k));
-                /*if(A[j][j] - sum < 0 )
-                    L[j][j] = ComplexNumber(0.0, A[j][j] - sum);*/
+                cout << A(j,j) - sum << endl;
                 this->L[j][j] = sqrt(A(j,j) - sum);
+
             }
             else{
                 for(int k = 0; k < j; ++k)
@@ -45,6 +45,29 @@ template <typename T> void Cholesky<T>::Decomposition(const Matrix<T>& A) {
 
     this->U = this->L.transpose();
 }
+
+/*template <typename T> void Cholesky<T>::Decomposition(const Matrix<T>& A){
+     int n = A.getCols();
+     this->L = Matrix<T>(n,n,0.0);
+     this->L[0][0] = sqrt(A(0,0));
+     for (int i = 1; i < n ; ++i)
+     {
+         for(int j = 0; j < i-1; ++j)
+         {
+             for(int k= 0; k < j-1; ++k)
+             {
+                 this->L[j][i] += (this->L(k,i) * this->L(k,j));
+             }
+             this->L[j][i] = (A(i,j) - this->L(j,i))/this->L(j,j);
+         }
+         for(int k = 0; k < i-1; ++k)
+         {
+             this->L[i][i] += pow(this->L(k,i),2);
+         }
+         this->L[i][i] = sqrt(A(i,i) - this->L(i,i));
+     }
+     this->U = this->L.transpose();
+}*/
 
 template <typename T> Vector<T> Cholesky<T>::Solve(const Matrix<T> &A, const Vector<T> &b) {
     try {
@@ -62,9 +85,10 @@ template <typename T> Vector<T> Cholesky<T>::Solve(const Matrix<T> &A, const Vec
 
 template class Cholesky<int>;
 template class Cholesky<double>;
+template class Cholesky<long double>;
 template class Cholesky<long int>;
 template class Cholesky<long long int>;
 template class Cholesky<float>;
-//template class Cholesky<complex<int>>;
 template class Cholesky<complex<double>>;
+template class Cholesky<complex<long double>>;
 template class Cholesky<complex<float>>;

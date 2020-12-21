@@ -66,9 +66,11 @@ template <typename T> Vector<T> LU<T>::Solve(const Matrix<T> &A, const Vector<T>
 template class LU<int>;
 template class LU<double>;
 template class LU<long int>;
+template class LU<long double>;
 template class LU<long long int>;
 template class LU<float>;
 template class LU<complex<double>>;
+template class LU<complex<long double>>;
 template class LU<complex<float>>;
 
 
