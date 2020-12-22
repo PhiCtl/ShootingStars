@@ -38,7 +38,7 @@ target_link_libraries(test_Vector gtest_main gtest pthread Vector Matrix ReadWri
 target_link_libraries(test_Matrix gtest_main gtest pthread Matrix)
 target_link_libraries(test_nonItSol gtest_main gtest pthread Vector Matrix NonItSolvers ReadWrite)
 target_link_libraries(test_interface gtest_main gtest pthread  Vector Matrix ReadWrite)
-target_link_libraries(test_ItSol gtest_main gtest pthread Vector Matrix ItSolvers)
+target_link_libraries(test_ItSol gtest_main gtest pthread Vector Matrix ItSolvers ReadWrite)
 
 add_custom_target(test1 ./test_Vector DEPENDS test_Vector)
 add_custom_target(test2 ./test_nonItSol DEPENDS test_nonItSol)
