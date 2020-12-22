@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(Linear_solvers)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 
 #DIRECTORIES
 include_directories(${GTEST_INCLUDE_DIRS}/test ${CMAKE_SOURCE_DIR}/src)
