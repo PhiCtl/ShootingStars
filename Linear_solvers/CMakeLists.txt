@@ -15,6 +15,13 @@ add_library(NonItSolvers src/LinearSolver.h src/NonIterative_Solver.cpp src/Chol
 add_library(ItSolvers src/LinearSolver.h src/Iterative_Solver.cpp src/Conjugate_Gradient.cpp src/Jacobi.cpp src/Gauss_Seidel.cpp src/Richardson.cpp)
 add_library(ReadWrite src/Reader.cpp src/Writer.cpp src/CommandLineReader.cpp src/FileReader.cpp)
 
+#DOXYGEN
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+    add_custom_target(doc ${DOXYGEN_EXECUTABLE} ${CMAKE_SOURCE_DIR}/Doxyfile
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            COMMENT "Generating API documentation with Doxygen" VERBATIM)
+endif(DOXYGEN_FOUND)
 
 #MAIN
 add_executable(main src/main.cpp)
