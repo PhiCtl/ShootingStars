@@ -85,7 +85,7 @@ int main(int argc, char** argv)
             }
             //compute solution
             auto Solution = solver->Solve(A,b);
-            writer.Write(Solution, 10);
+            writer.Write(Solution, precision);
         }
         else{
             LinearSolver<long double>* solver(Solver<long double>(solver_type));
