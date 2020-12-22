@@ -25,7 +25,7 @@ endif(DOXYGEN_FOUND)
 
 #MAIN
 add_executable(main src/main.cpp)
-target_link_libraries(main Matrix Vector ItSolvers ReadWrite)
+target_link_libraries(main Matrix Vector ItSolvers NonItSolvers ReadWrite)
 
 #TESTS
 add_executable(test_Vector test/VectorTest.cpp)
