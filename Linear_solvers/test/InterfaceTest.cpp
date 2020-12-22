@@ -61,7 +61,7 @@ template <bool complex_entries>
 class FileReaderTest: public ::testing::Test
 {
 public:
-    FileReaderTest():F("../data/Mat.mat", "../data/Vec.mat",complex_entries) {};
+    FileReaderTest():F("../data/Interface/Mat.mat", "../data/Interface/Vec.mat",complex_entries) {};
 
     void SetUp() override
     {}
@@ -121,10 +121,9 @@ TEST_F(FileReaderTestF2, complex_entries_found)
 TEST_F(FileReaderTestF1, correct_complex_entries)
 {
     F.Read(M,V,2);
-    vector<vector<complex<double>>> mat = {{0,2},{4,5}};
-    mat[0][0] = complex<double>(1,5);
+    vector<vector<complex<double>>> mat = {{complex<double>(1,5),2},{4,5}};
 
-    vector<complex<double>> vec {3,4};
+    vector<complex<double>> vec {complex<double>(1,2),complex<double>(4,5)};
     EXPECT_EQ(M.getValue(),mat );
     EXPECT_EQ(V.getValue(), vec);
 }
