@@ -13,20 +13,44 @@
 #include "Vector.h"
 using namespace std;
 
+/*! @brief Writer class: write Vector to file
+ *
+ */
 class Writer{
 public:
 
+    /*! @brief Constructor
+     *
+     * @param fileout : string name of relative path to output file
+     */
     Writer(string fileout);
+
+    /*! @brief Constructor (default)
+     *
+     */
     Writer();
+
+    /*! @brief Destructor
+     *
+     */
     ~Writer();
+
+    /*! @brief Write
+     *
+     * @tparam T
+     * @param vec : Vector to write in a file
+     * @param precision : int precision of output
+     */
     template <typename T> void Write(const Vector<T>& vec, int precision);
 
 
 private:
+    /** @brief file_out: name of output file */
     string file_out = "Sol.mat";
 
 };
 
+//Write
 template <typename T> void Writer::Write(const Vector<T>& vec, int precision){
     ofstream out("../Solution/"+file_out);
     bool doAgain(true);

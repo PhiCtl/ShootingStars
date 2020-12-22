@@ -7,19 +7,37 @@
 
 #include "Iterative_Solver.h"
 
+/*! @brief Conjugate gradient solver
+ */
 template <typename T>
 class Conjugate_Gradient: public Iterative_Solver<T>
 {
 public:
-    //constructor destructor
-    Conjugate_Gradient(const Vector<T>&, int, double);
+    /*! @brief Constructor
+     * @param init: initial conditions
+     * @param iter: number of iterations
+     * @param threshold: stopping criteria (if residual error is below this threshold)
+     */
+    Conjugate_Gradient(const Vector<T>& init, int iter, double threshold);
+
+    /*! @brief Constructor (default)
+     */
     Conjugate_Gradient();
+
+    /*! @brief Destructor (default)
+     */
     ~Conjugate_Gradient() override;
 
-    //copy constructor
-    Conjugate_Gradient(const Conjugate_Gradient<T>&);
+    /*! @brief Copy constructor
+     * @param solver: another Conjugate gradient solver of same type
+     */
+    Conjugate_Gradient(const Conjugate_Gradient<T>& solver);
 
-    //Linear algebra
+    /*! @brief Solve
+     * @param A: Matrix of same type T as solver
+     * @param b: Vector of same type T as solver
+     * @return x: a Vector x such that Ax = b
+     */
     Vector<T> Solve(const  Matrix<T>& A, const Vector<T>& b) override;
 
 };

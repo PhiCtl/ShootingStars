@@ -18,7 +18,10 @@
 #include <complex>
 
 using namespace std;
-enum{ Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson}; //enum type for solver type
+
+//Convenient enum type for readability
+enum{ Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
+//Assign solver depending on user choice
 template <typename T> LinearSolver<T>* Solver(int solver_type);
 
 int main(int argc, char** argv)
@@ -29,9 +32,7 @@ int main(int argc, char** argv)
         //constraints on solver names
         vector<int> allowed_solver = {Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
         TCLAP::ValuesConstraint<int> allowedSolv(allowed_solver);
-        //constraints on data type
-        /*vector<string> allowed_type = {"double","float", "long double"};
-        TCLAP::ValuesConstraint<string> allowedTyp(allowed_type);*/
+
 
         //Value arguments
         TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, false);
@@ -45,9 +46,6 @@ int main(int argc, char** argv)
         cmd.add(solverNameArg);
         TCLAP::ValueArg<int> precisionArg("P", "precision", "significant digits of solution", false,20, "int");
         cmd.add(precisionArg);
-        /*TCLAP::ValueArg<string> dataTypeArg("T", "type", "Data type to store entries", true, "double", &allowedTyp);
-        cmd.add(dataTypeArg);*/
-
         TCLAP::ValueArg<int> matrixDimArg("D", "dimension", "Dimension of the square matrix", true, 3, "int");
         cmd.add(matrixDimArg);
         TCLAP::SwitchArg complexEntries("I", "complex", "Specify if there is any complex entry in the files", cmd, false);
@@ -57,7 +55,6 @@ int main(int argc, char** argv)
 
         //get values
         int solver_type = solverNameArg.getValue();
-        //string data_type = dataTypeArg.getValue();
         string output_file = fileOutArg.getValue();
         string M_file = fileMatArg.getValue();
         string b_file = fileVecArg.getValue();
@@ -74,16 +71,19 @@ int main(int argc, char** argv)
         //Compute solution and assign solver
         if (complex)
         {
+            //fix the type
             LinearSolver<std::complex<long double>>* solver(Solver<std::complex<long double>>(solver_type));
             Matrix<std::complex<long double>> A;
             Vector<std::complex<long double>> b;
 
+            //read depending on the user input
             if(readCmdl)
                 reader1.Read(A,b,dim);
             else{
                 reader2.SetFiles(M_file, b_file);
                 reader2.Read(A,b,dim);
             }
+            //compute solution
             auto Solution = solver->Solve(A,b);
             writer.Write(Solution, 10);
         }
@@ -115,6 +115,7 @@ int main(int argc, char** argv)
     return 0;
 }
 
+//Assign solver
 template <typename T> LinearSolver<T>* Solver(int solver_type)
 {
     LinearSolver<T>* solver;

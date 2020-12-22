@@ -16,7 +16,7 @@ template <typename T> Conjugate_Gradient<T>::Conjugate_Gradient(const Conjugate_
     this->nb_iter = solver.nb_iter;
 }
 
-//Linear algebra
+//Solver
 template <typename T> Vector<T> Conjugate_Gradient<T>::Solve(const Matrix<T> &A, const Vector<T> &b)
 {
     try {
