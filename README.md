@@ -8,11 +8,12 @@ The project was build and run on CLion.
 
 ## How to compile 
 
+--- 
 
 The project has been developed with the following structure based on the coming mothers and daughters classes:
 
 ## (Mother) Classes
-* **Matrix** class (header file: `Matrix.h`, implementation class file: `Matrix.cpp`): Matrix is a template class which takes as members the number of rows (*rows*) and columns (*cols*), both of type int and a matrix (*matrix*) of type STL vector of STL vector. All these members are declared protected.
+**Matrix** class (header file: `Matrix.h`, implementation class file: `Matrix.cpp`): Matrix is a template class which takes as members the number of rows (*rows*) and columns (*cols*), both of type int and a matrix (*matrix*) of type STL vector of STL vector. All these members are declared protected.
 The class, moreover, contains the following public methods or functions:
 - A default constructor *Matrix();*
 - A constructor with the numbers of rows, columns and an initial value as parameters *Matrix(int r, int c, const T& value = 0.0);*
@@ -21,10 +22,20 @@ The class, moreover, contains the following public methods or functions:
 - A copy constructor *Matrix(const Matrix<T>& mat);*
 - A destructor *~Matrix();* declared virtual
   
+--- 
+
 * **LinearSolver** class (header file: `LinearSolver.h`, implementation class file: ??):
+
+---   
+
 * **Reader** class (header file: `Reader.h`, implementation class file: `Reader.cpp`): 
+
+--- 
+
 * **Writer** class (header file: `Writer.h`, implementation class file: `Writer.cpp`):
 
+--- 
+  
 ## Daughter Classes
 * **Vector** class (header file: `Vector.h`, implementation class file: `Vector.cpp`): The Vector class is a template daugher class from the mother Matrix class
 * **NonIterarive_Solver** class (header file: `NonIterative_Solver.h`, implementation class file: `NonIterative_Solver.cpp`): The NonIterative_Solver class is a template daugher class from the mother LinearSolver class
