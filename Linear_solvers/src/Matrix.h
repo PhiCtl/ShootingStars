@@ -8,17 +8,18 @@
 #include <iostream>
 #include <complex>
 using namespace std;
-//Template declaration class Matrix
+
 /*! @brief Matrix class: template class
  *
  * @tparam T
  */
+
 template<typename T = double>
 class Matrix{
 protected:
-    int rows; //number of rows
-    int cols; //number of columns
-    vector<vector<T>> matrix; //matrix
+    int rows;
+    int cols;
+    vector<vector<T>> matrix;
 public:
     /*
      * Constructors:
@@ -41,6 +42,7 @@ public:
      */
     Matrix(int r, int c, const T& value = 0.0);
 
+
     /*! @brief Constructor
      *
      * @param c: number of columns
@@ -59,7 +61,7 @@ public:
      */
     Matrix(const Matrix<T>& mat);
 
-    //Destructor
+
     /** @brief Destructor */
     virtual ~Matrix();
 
@@ -74,19 +76,11 @@ public:
     //Read operator
     /*! @brief overloading read only operator
     *
-    * @param i : int index of requested row in the Matrix
-    * @param j : int index of requested column in the Matrix
+    * @param i : int index of the requested row's entry in the Matrix
+    * @param j : int index of the requested column's entry in the Matrix
     * @return (i,j)th entry of the Matrix
     */
     T operator()(int i, int j) const;
-
-    /*
-     * Operations between matrices:
-     * -Equal operator
-     * -Addition
-     * -Subtraction
-     * -Multiplication
-    */
 
     /*! @brief overloading operator =
      *
@@ -94,60 +88,57 @@ public:
      * @return reference to this
      */
     virtual Matrix<T>& operator=(const Matrix<T> &mat);
+
     /*! @brief overloading operator +
      *
      * @param mat: matrix
-     * @return addition between the matrix this and matrix mat
+     * @return a Matrix which is the addition between the Matrix this and the Matrix mat
      */
     Matrix<T> operator+(const Matrix<T> &mat) const;
+
     /*! @brief overloading operator *
      *
      * @param mat: matrix
-     * @return multiplication between the matrix this and matrix mat
+     * @return a Matrix which is the multiplication between the Matrix this and the Matrix mat
      */
     Matrix<T> operator*(const Matrix<T> &mat) const;
+
     /*! @brief overloading operator -
      *
      * @param mat: matrix
-     * @return subtraction between the matrix this and matrix mat
+     * @return a Matrix which is the subtraction between the Matrix this and Matrix mat
      */
     Matrix<T> operator-(const Matrix<T> &mat) const;
 
-    //Multiplication between matrix and scalar
     /*! @brief overloading operator *
      *
      * @param value: scalar
-     * @return multiplication between the matrix this and a scalar
+     * @return a Matrix which is the multiplication between the Matrix this and a scalar
      */
     Matrix<T> operator*(const T& value) const;
 
-
-    //Return a transpose matrix
-    /** @brief transpose: returns the transpose of this Matrix */
+    /** @brief transpose: returns a Matrix which is the transpose of Matrix this */
     Matrix<T> transpose() const;
 
-    //Return a lower triangular matrix
-    /** @brief LowerTriangularMatrix: returns the lower triangular matrix of this Matrix */
+    /** @brief LowerTriangularMatrix: returns a Matrix which is the Lower Triangular matrix of Matrix this */
     Matrix<T> LowerTriangularMatrix() const;
 
-    //Return a upper triangular matrix
-    /** @brief UpperTriangularMatrix: returns the upper triangular matrix of this Matrix */
+    /** @brief UpperTriangularMatrix: returns a Matrix which is the Upper Triangular matrix of Matrix this */
     Matrix<T> UpperTriangularMatrix() const;
 
     //Return a diagonal matrix (with the main diagonal)
-    /** @brief DiagonalMatrix: returns the diagonal matrix of this Matrix */
+    /** @brief DiagonalMatrix: returns a Matrix which is the diagonal matrix of Matrix this */
     Matrix<T> DiagonalMatrix() const;
 
-    //Return Identity Matrix
-    /*! @brief Identity
+    /*! @brief Identity:
     *
     * @param n: dimension of the square matrix
-    * @return returns an identity matrix
+    * @return returns a Matrix which is an identity matrix
     */
     template <typename R>
     friend Matrix<R> Identity(int);
 
-    //== operator overloading
+
     /*! @brief overloading operator ==
      *
      * @param A: matrix A
@@ -157,15 +148,12 @@ public:
     template <typename R>
     friend bool operator==(const Matrix<R>&, const Matrix<R>&);
 
-
-    //Get rows size
     /*! @brief getRows
      *
      * @return returns the size of the rows
      */
     int getRows() const;
 
-    //Get cols size
     /*! @brief getCols
      *
      * @return returns the size of the columns
@@ -179,7 +167,7 @@ public:
      */
     vector<vector<T>> getValue() const;
 
-    //Print the matrix
+
     /*! @brief Print
      *
      * @return print the matrix
