@@ -42,14 +42,14 @@ The class, moreover, contains the following public methods or functions:
   
 --- 
 
-* **LinearSolver** class (header file: `LinearSolver.h`): The LinearSolver class is a template mother class for any linear solver. It is formed by:
+**LinearSolver** class (header file: `LinearSolver.h`): The LinearSolver class is a template mother class for any linear solver. It is formed by:
 - A default constructor: *LinearSolver() {};*
 - A destructor: *virtual ~LinearSolver() {};*
 - A Solve overridden method which takes as input a Matrix A, a Vector b and returns a Vector x, which represents the solution of the linear system Ax = b:  *virtual Vector<T> Solve(const Matrix<T>& A, const Vector<T>& b) {};*
 
 ---   
 
-* **Reader** class (header file: `Reader.h`, implementation class file: `Reader.cpp`): Reader is a generic reader class from any istream. It has a boolean complex entry as a protected memeber of the class, which indicates the presence of any complex entries in the input. The Reader class displays:
+**Reader** class (header file: `Reader.h`, implementation class file: `Reader.cpp`): Reader is a generic reader class from any istream. It has a boolean complex entry as a protected memeber of the class, which indicates the presence of any complex entries in the input. The Reader class displays:
 - A constructor with a boolean as a parameter: *Reader(bool complex);*
 - A destructor: *~Reader();*
 - A void Matrix_Reader method which reads a matrix from a stream: *void Matrix_Reader(Matrix<T>& A, istream& f, int dim);*
@@ -58,16 +58,28 @@ The class, moreover, contains the following public methods or functions:
 
 --- 
 
-* **Writer** class (header file: `Writer.h`, implementation class file: `Writer.cpp`):
+**Writer** class (header file: `Writer.h`, implementation class file: `Writer.cpp`):
 
 --- 
   
 ## Daughter Classes
-* **Vector** class (header file: `Vector.h`, implementation class file: `Vector.cpp`): The Vector class is a template daugher class from the mother Matrix class
-* **NonIterarive_Solver** class (header file: `NonIterative_Solver.h`, implementation class file: `NonIterative_Solver.cpp`): The NonIterative_Solver class is a template daugher class from the mother LinearSolver class
-* **Iterative_Solver** class (header file: `Iterative_Solver.h`, implementation class file: `Iterative_Solver.cpp`):  The Iterative_Solver class is a template daugher class from the mother LinearSolver class
-* **CommandLineReader** class (header file: `CommandLineReader.h`, implementation class file: `CommandLineReader.cpp`):  The CommandLineReader class is a daugher class from the mother Reader class
-* **FileReader** class (header file: `FileReader.h`, implementation class file: `FileReader.cpp`):  The FileReader class is a daugher class from the mother Reader class
+**Vector** class (header file: `Vector.h`, implementation class file: `Vector.cpp`): The Vector class is a template daugher class from the mother Matrix class
+
+--- 
+
+**NonIterarive_Solver** class (header file: `NonIterative_Solver.h`, implementation class file: `NonIterative_Solver.cpp`): The NonIterative_Solver class is a template daugher class from the mother LinearSolver class
+
+--- 
+
+**Iterative_Solver** class (header file: `Iterative_Solver.h`, implementation class file: `Iterative_Solver.cpp`):  The Iterative_Solver class is a template daugher class from the mother LinearSolver class
+
+--- 
+
+**CommandLineReader** class (header file: `CommandLineReader.h`, implementation class file: `CommandLineReader.cpp`):  The CommandLineReader class is a daugher class from the mother Reader class
+
+--- 
+
+**FileReader** class (header file: `FileReader.h`, implementation class file: `FileReader.cpp`):  The FileReader class is a daugher class from the mother Reader class
 
 ## Daughter of Daughter Classes
 * **LU** class (header file: `LU.h`, implementation class file: `LU.cpp`): The LU class is a template daugher class from the daugher NonIterarive_Solver class
