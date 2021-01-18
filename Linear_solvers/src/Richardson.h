@@ -6,21 +6,18 @@
 #define LINEAR_SOLVERS_RICHARDSON_H
 
 #include "Iterative_Solver.h"
-/*! @brief Richardson solver
+/*! @brief
+ * Richardson solver class
+ * Generalization of the iterative method, reading:
+ * given the initial guess x0, solve P*z(k) = r(k) and set x(k+1) = x(k) + alpha_k * z(k) for a nonsingular preconditioning matrix P
+ * @tparam T
  */
 template <typename T>
 class Richardson : public Iterative_Solver<T>{
 public:
-    /*
-     * Constructors:
-     * three parameters: initial guess vector, number of iterations, tolerance
-     * default
-     * copy constructor
-     *
-    */
 
     /*! @brief Constructor
-     * @param init: initial conditions
+     * @param init: initial condition
      * @param iter: number of iterations
      * @param threshold: stopping criteria (if residual error is below this threshold)
      */
@@ -35,12 +32,12 @@ public:
      */
     Richardson(const Richardson<T>&);
 
-    //Destructor
+
     /*! @brief Destructor (default)
      */
     ~Richardson() override;
 
-    //Linear algebra
+
     /*! @brief Solve
      * @param A: Matrix of same type T as solver
      * @param b: Vector of same type T as solver
