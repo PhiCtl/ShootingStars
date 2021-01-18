@@ -6,20 +6,19 @@
 #define LINEAR_SOLVERS_JACOBI_H
 
 #include "Iterative_Solver.h"
-/*! @brief Jacobi solver
+
+/*! @brief Jacobi solver: daughter class of Iterative Solver
+ * The iterative Jacobi method can be used for a nonsingular matrix A with nonzero diagonal entries. It consists in setting the preconditioning matrix P
+ * as the diagonal matrix extracted from A.
+ * @tparam T
  */
+
 template <typename T>
 class Jacobi : public Iterative_Solver<T>{
 public:
-    /*
-     * Constructors:
-     * three paramenters: initial guess vector, number of iterations, tolerance
-     * default
-     * copy constructor
-     *
-    */
+
     /*! @brief Constructor
-     * @param init: initial conditions
+     * @param init: initial condition
      * @param iter: number of iterations
      * @param threshold: stopping criteria (if residual error is below this threshold)
      */
@@ -34,12 +33,12 @@ public:
      */
     Jacobi(const Jacobi<T>&);
 
-    //Destructor
+
     /*! @brief Destructor (default)
      */
     ~Jacobi() override;
 
-    //Linear algebra
+
     /*! @brief Solve
      * @param A: Matrix of same type T as solver
      * @param b: Vector of same type T as solver
