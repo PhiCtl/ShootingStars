@@ -21,14 +21,7 @@ protected:
     int cols;
     vector<vector<T>> matrix;
 public:
-    /*
-     * Constructors:
-     * -default constructor
-     * -three parameters: number of rows, number of columns, and initial value of tzpe T
-     * -one parameter: a vector of vector of type T
-     * -two parameters: rows and a vector
-     * -a copy constructor
-    */
+
     /*! @brief Constructor (default)
      *
      */
@@ -130,7 +123,7 @@ public:
     /** @brief DiagonalMatrix: returns a Matrix which is the diagonal matrix of Matrix this */
     Matrix<T> DiagonalMatrix() const;
 
-    /*! @brief Identity:
+    /*! @brief Identity (friend function)
     *
     * @param n: dimension of the square matrix
     * @return returns a Matrix which is an identity matrix
@@ -139,7 +132,7 @@ public:
     friend Matrix<R> Identity(int);
 
 
-    /*! @brief overloading operator ==
+    /*! @brief overloading operator == (friend function)
      *
      * @param A: matrix A
      * @param B: matrix B
