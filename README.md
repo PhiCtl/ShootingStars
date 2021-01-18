@@ -15,12 +15,20 @@ The project has been developed with the following structure based on the coming 
 ## (Mother) Classes
 **Matrix** class (header file: `Matrix.h`, implementation class file: `Matrix.cpp`): Matrix is a template class which takes as members the number of rows (*rows*) and columns (*cols*), both of type int and a matrix (*matrix*) of type STL vector of STL vector. All these members are declared protected.
 The class, moreover, contains the following public methods or functions:
-- A default constructor *Matrix();*
-- A constructor with the numbers of rows, columns and an initial value as parameters *Matrix(int r, int c, const T& value = 0.0);*
-- A constructor with the number of rows and a STL vector as parameters *Matrix(int c, vector <T> vec);* 
-- A constuctor with a matrix as a STL vector of STL vector as unique parameter * Matrix(vector<vector<T>> mat);*
-- A copy constructor *Matrix(const Matrix<T>& mat);*
-- A destructor *~Matrix();* declared virtual
+- A default constructor: *Matrix();*
+- A constructor with the numbers of rows, columns and an initial value as parameters: *Matrix(int r, int c, const T& value = 0.0);*
+- A constructor with the number of rows and a STL vector as parameters: *Matrix(int c, vector <T> vec);* 
+- A constuctor with a matrix as a STL vector of STL vector as unique parameter:* Matrix(vector<vector<T>> mat);*
+- A copy constructor: *Matrix(const Matrix<T>& mat);*
+- A destructor: *~Matrix();* 
+- A read and write operator: *vector<T>& operator[](int i);*
+- A read operator: *T operator()(int i, int j) const;*
+- A overloading operator =: *virtual Matrix<T>& operator=(const Matrix<T> &mat);*
+- A overloading operator +: *Matrix<T> operator+(const Matrix<T> &mat) const;*
+- A overloading operator -: *Matrix<T> operator-(const Matrix<T> &mat) const;*
+- A overloading operator * between two matrices: *Matrix<T> operator*(const Matrix<T> &mat) const;*
+- A overloading operator * between a matrix and a scalar: *Matrix<T> operator*(const T& value) const;*
+ 
   
 --- 
 
