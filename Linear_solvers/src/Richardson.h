@@ -8,7 +8,7 @@
 #include "Iterative_Solver.h"
 
 /*! @brief
- * Richardson solver class: daughter class of Iterative Solver
+ * Richardson solver class: daughter class of Iterative Solver.
  * Generalization of the iterative method, reading:
  * given the initial guess x0, solve P*z^(k) = r^(k) and set x^(k+1) = x^(k) + alpha_k * z^(k) for a nonsingular preconditioning matrix P
  * @tparam T

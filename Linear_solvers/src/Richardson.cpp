@@ -33,16 +33,14 @@ Vector<T> Richardson<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
 
         Vector<T> x = this->initial_guess;
         Vector<T> r = b - A * x;
-        Matrix<T> P = Identity<T>(A.getCols());
         vector<T> res(1, r.Norm());
         size_t iter(0);
-        //Vector<T> z(A.getRows()); //vector with one column and the same number of rows of the matrix A
         Vector<T> z;
 
         while ((fabs(res[res.size()-1] / r0) > this->tol) && (iter < this->nb_iter)) {
-            z = r; //P = I is the preconditioning matrix
-            Vector<T> t = A * r; //row vector of size n
-            T alpha = (z * r) / (z * t); //want to use transpose on a vector seen as a 1D matrix
+            z = r;
+            Vector<T> t = A * r;
+            T alpha = (z * r) / (z * t);
             Vector<T> w = A * z;
             x = x + z * alpha;
             r = r - w * alpha;
@@ -56,7 +54,7 @@ Vector<T> Richardson<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
        }
    }
 
-   //make compiler happy
+
    template class Richardson<int>;
    template class Richardson<double>;
    template class Richardson<long int>;
