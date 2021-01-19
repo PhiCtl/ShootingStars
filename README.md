@@ -6,6 +6,10 @@ The project consists in the implementation of several direct and iterative metho
 
 The project was built and run on CLion. 
 
+## Table of contents
+* [Installation](#installation)
+* [How to compile](#how-to-compile)
+
 ## Installation
 The following libraries are located under the folder `lib\` and already referenced in the CMakeLists file. 
 - tclap-1.2.2
