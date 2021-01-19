@@ -14,14 +14,25 @@ The following libraries are located under the folder `lib\` and already referenc
 ## How to compile 
 
 ### Run the program
-The following commands should be run in the folder `cmake-build-debug\` :
+The following commands should be run in the folder `Linear_solvers\` :
 ```
+mdkir build
+cd build
 cmake ..
 make
 ./Linear_solver   //several options should be entered here, and are specified below
 ```
 ### Program options
 The TCLAP library provides a convenient interface with the user. Below are listed the command line options.
+
+-C, -- terminal: specifies that both matrix and vector will be read from the command line.
+-I, --complex : specifies that there is at least one complex entry in the files. 
+**-D, --dimension** (unsigned integer): dimension of the square matrix (input), mandatory
+-P, --precision (unsigned integer): significant digits of the solution
+**-S, --solver** (0: LU,1: Cholesky, 2: Conjugate gradient, 3: Jacobi, 4: Gauss Seidel, 5: Richardson): Metod chosen to solve the linear system, mandatory
+-O, --out (string): Name of the output file storing the solution
+-B, --vector (string): name of the file storing vector B (should be located in `data/` ), mandatory if user chooses to read vector and matrix from a file.
+-A, --matrix (string): name of the file storing vector A (should be located in `data/`), mandatory if user chooses to read vector and matrix from files.
 
 
 ### Create the doxygen documentation
