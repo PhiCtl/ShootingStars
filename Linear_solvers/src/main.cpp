@@ -35,7 +35,7 @@ int main(int argc, char** argv)
 
 
         //Value arguments
-        TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, false);
+        TCLAP::SwitchArg readFromCmdl("C", "terminal", "Specifies if matrix and vector are read from command line", cmd, false);
         TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Relative path of the file storing matrix A", false, "Noname", "string");
         cmd.add(fileMatArg);
         TCLAP::ValueArg<string> fileVecArg("B", "vector", "Relative path of the file storing vector B", false, "Noname", "string");
@@ -48,7 +48,7 @@ int main(int argc, char** argv)
         cmd.add(precisionArg);
         TCLAP::ValueArg<unsigned int> matrixDimArg("D", "dimension", "Dimension of the square matrix", true, 3, "int");
         cmd.add(matrixDimArg);
-        TCLAP::SwitchArg complexEntries("I", "complex", "Specify if there is any complex entry in the files", cmd, false);
+        TCLAP::SwitchArg complexEntries("I", "complex", "Specifies if there is any complex entry in the files", cmd, false);
 
         //parse
         cmd.parse(argc, argv);
