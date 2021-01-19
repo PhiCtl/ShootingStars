@@ -43,9 +43,9 @@ method chosen to solve the linear system, mandatory.
 * -O, --out (string): 
 name of the output file storing the solution.
 * -B, --vector (string): 
-name of the file storing vector B (should be located in `data/` ), mandatory if user chooses to read vector and matrix from a file.
+relative path of the file storing vector B (should start by  `..data/` and be located in `data/` ), mandatory if user chooses to read vector and matrix from a file.
 * -A, --matrix (string): 
-name of the file storing vector A (should be located in `data/`), mandatory if user chooses to read vector and matrix from files.
+relative path of the file storing vector A (should be start by `..data/` and be located in `data/`), mandatory if user chooses to read vector and matrix from files.
 
 
 ### Create the doxygen documentation
