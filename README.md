@@ -64,7 +64,7 @@ In general, our project is inside the main folder `Linear_Solvers` which it has 
 
 ```bash
 ├── Solution
-│   └──  Sol.mat
+│   └──  sol.txt
 ├── data
 │   ├── Interface
 │   │   ├── Mat.mat
@@ -141,6 +141,9 @@ In general, our project is inside the main folder `Linear_Solvers` which it has 
 │   ├── MatrixTest.cpp
 │   ├── NonItSolverTest.cpp 
     └──  VectorTest.cpp 
+├── CMakeLists.txt
+├── Doxyfile 
+    
 ```
 
 ---
