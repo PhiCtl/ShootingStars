@@ -43,16 +43,24 @@ method chosen to solve the linear system, mandatory.
 * -O, --out (string): 
 name of the output file storing the solution.
 * -B, --vector (string): 
-relative path of the file storing vector B (should start by  `..data/` and be located in `data/` ), mandatory if user chooses to read vector and matrix from a file.
+name of the file storing vector B (should be located in `data/` ), mandatory if user chooses to read vector and matrix from a file.
 * -A, --matrix (string): 
-relative path of the file storing vector A (should be start by `..data/` and be located in `data/`), mandatory if user chooses to read vector and matrix from files.
+name of the file storing vector A (should be located in `data/`), mandatory if user chooses to read vector and matrix from files.
 
+The following line represents an example that the user can write from the terminal in order to run the code:
+```
+./Linear_solver -D 4 -S 3 -A "../data/ItSolver/Mat4x4.txt" -B "../data/ItSolver/VecB4x1.txt" -O "sol.txt"
+```
+The outcome expected is: 
+```
+Solution saved to file sol.txt
+```
 
 ### Create the doxygen documentation
 The command `doxygen` should be run in the main folder `Linear_solvers\`. The created html documentation can be found under `doc\html\index.htlm`. 
 
 ## Folders hierarchy 
-In general, our project is inside the main folder `Linear_Solvers\` which it has been developed in the following subfolders:
+In general, our project is inside the main folder `Linear_Solvers` which it has been developed in the following subfolders:
 
 ```bash
 ├── Solution
