@@ -1,6 +1,3 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 30.11.20.
-//
 
 #ifndef LINEAR_SOLVERS_VECTOR_H
 #define LINEAR_SOLVERS_VECTOR_H
@@ -52,8 +49,6 @@ public:
 
     /** @brief Destructor */
     ~Vector();
-
-    //overload operators
 
     /*! @brief overloading read/write operator
      *
@@ -111,7 +106,6 @@ public:
      */
     T operator*(const Vector& V) const;
 
-    //Utils
 
     /*! @brief Push_back: push back an element at the back of the Vector
      *

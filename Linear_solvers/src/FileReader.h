@@ -1,6 +1,3 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 05.12.20.
-//
 
 #ifndef LINEAR_SOLVERS_FILEREADER_H
 #define LINEAR_SOLVERS_FILEREADER_H
@@ -64,11 +61,11 @@ private:
     string fileB;
 };
 
-//Read
+
 template <typename T> void FileReader::Read(Matrix<T>& M, Vector<T>& b, int n) {
     ifstream read_A(fileA.c_str());
     ifstream read_b(fileB.c_str());
-    //check if files can be opened
+
     if(!read_A.is_open())
     {
         throw runtime_error("File '" + fileA+ "' cannot be open.");

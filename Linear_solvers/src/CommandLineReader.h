@@ -27,7 +27,7 @@ public:
 
 };
 
-//Read
+
 template <typename T> void CommandLineReader::Read(Matrix<T>& A, Vector<T>& b, int dim) {
     try{
         cout << "Enter matrix entries, row by row (separated by linespaces) :" << endl;

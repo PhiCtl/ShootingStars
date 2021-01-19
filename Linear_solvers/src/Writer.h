@@ -1,6 +1,3 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 04.12.20.
-//
 
 #ifndef LINEAR_SOLVERS_WRITER_H
 #define LINEAR_SOLVERS_WRITER_H
@@ -50,7 +47,7 @@ private:
 
 };
 
-//Write
+
 template <typename T> void Writer::Write(const Vector<T>& vec, int precision){
     ofstream out("../Solution/"+file_out);
     bool doAgain(true);

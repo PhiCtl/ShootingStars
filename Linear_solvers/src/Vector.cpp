@@ -1,21 +1,17 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 28.11.20.
-//
+
 #include <cassert>
 #include <Vector.h>
 #include <complex>
 
-//a vector is defined as a column vector (cols = 1)
-
 template <typename T> Vector<T>::Vector():Matrix<T>() {}
 template <typename T> Vector<T>::~Vector<T>() = default;
 
-//redefining the constructors
+
 template <typename T> Vector<T>::Vector(int n, T el):Matrix<T>(n,1,el) {} //vector is a matrix with n rows and 1 col
 template <typename T> Vector<T>::Vector(int n, vector<T> vec):Matrix<T>(1, vec) {}
 template <typename T> Vector<T>::Vector(vector<T> vec):Matrix<T>(1,vec) {}
 
-//copy constructors
+
 template <typename T>
 Vector<T>::Vector(const Vector& vec){
     this->matrix = vec.matrix;
@@ -33,7 +29,7 @@ template <typename T> Vector<T>::Vector(const Matrix<T>& mat)
 }
 
 
-//operators
+
 template <typename T> T Vector<T>::operator()(size_t i) const {
     assert(i < this->rows);
     return this->matrix[i][0];
@@ -96,7 +92,7 @@ template <typename T> Vector<T> Vector<T>::operator*(const T& val) {
     return res;
 }
 
-//Utils functions
+
 template <typename T> void Vector<T>::Push_back(const T& el) {
     this->matrix.push_back({el});
     ++this->rows;
@@ -121,7 +117,6 @@ template <typename T> vector<T> Vector<T>::getValue() const {
     return val;
 }
 
-//to make a happy compiler: supported types;
 template class Vector<double>;
 template class Vector<int>;
 template class Vector<long int>;

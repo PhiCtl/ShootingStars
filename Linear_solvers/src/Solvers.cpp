@@ -25,7 +25,7 @@ void Print(const Matrix& M)
         Print(v);
 }
 
-Vector  backward_subst(const Matrix& A,const Vector& b)
+Vector backward_subst(const Matrix& A,const Vector& b)
 {
     int n = A.size();//int n = A.getColumns(); //A is upper triangular
     Vector x(n);            //

@@ -242,7 +242,7 @@ void Matrix<T>::Print(std::ostream &s) const{
 }
 
 
-//make compiler happy
+
 template class Matrix<int>;
 template class Matrix<double>;
 template class Matrix<long long int>;

@@ -1,6 +1,4 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 04.12.20.
-//
+
 #include <iostream>
 #include "Writer.h"
 

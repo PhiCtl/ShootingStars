@@ -19,9 +19,9 @@
 
 using namespace std;
 
-//Convenient enum type for readability
+
 enum{ Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
-//Assign solver depending on user choice
+
 template <typename T> LinearSolver<T>* Solver(int solver_type);
 
 int main(int argc, char** argv)
@@ -29,12 +29,9 @@ int main(int argc, char** argv)
     try{
         TCLAP::CmdLine cmd("Command description message", ' ');
 
-        //constraints on solver names
         vector<int> allowed_solver = {Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
         TCLAP::ValuesConstraint<int> allowedSolv(allowed_solver);
 
-
-        //Value arguments
         TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, false);
         TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Name of the file storing matrix A", false, "Noname", "string");
         cmd.add(fileMatArg);
@@ -50,10 +47,8 @@ int main(int argc, char** argv)
         cmd.add(matrixDimArg);
         TCLAP::SwitchArg complexEntries("I", "complex", "Specify if there is any complex entry in the files", cmd, false);
 
-        //parse
         cmd.parse(argc, argv);
 
-        //get values
         int solver_type = solverNameArg.getValue();
         string output_file = fileOutArg.getValue();
         string M_file = fileMatArg.getValue();
@@ -63,27 +58,24 @@ int main(int argc, char** argv)
         bool readCmdl = readFromCmdl.getValue();
         int precision = precisionArg.getValue();
 
-        //readers
         CommandLineReader reader1(complex);
         FileReader reader2(complex);
         Writer writer(output_file);
 
-        //Compute solution and assign solver
         if (complex)
         {
-            //fix the type
+
             LinearSolver<std::complex<long double>>* solver(Solver<std::complex<long double>>(solver_type));
             Matrix<std::complex<long double>> A;
             Vector<std::complex<long double>> b;
 
-            //read depending on the user input
             if(readCmdl)
                 reader1.Read(A,b,dim);
             else{
                 reader2.SetFiles(M_file, b_file);
                 reader2.Read(A,b,dim);
             }
-            //compute solution
+
             auto Solution = solver->Solve(A,b);
             writer.Write(Solution, precision);
         }
@@ -115,7 +107,6 @@ int main(int argc, char** argv)
     return 0;
 }
 
-//Assign solver
 template <typename T> LinearSolver<T>* Solver(int solver_type)
 {
     LinearSolver<T>* solver;

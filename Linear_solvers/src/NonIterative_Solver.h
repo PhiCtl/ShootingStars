@@ -1,7 +1,3 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 02.12.20.
-//
-
 #ifndef LINEAR_SOLVERS_NONITERATIVE_SOLVER_H
 #define LINEAR_SOLVERS_NONITERATIVE_SOLVER_H
 
@@ -29,7 +25,6 @@ public:
      */
     NonIterative_Solver(const NonIterative_Solver<T>& solver);
 
-    //Linear algebra methods
     /*! @brief Forward_subst: compute forward substitution
      *
      * @param A : lower triangular Matrix
@@ -66,7 +61,6 @@ public:
     Matrix<T> getU();
 
 protected:
-    //decomposition matrices
     /** @brief lower triangular Matrix from LU decomposition*/
     Matrix<T> L;
     /** @brief upper triangular Matrix from LU decomposition */

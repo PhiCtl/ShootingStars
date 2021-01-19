@@ -1,6 +1,3 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 02.12.20.
-//
 
 #ifndef LINEAR_SOLVERS_MATRIX_H
 #define LINEAR_SOLVERS_MATRIX_H
@@ -58,15 +55,14 @@ public:
     /** @brief Destructor */
     virtual ~Matrix();
 
-    //Read and write operator
     /*! @brief overloading read/write operator
     *
-    * @param i : int index of requested vector in the Matrix (??)
-    * @return reference to ith STL vector
+    * @param i : int index of requested vector in the Matrix
+    * @return reference to ith row of the Matrix
     */
     vector<T>& operator[](int i);
 
-    //Read operator
+
     /*! @brief overloading read only operator
     *
     * @param i : int index of the requested row's entry in the Matrix
@@ -131,16 +127,6 @@ public:
     template <typename R>
     friend Matrix<R> Identity(int);
 
-
-    /*! @brief overloading operator == (friend function)
-     *
-     * @param A: matrix A
-     * @param B: matrix B
-     * @return returns true or false depending to the fact if the two matrices are equal
-     */
-    template <typename R>
-    friend bool operator==(const Matrix<R>&, const Matrix<R>&);
-
     /*! @brief getRows
      *
      * @return returns the size of the rows
@@ -153,7 +139,7 @@ public:
      */
     int getCols() const;
 
-    //Get matrix value as a vector of vector of T
+
     /*! @brief getValue
      *
      * @return get matrix value as a STL vector of STL vector of type T
@@ -168,7 +154,6 @@ public:
     void Print(std::ostream &s) const;
 };
 
-//friend function
 
 template <typename T>
 Matrix<T> Identity(int n)
@@ -182,19 +167,20 @@ Matrix<T> Identity(int n)
 }
 
 
-template <typename T>
-bool operator==(const Matrix<T>& A, const Matrix<T>& B)
-{
-    return ((A.matrix == B.matrix) && (A.getCols() == B.getCols()) &&(A.getRows() == B.getRows()) );
-}
-
-//specialization
+ /*! @brief conjiug
+ * @param el : reference of a complex number
+ * @return return the conjugate of the complex number el
+*/
 template<typename T>
 complex<T> conjug(const complex<T>& el)
 {
     return conj(el);
 }
 
+/*! @brief conjiug
+ * @param el : reference of a complex number
+ * @return return the conjugate of the complex number el
+*/
 template <typename T>
 T conjug(const T& el)
 {

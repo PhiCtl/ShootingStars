@@ -31,7 +31,7 @@ Vector<T> Gauss_Seidel<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
         if (this->initial_guess.getRows() <=1)
             this->initial_guess = Vector<T>(A.getCols());
 
-        int n = A.getCols(); //A must be a square matrix
+        int n = A.getCols();
         Vector<T> x = this->initial_guess;
         Vector<T> y = Vector<T>(A.getCols());
         Vector<T> r = A*x - b;
@@ -59,7 +59,7 @@ Vector<T> Gauss_Seidel<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
 
 }
 
-//make compiler happy
+
 template class Gauss_Seidel<int>;
 template class Gauss_Seidel<double>;
 template class Gauss_Seidel<long double>;

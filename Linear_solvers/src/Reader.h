@@ -64,7 +64,7 @@ protected:
 
 };
 
-//Matrix reader
+
 template <typename T> void Reader::Matrix_Reader(Matrix<T> & M, istream & is, int dim) {
     string line;
     vector<vector<T>> mat;
@@ -93,7 +93,7 @@ template <typename T> void Reader::Matrix_Reader(Matrix<T> & M, istream & is, in
     M = mat;
 }
 
-//Vector reader
+
 template<typename T> void Reader::Vector_Reader(Vector<T> & b, istream & is, int dim) {
 
     string line;

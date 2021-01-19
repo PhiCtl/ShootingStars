@@ -6,6 +6,12 @@
 #define LINEAR_SOLVERS_GAUSS_SEIDEL_H
 #include "Iterative_Solver.h"
 
+/*! @brief Gauss Seidel solver: daughter class of Iterative Solver.
+ * The iterative Gauss Seidel method can be used for a nonsingular matrix A with nonzero diagonal entries. It consists in setting the preconditioning matrix P
+ * as the lower triangular matrix extracted from A.
+ * @tparam T
+ */
+
 template <typename T>
 class Gauss_Seidel : public Iterative_Solver<T>{
 public:

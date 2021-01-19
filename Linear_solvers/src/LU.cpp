@@ -1,14 +1,8 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 27.11.20.
-//
-
 
 #include "LU.h"
 #include <iostream>
 #include <complex>
 using namespace std;
-
-//constructor destructor etc..
 
 template <typename T> LU<T>::LU():NonIterative_Solver<T>() {}
 template <typename T> LU<T>::~LU<T>() {}
@@ -16,8 +10,6 @@ template <typename T> LU<T>::LU(const LU<T>& solver) {
     this->L = solver.L;
     this->U = solver.U;
 }
-
-//linear algebra
 
 template <typename T> void LU<T>::Decomposition(const Matrix<T>& A) {
     int n = A.getCols();

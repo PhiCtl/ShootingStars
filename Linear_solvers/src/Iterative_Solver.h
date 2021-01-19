@@ -1,13 +1,9 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 02.12.20.
-//
-
 #ifndef LINEAR_SOLVERS_ITERATIVE_SOLVER_H
 #define LINEAR_SOLVERS_ITERATIVE_SOLVER_H
 
 #include "LinearSolver.h"
 
-/*! @brief Iterative_Solver class: generic class for any iterative solver
+/*! @brief Iterative_Solver class: generic class for any iterative solver for the solution of the linear system Ax = b.
  *
  * @tparam T
  */
@@ -63,9 +59,11 @@ public:
 protected:
     /** @brief initial_guess: store initial conditions */
     Vector<T> initial_guess;
+
     /** @brief nb_iter: maximum number of iterations */
     int nb_iter;
-    /** @brief tol: stopping criterion */
+
+    /** @brief tol: tolerance for the stopping criterion */
     double tol;
 };
 

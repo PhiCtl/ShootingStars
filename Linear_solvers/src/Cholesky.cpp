@@ -1,14 +1,9 @@
- //
-// Created by descourt@INTRANET.EPFL.CH on 27.11.20.
-//
-
 #include "Cholesky.h"
 
 #include <complex>
 #include <iostream>
 using namespace std;
 
-//constructor destructor
 template <typename T> Cholesky<T>::Cholesky():NonIterative_Solver<T>() {};
 template <typename T> Cholesky<T>::~Cholesky<T>() {};
 template <typename T> Cholesky<T>::Cholesky(const Cholesky<T>& solver) {

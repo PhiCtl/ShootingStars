@@ -1,13 +1,10 @@
-//
-// Created by petronio@INTRANET.EPFL.CH on 03.12.20.
-//
 
 #ifndef LINEAR_SOLVERS_JACOBI_H
 #define LINEAR_SOLVERS_JACOBI_H
 
 #include "Iterative_Solver.h"
 
-/*! @brief Jacobi solver: daughter class of Iterative Solver
+/*! @brief Jacobi solver: daughter class of Iterative Solver.
  * The iterative Jacobi method can be used for a nonsingular matrix A with nonzero diagonal entries. It consists in setting the preconditioning matrix P
  * as the diagonal matrix extracted from A.
  * @tparam T

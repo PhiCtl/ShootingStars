@@ -1,6 +1,3 @@
-//
-// Created by petronio@INTRANET.EPFL.CH on 03.12.20.
-//
 
 #include "Jacobi.h"
 #include <iostream>
@@ -31,10 +28,10 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
         if (this->initial_guess.getRows() <=1)
             this->initial_guess = Vector<T>(A.getCols());
 
-        int n = A.getCols(); //A must be a square matrix
+        int n = A.getCols();
         Vector<T> x = this->initial_guess;
         Vector<T> r = A*x - b;
-        vector<T> res(1, r.Norm()); //vector with column of size 1 and r.norm element
+        vector<T> res(1, r.Norm());
         size_t iter(0);
         Vector<T> sum = Vector<T>(A.getCols());
 
@@ -60,7 +57,7 @@ Vector<T> Jacobi<T>::Solve(const Matrix<T>& A, const Vector<T>& b) {
  }
 }
 
-//make compiler happy
+
 template class Jacobi<int>;
 template class Jacobi<double>;
 template class Jacobi<long int>;

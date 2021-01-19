@@ -1,12 +1,9 @@
-//
-// Created by descourt@INTRANET.EPFL.CH on 27.11.20.
-//
 
 #include "Conjugate_Gradient.h"
 #include <iostream>
 #include <complex>
 
-//constructors destructor copy constructor
+
 template <typename T> Conjugate_Gradient<T>::Conjugate_Gradient(const Vector<T>& vec, int nb_iters, double tol):Iterative_Solver<T>(vec, nb_iters, tol) {};
 template <typename T> Conjugate_Gradient<T>::Conjugate_Gradient():Iterative_Solver<T>() {};
 template <typename T> Conjugate_Gradient<T>::~Conjugate_Gradient<T>() {};
@@ -16,7 +13,7 @@ template <typename T> Conjugate_Gradient<T>::Conjugate_Gradient(const Conjugate_
     this->nb_iter = solver.nb_iter;
 }
 
-//Solver
+
 template <typename T> Vector<T> Conjugate_Gradient<T>::Solve(const Matrix<T> &A, const Vector<T> &b)
 {
     try {
@@ -53,7 +50,7 @@ template <typename T> Vector<T> Conjugate_Gradient<T>::Solve(const Matrix<T> &A,
 
 }
 
-//make compiler happy
+
 template class Conjugate_Gradient<int>;
 template class Conjugate_Gradient<double>;
 template class Conjugate_Gradient<long int>;
