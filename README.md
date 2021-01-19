@@ -9,6 +9,7 @@ The project was built and run on CLion.
 ## Table of contents
 * [Installation](#installation)
 * [How to compile](#how-to-compile)
+* [Folders hierarchy](#folders-hierarchy)
 
 ## Installation
 The following libraries are located under the folder `lib\` and already referenced in the CMakeLists file. 
@@ -51,7 +52,7 @@ name of the file storing vector A (should be located in `data/`), mandatory if u
 The command `doxygen` should be run in the main folder `Linear_solvers\`. The created html documentation can be found under `doc\html\index.htlm`. 
 
 ## Folders hierarchy 
-In general, our project is inside the `Linear_Solvers` folder where it has been developed in the following subfolders:
+In general, our project is inside the main folder `Linear_Solvers\` which it has been developed in the following subfolders:
 
 ```bash
 ├── Solution
