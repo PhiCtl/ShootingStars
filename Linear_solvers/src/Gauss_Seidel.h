@@ -9,22 +9,31 @@
 template <typename T>
 class Gauss_Seidel : public Iterative_Solver<T>{
 public:
-    /*
-     * Constructors:
-     * three paramenters: initial guess vector, number of iterations, tolerance
-     * default
-     * copy constructor
-     *
-    */
-
+    /*! @brief Constructor
+     * @param init: initial condition
+     * @param iter: number of iterations
+     * @param threshold: stopping criteria (if residual error is below this threshold)
+     */
     Gauss_Seidel(const Vector<T>&, int, double);
+
+    /*! @brief Constructor (default)
+     */
     Gauss_Seidel();
+
+    /*! @brief Copy constructor
+     * @param solver: another Gauss Seidel solver of same type
+     */
     Gauss_Seidel(const Gauss_Seidel<T>&);
 
-    //Destructor
+    /*! @brief Destructor (default)
+    */
     ~Gauss_Seidel() override;
 
-    //Linear algebra
+    /*! @brief Solve
+    * @param A: Matrix of same type T as solver
+    * @param b: Vector of same type T as solver
+    * @return x: a Vector x such that Ax = b
+    */
     Vector<T> Solve(const Matrix<T>& A, const Vector<T>& b) override;
 
 

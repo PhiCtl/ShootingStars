@@ -5,15 +5,13 @@
 using namespace std;
 #include "Matrix.h"
 
-
-//Default constructor
 template<typename T>
 Matrix<T>::Matrix(){
     rows = 0;
     cols = 0;
 
 }
-//Constructor with two parameters and an initialization value of type T
+
 template<typename T>
 Matrix<T>::Matrix(int r, int c, const T& value){
     if(r < 0 || c < 0){
@@ -52,7 +50,6 @@ Matrix<T>::Matrix(int r, vector<T> vec){
 
 }
 
-//Constructor with a vector of vector as argument
 template<typename T>
 Matrix<T>::Matrix(vector<vector<T>> mat){
     rows = mat.size();
@@ -60,7 +57,6 @@ Matrix<T>::Matrix(vector<vector<T>> mat){
     matrix = mat;
 }
 
-//Copy constructor
 template<typename T>
 Matrix<T>::Matrix(const Matrix<T>& mat){
     matrix = mat.matrix;
@@ -81,7 +77,8 @@ int Matrix<T>::getCols() const{
     return (*this).cols;
 }
 
-template <typename T> vector<vector<T>> Matrix<T>::getValue() const {
+template <typename T>
+vector<vector<T>> Matrix<T>::getValue() const {
     return matrix;
 }
 
@@ -95,7 +92,7 @@ T Matrix<T>::operator()(int i, int j) const{
     return matrix[i][j];
 }
 
-//Addition of two matrices
+
 template<typename T>
 Matrix<T> Matrix<T>::operator+(const Matrix<T> &mat) const {
 
@@ -114,7 +111,7 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T> &mat) const {
     }
 }
 
-//Subtraction of two matrices
+
 template<typename T>
 Matrix<T> Matrix<T>::operator-(const Matrix<T> &mat) const{
 
@@ -132,7 +129,7 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T> &mat) const{
     }
 }
 
-//Multiplication of this matrix and another
+
 template<typename T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T> &mat) const {
     if(cols != mat.getRows()){
@@ -152,7 +149,7 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T> &mat) const {
 
 }
 
-// Assignment Operator
+
 template<typename T>
 Matrix<T>& Matrix<T>::operator=(const Matrix<T>& mat) {
 
@@ -164,7 +161,6 @@ Matrix<T>& Matrix<T>::operator=(const Matrix<T>& mat) {
 }
 
 
-//Matrix/scalar multiplication
 template<typename T>
 Matrix<T> Matrix<T>::operator*(const T& value) const{
     Matrix res(rows,cols,0.0);
@@ -176,7 +172,7 @@ Matrix<T> Matrix<T>::operator*(const T& value) const{
     return res;
 }
 
-//Transpose matrix
+
 template<typename T>
 Matrix<T> Matrix<T>::transpose() const{
     Matrix mat_T(cols, rows, 0.0);
@@ -187,7 +183,7 @@ Matrix<T> Matrix<T>::transpose() const{
     return mat_T;
 }
 
-//Lower triangular matrix
+
 template<typename T>
 Matrix<T> Matrix<T>::LowerTriangularMatrix() const{
     Matrix mat_lower(cols, rows, 0.0);
@@ -203,7 +199,7 @@ Matrix<T> Matrix<T>::LowerTriangularMatrix() const{
     return mat_lower;
 }
 
-//Upper triangular matrix
+
 template<typename T>
 Matrix<T> Matrix<T>::UpperTriangularMatrix() const{
     Matrix mat_upper(cols, rows, 0.0);
@@ -219,7 +215,6 @@ Matrix<T> Matrix<T>::UpperTriangularMatrix() const{
     return mat_upper;
 }
 
-//Diagonal matrix
 template<typename T>
 Matrix<T> Matrix<T>::DiagonalMatrix() const{
     Matrix mat_diagonal(cols, rows, 0.0);
@@ -236,19 +231,6 @@ Matrix<T> Matrix<T>::DiagonalMatrix() const{
 }
 
 
-/*
-template<typename T>
-vector<T> Matrix<T>::solve(const vector<T>& vec){
-    Matrix res(1, rows, 0.0);
-    for(int i = 0; i < rows; i++){
-        res[i][1] = vec(i) / this->matrix[i][i];
-    }
-    return res;
-}
-
-*/
-
-//Print the matrix
 template<typename T>
 void Matrix<T>::Print(std::ostream &s) const{
     for(int i = 0; i < rows; i ++){
