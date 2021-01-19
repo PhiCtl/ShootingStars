@@ -21,42 +21,63 @@ using namespace std;
 
 
 enum{ Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
+<<<<<<< HEAD
 
 template <typename T> LinearSolver<T>* Solver(int solver_type);
+=======
+//Assign solver depending on user choice
+template <typename T> LinearSolver<T>* Solver(unsigned int solver_type);
+>>>>>>> 2167d572fc6c763c3daff26088c980fdb17baa56
 
 int main(int argc, char** argv)
 {
     try{
         TCLAP::CmdLine cmd("Command description message", ' ');
 
+<<<<<<< HEAD
         vector<int> allowed_solver = {Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
         TCLAP::ValuesConstraint<int> allowedSolv(allowed_solver);
 
         TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, false);
         TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Name of the file storing matrix A", false, "Noname", "string");
+=======
+        //constraints on solver names
+        vector<unsigned int> allowed_solver = {Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
+        TCLAP::ValuesConstraint<unsigned int> allowedSolv(allowed_solver);
+
+
+        //Value arguments
+        TCLAP::SwitchArg readFromCmdl("C", "terminal", "Specifies if matrix and vector are read from command line", cmd, false);
+        TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Relative path of the file storing matrix A", false, "Noname", "string");
+>>>>>>> 2167d572fc6c763c3daff26088c980fdb17baa56
         cmd.add(fileMatArg);
-        TCLAP::ValueArg<string> fileVecArg("B", "vector", "Name of the file storing vector B", false, "Noname", "string");
+        TCLAP::ValueArg<string> fileVecArg("B", "vector", "Relative path of the file storing vector B", false, "Noname", "string");
         cmd.add(fileVecArg);
         TCLAP::ValueArg<string> fileOutArg("O", "out", "Name of the output file storing the solution", false, "Sol.mat", "string");
         cmd.add(fileOutArg);
-        TCLAP::ValueArg<int> solverNameArg("S", "solver", "Method chosen to solve the linear system \n: 0:lu, 1:cholesky, 2: conjugate gradient, 3: jacobi, 4: gauss seidel, 5: richardson \n", true, Lu, &allowedSolv);
+        TCLAP::ValueArg<unsigned int> solverNameArg("S", "solver", "Method chosen to solve the linear system \n: 0:lu, 1:cholesky, 2: conjugate gradient, 3: jacobi, 4: gauss seidel, 5: richardson \n", true, Lu, &allowedSolv);
         cmd.add(solverNameArg);
-        TCLAP::ValueArg<int> precisionArg("P", "precision", "significant digits of solution", false,20, "int");
+        TCLAP::ValueArg<unsigned int> precisionArg("P", "precision", "significant digits of solution", false,20, "int");
         cmd.add(precisionArg);
-        TCLAP::ValueArg<int> matrixDimArg("D", "dimension", "Dimension of the square matrix", true, 3, "int");
+        TCLAP::ValueArg<unsigned int> matrixDimArg("D", "dimension", "Dimension of the square matrix", true, 3, "int");
         cmd.add(matrixDimArg);
-        TCLAP::SwitchArg complexEntries("I", "complex", "Specify if there is any complex entry in the files", cmd, false);
+        TCLAP::SwitchArg complexEntries("I", "complex", "Specifies if there is any complex entry in the files", cmd, false);
 
         cmd.parse(argc, argv);
 
+<<<<<<< HEAD
         int solver_type = solverNameArg.getValue();
+=======
+        //get values
+        unsigned int solver_type = solverNameArg.getValue();
+>>>>>>> 2167d572fc6c763c3daff26088c980fdb17baa56
         string output_file = fileOutArg.getValue();
         string M_file = fileMatArg.getValue();
         string b_file = fileVecArg.getValue();
-        int dim = matrixDimArg.getValue();
+        unsigned int dim = matrixDimArg.getValue();
         bool complex = complexEntries.getValue();
         bool readCmdl = readFromCmdl.getValue();
-        int precision = precisionArg.getValue();
+        unsigned int precision = precisionArg.getValue();
 
         CommandLineReader reader1(complex);
         FileReader reader2(complex);
@@ -107,7 +128,12 @@ int main(int argc, char** argv)
     return 0;
 }
 
+<<<<<<< HEAD
 template <typename T> LinearSolver<T>* Solver(int solver_type)
+=======
+//Assign solver
+template <typename T> LinearSolver<T>* Solver(unsigned int solver_type)
+>>>>>>> 2167d572fc6c763c3daff26088c980fdb17baa56
 {
     LinearSolver<T>* solver;
     switch(solver_type){
