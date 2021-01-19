@@ -51,7 +51,7 @@ The following line represents an example that the user can write from the termin
 ```
 ./Linear_solver -D 4 -S 3 -A "../data/ItSolver/Mat4x4.txt" -B "../data/ItSolver/VecB4x1.txt" -O "sol.txt"
 ```
-The outcome expected is: 
+The expected outcome is: 
 ```
 Solution saved to file sol.txt
 ```
