@@ -63,7 +63,7 @@ The command `doxygen` should be run in the main folder `Linear_solvers\`. The cr
 In general, our project is inside the main folder `Linear_Solvers` which it has been developed in the following subfolders:
 
 ```bash
-├── Solution
+├── Solutions
 │   └──  sol.txt
 ├── data
 │   ├── Interface
