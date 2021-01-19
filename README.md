@@ -4,9 +4,30 @@
 
 The project consists in the implementation of several direct and iterative methods for the solution of the linear systems taking advantage of the performing tools offerted by the C++ Object-Oriented Language. Precisely, regarding the direct methods we focused on the **LU factorization** and the **Cholesky factorization** and for the iterative ones we concentrated on the splitting methods **Jacobi** and **Gauss-Seidel** and then on the **Conjugate Gradient** and **Richardson** methods.
 
-The project was build and run on CLion. 
+The project was built and run on CLion. 
+
+## Installation
+The following libraries are located under the folder `lib\` and already referenced in the CMakeLists file. 
+- tclap-1.2.2
+- googletest
 
 ## How to compile 
+
+### Run the program
+The following commands should be run in the folder `cmake-build-debug\` :
+```
+cmake ..
+make
+./Linear_solver   //several options should be entered here, and are specified below
+```
+### Program options
+The TCLAP library provides a convenient interface with the user. Below are listed the command line options.
+
+
+### Create the doxygen documentation
+The command `doxygen` should be run in the main folder `Linear_solvers\`. The created html documentation can be found under `doc\html\index.htlm`. 
+
+
 
 --- 
 
