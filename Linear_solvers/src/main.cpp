@@ -36,9 +36,9 @@ int main(int argc, char** argv)
 
         //Value arguments
         TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, false);
-        TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Name of the file storing matrix A", false, "Noname", "string");
+        TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Relative path of the file storing matrix A", false, "Noname", "string");
         cmd.add(fileMatArg);
-        TCLAP::ValueArg<string> fileVecArg("B", "vector", "Name of the file storing vector B", false, "Noname", "string");
+        TCLAP::ValueArg<string> fileVecArg("B", "vector", "Relative path of the file storing vector B", false, "Noname", "string");
         cmd.add(fileVecArg);
         TCLAP::ValueArg<string> fileOutArg("O", "out", "Name of the output file storing the solution", false, "Sol.mat", "string");
         cmd.add(fileOutArg);
