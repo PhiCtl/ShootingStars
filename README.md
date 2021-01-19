@@ -132,7 +132,7 @@ In general, our project is inside the main folder `Linear_Solvers\` which it has
 │   ├── ItSolverTest.cpp  
 │   ├── MatrixTest.cpp
 │   ├── NonItSolverTest.cpp 
-│   └──  VectorTest.cpp 
+    └──  VectorTest.cpp 
 ```
 
 ---
