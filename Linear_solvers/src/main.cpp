@@ -22,7 +22,7 @@ using namespace std;
 //Convenient enum type for readability
 enum{ Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
 //Assign solver depending on user choice
-template <typename T> LinearSolver<T>* Solver(int solver_type);
+template <typename T> LinearSolver<T>* Solver(unsigned int solver_type);
 
 int main(int argc, char** argv)
 {
@@ -30,8 +30,8 @@ int main(int argc, char** argv)
         TCLAP::CmdLine cmd("Command description message", ' ');
 
         //constraints on solver names
-        vector<int> allowed_solver = {Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
-        TCLAP::ValuesConstraint<int> allowedSolv(allowed_solver);
+        vector<unsigned int> allowed_solver = {Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
+        TCLAP::ValuesConstraint<unsigned int> allowedSolv(allowed_solver);
 
 
         //Value arguments
@@ -42,11 +42,11 @@ int main(int argc, char** argv)
         cmd.add(fileVecArg);
         TCLAP::ValueArg<string> fileOutArg("O", "out", "Name of the output file storing the solution", false, "Sol.mat", "string");
         cmd.add(fileOutArg);
-        TCLAP::ValueArg<int> solverNameArg("S", "solver", "Method chosen to solve the linear system \n: 0:lu, 1:cholesky, 2: conjugate gradient, 3: jacobi, 4: gauss seidel, 5: richardson \n", true, Lu, &allowedSolv);
+        TCLAP::ValueArg<unsigned int> solverNameArg("S", "solver", "Method chosen to solve the linear system \n: 0:lu, 1:cholesky, 2: conjugate gradient, 3: jacobi, 4: gauss seidel, 5: richardson \n", true, Lu, &allowedSolv);
         cmd.add(solverNameArg);
-        TCLAP::ValueArg<int> precisionArg("P", "precision", "significant digits of solution", false,20, "int");
+        TCLAP::ValueArg<unsigned int> precisionArg("P", "precision", "significant digits of solution", false,20, "int");
         cmd.add(precisionArg);
-        TCLAP::ValueArg<int> matrixDimArg("D", "dimension", "Dimension of the square matrix", true, 3, "int");
+        TCLAP::ValueArg<unsigned int> matrixDimArg("D", "dimension", "Dimension of the square matrix", true, 3, "int");
         cmd.add(matrixDimArg);
         TCLAP::SwitchArg complexEntries("I", "complex", "Specify if there is any complex entry in the files", cmd, false);
 
@@ -54,14 +54,14 @@ int main(int argc, char** argv)
         cmd.parse(argc, argv);
 
         //get values
-        int solver_type = solverNameArg.getValue();
+        unsigned int solver_type = solverNameArg.getValue();
         string output_file = fileOutArg.getValue();
         string M_file = fileMatArg.getValue();
         string b_file = fileVecArg.getValue();
-        int dim = matrixDimArg.getValue();
+        unsigned int dim = matrixDimArg.getValue();
         bool complex = complexEntries.getValue();
         bool readCmdl = readFromCmdl.getValue();
-        int precision = precisionArg.getValue();
+        unsigned int precision = precisionArg.getValue();
 
         //readers
         CommandLineReader reader1(complex);
@@ -116,7 +116,7 @@ int main(int argc, char** argv)
 }
 
 //Assign solver
-template <typename T> LinearSolver<T>* Solver(int solver_type)
+template <typename T> LinearSolver<T>* Solver(unsigned int solver_type)
 {
     LinearSolver<T>* solver;
     switch(solver_type){
