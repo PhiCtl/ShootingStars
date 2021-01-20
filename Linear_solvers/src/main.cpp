@@ -21,35 +21,24 @@ using namespace std;
 
 
 enum{ Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
-<<<<<<< HEAD
 
-template <typename T> LinearSolver<T>* Solver(int solver_type);
-=======
 //Assign solver depending on user choice
 template <typename T> LinearSolver<T>* Solver(unsigned int solver_type);
->>>>>>> 2167d572fc6c763c3daff26088c980fdb17baa56
+
 
 int main(int argc, char** argv)
 {
     try{
         TCLAP::CmdLine cmd("Command description message", ' ');
 
-<<<<<<< HEAD
-        vector<int> allowed_solver = {Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
-        TCLAP::ValuesConstraint<int> allowedSolv(allowed_solver);
-
-        TCLAP::SwitchArg readFromCmdl("C", "terminal", "Read matrix and vector from command line", cmd, false);
-        TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Name of the file storing matrix A", false, "Noname", "string");
-=======
         //constraints on solver names
         vector<unsigned int> allowed_solver = {Lu, cholesky, Conjugate_gradient, jacobi, GaussSeidel, richardson};
         TCLAP::ValuesConstraint<unsigned int> allowedSolv(allowed_solver);
-
+        
 
         //Value arguments
         TCLAP::SwitchArg readFromCmdl("C", "terminal", "Specifies if matrix and vector are read from command line", cmd, false);
         TCLAP::ValueArg<string> fileMatArg("A", "matrix", "Relative path of the file storing matrix A", false, "Noname", "string");
->>>>>>> 2167d572fc6c763c3daff26088c980fdb17baa56
         cmd.add(fileMatArg);
         TCLAP::ValueArg<string> fileVecArg("B", "vector", "Relative path of the file storing vector B", false, "Noname", "string");
         cmd.add(fileVecArg);
@@ -64,13 +53,8 @@ int main(int argc, char** argv)
         TCLAP::SwitchArg complexEntries("I", "complex", "Specifies if there is any complex entry in the files", cmd, false);
 
         cmd.parse(argc, argv);
-
-<<<<<<< HEAD
-        int solver_type = solverNameArg.getValue();
-=======
-        //get values
+        
         unsigned int solver_type = solverNameArg.getValue();
->>>>>>> 2167d572fc6c763c3daff26088c980fdb17baa56
         string output_file = fileOutArg.getValue();
         string M_file = fileMatArg.getValue();
         string b_file = fileVecArg.getValue();
@@ -99,6 +83,7 @@ int main(int argc, char** argv)
 
             auto Solution = solver->Solve(A,b);
             writer.Write(Solution, precision);
+            delete solver;
         }
         else{
             LinearSolver<long double>* solver(Solver<long double>(solver_type));
@@ -114,6 +99,7 @@ int main(int argc, char** argv)
 
             auto Solution = solver->Solve(A,b);
             writer.Write(Solution, precision);
+            delete solver;
         }
     }
 
@@ -125,15 +111,12 @@ int main(int argc, char** argv)
     {
         cerr <<"error: " << e.what() << endl;
     }
+
     return 0;
 }
 
-<<<<<<< HEAD
-template <typename T> LinearSolver<T>* Solver(int solver_type)
-=======
 //Assign solver
 template <typename T> LinearSolver<T>* Solver(unsigned int solver_type)
->>>>>>> 2167d572fc6c763c3daff26088c980fdb17baa56
 {
     LinearSolver<T>* solver;
     switch(solver_type){
