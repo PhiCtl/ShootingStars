@@ -172,6 +172,12 @@ Matrix<T> Matrix<T>::operator*(const T& value) const{
     return res;
 }
 
+template <typename T> Matrix<T>::operator T() const {
+          if(this->getCols()==1 && this->getRows()==1)
+              return this->matrix[0][0];
+          else
+              throw invalid_argument("This matrix is not a scalar.");
+}
 
 template<typename T>
 Matrix<T> Matrix<T>::transpose() const{

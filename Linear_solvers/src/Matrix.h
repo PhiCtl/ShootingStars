@@ -97,6 +97,7 @@ public:
      * @param mat: matrix
      * @return a Matrix which is the subtraction between the Matrix this and Matrix mat
      */
+
     Matrix<T> operator-(const Matrix<T> &mat) const;
 
     /*! @brief overloading operator *
@@ -105,6 +106,12 @@ public:
      * @return a Matrix which is the multiplication between the Matrix this and a scalar
      */
     Matrix<T> operator*(const T& value) const;
+
+    /*! @brief type cast operator (only for matrices of size 1 x 1)
+     *
+     * @return a scalar
+     */
+    operator T() const;
 
     /** @brief transpose: returns a Matrix which is the transpose of Matrix this */
     Matrix<T> transpose() const;

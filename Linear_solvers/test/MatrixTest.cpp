@@ -111,3 +111,25 @@ TEST(MatrixBuilderTest, matrix_operations){
     EXPECT_EQ(mat_diagonal.getValue(), val_mat_diagonal);
 
 }
+
+TEST(Matrix_operations, correct_scalar_cast)
+{
+    Matrix<double> Mat(1,5,3);
+    Matrix<double> Mat2(5,1,2);
+    double res = Mat*Mat2;
+    EXPECT_DOUBLE_EQ(res, 30);
+
+}
+
+TEST(Matrix_operations, incorrect_scalar_cast)
+{
+    Matrix<double> Mat(2,5,3);
+    Matrix<double> Mat2(5,1,2);
+    ASSERT_THROW(double res = Mat*Mat2, invalid_argument);
+}
+
+int main(int argc, char** argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
