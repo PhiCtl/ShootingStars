@@ -2,7 +2,7 @@
 
 *Philippine des Courtils, Stella Petronio*
 
-The project consists in the implementation of several direct and iterative methods for the solution of the linear systems A **x** = ** b ** taking advantage of the performing tools offerted by the C++ Object-Oriented Language. Precisely, regarding the direct methods we focused on the **LU factorization** and the **Cholesky factorization** and for the iterative ones we concentrated on the splitting methods **Jacobi** and **Gauss-Seidel** and then on the **Conjugate Gradient** and **Richardson** methods.
+The project consists in the implementation of several direct and iterative methods for the solution of the linear systems A **x** = **b** taking advantage of the performing tools offerted by the C++ Object-Oriented Language. Precisely, regarding the direct methods we focused on the **LU factorization** and the **Cholesky factorization** and for the iterative ones we concentrated on the splitting methods **Jacobi** and **Gauss-Seidel** and then on the **Conjugate Gradient** and **Richardson** methods.
 
 The project was built and run on CLion. 
 
