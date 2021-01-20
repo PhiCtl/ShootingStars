@@ -55,6 +55,15 @@ The expected outcome is:
 ```
 Solution saved to file sol.txt
 ```
+### Run the tests
+The different tests can be run with the following commands:
+```
+cd build
+cmake ..
+make
+./test_name
+```
+The available tests are: `test_Vector`, `test_nonItSol`, `test_Matrix`, `test_interface`, `test_ItSol`. 
 
 ### Create the doxygen documentation
 The command `doxygen` should be run in the main folder `Linear_solvers\`. The created html documentation can be found under `doc\html\index.htlm`. 
