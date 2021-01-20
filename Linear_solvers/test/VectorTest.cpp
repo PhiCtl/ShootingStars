@@ -128,7 +128,7 @@ TEST(VectorOperations, multiplication_allowed)
 {
     Vector<double> vec1(3,1);
     Vector<double> vec2(3,2);
-    EXPECT_EQ(vec1.transpose()*vec2, 6);
+    EXPECT_EQ(vec1*vec2, 6);
     vec1 = vec2*3;
     EXPECT_EQ(vec1(0),6);
 }
@@ -140,7 +140,7 @@ TEST(VectorOperations, not_allowed)
     ASSERT_THROW(vec1/vec2, runtime_error);
 
     vec2 = vector<double>(4,1);
-    ASSERT_THROW(vec1.transpose()*vec2, invalid_argument);
+    ASSERT_THROW(vec1*vec2, runtime_error);
 
 }
 
@@ -158,7 +158,7 @@ TEST(Operation3, scalar_conversion)
 {
     Vector<double> Vec1(5,3);
     Vector<double> Vec2(5,2);
-    EXPECT_DOUBLE_EQ(Vec2.transpose()*Vec1, 30);
+    EXPECT_DOUBLE_EQ(Vec2*Vec1, 30);
 }
 
 int main(int argc, char** argv)

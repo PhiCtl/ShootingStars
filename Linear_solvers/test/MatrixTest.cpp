@@ -112,20 +112,22 @@ TEST(MatrixBuilderTest, matrix_operations){
 
 }
 
-TEST(Matrix_operations, correct_scalar_cast)
-{
-    Matrix<double> Mat(1,5,3);
-    Matrix<double> Mat2(5,1,2);
-    double res = Mat*Mat2;
-    EXPECT_DOUBLE_EQ(res, 30);
-
+TEST(Matrix_to_scalar, correct_cast){
+    Matrix<double> mat(1,1,2);
+    EXPECT_DOUBLE_EQ(mat.To_scalar(), 2);
 }
 
-TEST(Matrix_operations, incorrect_scalar_cast)
+TEST(Matrix_to_scalar, incorrect_cast)
 {
-    Matrix<double> Mat(2,5,3);
-    Matrix<double> Mat2(5,1,2);
-    ASSERT_THROW(double res = Mat*Mat2, invalid_argument);
+    Matrix<double> mat(2,1,5);
+    ASSERT_THROW(mat.To_scalar(), invalid_argument);
+}
+
+TEST(Matrix_to_scalar, division)
+{
+    Matrix<double> mat1(1,5,3);
+    Matrix<double> mat2(5,1,2);
+    EXPECT_DOUBLE_EQ(mat1*mat2/ (mat1*mat2), 1);
 }
 
 int main(int argc, char** argv)

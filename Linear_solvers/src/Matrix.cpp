@@ -172,11 +172,20 @@ Matrix<T> Matrix<T>::operator*(const T& value) const{
     return res;
 }
 
-template <typename T> Matrix<T>::operator T() const {
-          if(this->getCols()==1 && this->getRows()==1)
-              return this->matrix[0][0];
-          else
-              throw invalid_argument("This matrix is not a scalar.");
+template <typename T> T Matrix<T>::operator/(const Matrix<T>& mat) const {
+    if( (this->getRows() !=1) and (mat.getRows() !=1) )
+    {
+        throw runtime_error("Cannot divide matrices of size larger than 1");
+    }
+    return this->matrix[0][0] / mat.matrix[0][0];
+}
+
+
+template<typename T> T Matrix<T>::To_scalar() const {
+    if(this->cols == 1 && this->rows == 1)
+        return this->matrix[0][0];
+    else
+        throw invalid_argument("This matrix is not a scalar.");
 }
 
 template<typename T>

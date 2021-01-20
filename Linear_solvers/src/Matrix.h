@@ -107,11 +107,18 @@ public:
      */
     Matrix<T> operator*(const T& value) const;
 
-    /*! @brief type cast operator (only for matrices of size 1 x 1)
+    /*! @brief overloading / operator (only valid if current matrix has size (1,1)
      *
-     * @return a scalar
+     * @param mat : another Vector of same type T and of size (1,1)
+     * @return a scalar resulting from the division of the two scalar matrices
      */
-    operator T() const;
+    T operator/(const Matrix& mat) const;
+
+    /*! @brief Converts a 1x1 matrix to a scalar
+     *
+     * @return the first (and unique) entry of that matrix
+     */
+    T To_scalar() const;
 
     /** @brief transpose: returns a Matrix which is the transpose of Matrix this */
     Matrix<T> transpose() const;

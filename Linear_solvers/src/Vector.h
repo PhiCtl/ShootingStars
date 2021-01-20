@@ -64,13 +64,6 @@ public:
      */
     T operator()(size_t i) const;
 
-    /*! @brief overloading / operator (only valid if current vector has size (1,1)
-     *
-     * @param vec : another Vector of same type T and of size (1,1)
-     * @return a scalar resulting from the division of the two scalar vectors
-     */
-    T operator/(const Vector& vec) const;
-
     /*! @brief overloading operator =
      *
      * @param V: an STL vector of same type T
