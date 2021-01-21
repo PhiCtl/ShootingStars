@@ -12,14 +12,14 @@ The project was built and run on CLion.
 * [Folders hierarchy](#folders-hierarchy)
 
 ## Installation
-The following libraries are located under the folder `lib\` and already referenced in the CMakeLists file. 
+The following libraries are located under the folder `lib/` and already referenced in the CMakeLists file. 
 - tclap-1.2.2
 - googletest
 
 ## How to compile 
 
 ### Run the program
-The following commands should be run in the folder `Linear_solvers\` :
+The following commands should be run in the folder `Linear_solvers/` :
 ```
 mdkir build
 cd build
@@ -66,10 +66,10 @@ make
 The available tests are: `test_Vector`, `test_nonItSol`, `test_Matrix`, `test_interface`, `test_ItSol`. 
 
 ### Create the doxygen documentation
-The command `doxygen` should be run in the main folder `Linear_solvers\`. The created html documentation can be found under `doc\html\index.htlm`. 
+The command `doxygen` should be run in the main folder `Linear_solvers/`. The created html documentation can be found under `doc\html\index.htlm`. 
 
 ## Folders hierarchy 
-In general, our project is inside the main folder `Linear_Solvers` which it has been developed in the following subfolders:
+In general, our project is inside the main folder `Linear_Solvers/` which it has been developed in the following subfolders:
 
 ```bash
 ├── Solutions
