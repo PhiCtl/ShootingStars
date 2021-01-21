@@ -21,7 +21,7 @@ The following libraries are located under the folder `lib/` and already referenc
 ### Run the program
 The following commands should be run in the folder `Linear_solvers/` :
 ```
-mdkir build
+mkdir build
 cd build
 cmake ..
 make
