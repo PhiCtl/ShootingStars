@@ -39,8 +39,6 @@ TEST(MatrixBuilderTest, matrix_elements){
 
 }
 
-
-//Copy constructor test
 TEST(MatrixBuilderTest, copy_constructors){
     Matrix<double> mat1(4,4,2);
     vector<vector<double>> val_mat1 = {{2,2,2,2},{2,2,2,2},{2,2,2,2},{2,2,2,2}};
@@ -57,7 +55,6 @@ TEST(MatrixBuilderTest, copy_constructors){
 
 TEST(MatrixBuilderTest, matrix_operations){
 
-    //Addition test
     vector<vector<double>> val_mat2 = {{1,1,1},{1,1,1},{1,1,1}};
     vector<vector<double>> val_mat1 = {{5,5,5},{5,5,5},{5,5,5}};
     vector<vector<double>> val_mat_sum = {{6,6,6},{6,6,6},{6,6,6}};
@@ -66,7 +63,6 @@ TEST(MatrixBuilderTest, matrix_operations){
     Matrix<double> mat_sum = mat1 + mat2;
     EXPECT_EQ(mat_sum.getValue(), val_mat_sum);
 
-    //Subtraction test
     vector<vector<double>> val_mat3 = {{1,1,1},{1,1,1},{1,1,1}};
     vector<vector<double>> val_mat4 = {{5,5,5},{5,5,5},{5,5,5}};
     vector<vector<double>> val_mat_sub ={{4,4,4},{4,4,4},{4,4,4}};
@@ -75,7 +71,6 @@ TEST(MatrixBuilderTest, matrix_operations){
     Matrix<double> mat_sub = mat4 - mat3;
     EXPECT_EQ(mat_sub.getValue(), val_mat_sub);
 
-    //Multiplication test
     vector<vector<double>> val_mat5 = {{1,2,3},{4,5,6},{7,8,9}}; //double value?? 1.0
     vector<vector<double>> val_mat6 = {{2,2,2},{3,3,3},{4,4,4}};
     vector<vector<double>> val_mat_mul = {{20,20,20},{47,47,47},{74,74,74}};
@@ -84,7 +79,6 @@ TEST(MatrixBuilderTest, matrix_operations){
     Matrix<double> mat_mul = mat5 * mat6;
     EXPECT_EQ(mat_mul.getValue(), val_mat_mul);
 
-    //Matrix/scalar multiplication test
     double s = 6;
     vector<vector<double>> val_mat_sca = {{6,12,18},{24,30,36},{42,48,54}};
     Matrix<double> mat_mul_mat_sca = mat5 * s;
@@ -100,12 +94,10 @@ TEST(MatrixBuilderTest, matrix_operations){
     Matrix<double> mat_lower = mat5.LowerTriangularMatrix();
     EXPECT_EQ(mat_lower.getValue(), val_mat_lower);
 
-    //Upper triangular matrix test
     vector<vector<double>> val_mat_upper = {{1,2,3},{0,5,6},{0,0,9}};
     Matrix<double> mat_upper = mat5.UpperTriangularMatrix();
     EXPECT_EQ(mat_upper.getValue(), val_mat_upper);
 
-    //Diagonal matrix test
     vector<vector<double>> val_mat_diagonal = {{1,0,0},{0,5,0},{0,0,9}};
     Matrix<double> mat_diagonal = mat5.DiagonalMatrix();
     EXPECT_EQ(mat_diagonal.getValue(), val_mat_diagonal);

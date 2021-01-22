@@ -106,7 +106,6 @@ using IterativeTestRealF0 = IterativeTestReal<0>;
 using IterativeTestRealF1 = IterativeTestReal<1>;
 using IterativeTestRealF2 = IterativeTestReal<2>;
 using IterativeTestComlexF0 = IterativeTestComplex<0>;
-//using IterativeTestComplexF1 = IterativeTestComplex<1>;
 
 TEST_F(IterativeTestRealF0, Conjugate_Gradient){
     Conjugate_Gradient<double> solver;
